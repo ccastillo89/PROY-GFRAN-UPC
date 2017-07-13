@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UPC.SISGFRAN.WS.Modelos.Base;
-using UPC.SISGFRAN.WS.Modelos.Inherited;
+using UPC.SISGFRAN.EL.Inherited;
 using System.Web.Script.Serialization;
-using UPC.SISGFRAN.WS.Comun;
+using UPC.SISGFRAN.EL.Comunes;
 using System.Net;
 using System.IO;
 
 namespace UPC.SISGFRAN.WS.Repositorios
 {
-    public class MenuBL : BaseEL
+    public class MenuBL
     {
         public List<OpcionXPerfilEL> ListarMenu(OpcionXPerfilEL opcionPerfil)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
-using UPC.SISGFRAN.WS.Modelos.Inherited;
+using UPC.SISGFRAN.EL.Inherited;
 
 namespace UPC.SISGFRAN.Web.Helper
 {

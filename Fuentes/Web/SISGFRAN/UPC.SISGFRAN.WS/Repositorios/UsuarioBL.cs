@@ -6,8 +6,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using UPC.SISGFRAN.WS.Comun;
-using UPC.SISGFRAN.WS.Modelos.Inherited;
+using UPC.SISGFRAN.EL.Comunes;
+using UPC.SISGFRAN.EL.Inherited;
 
 namespace UPC.SISGFRAN.WS.Repositorios
 {

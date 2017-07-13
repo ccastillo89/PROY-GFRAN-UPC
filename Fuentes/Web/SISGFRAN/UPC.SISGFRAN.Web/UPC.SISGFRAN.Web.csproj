@@ -166,6 +166,14 @@
     <Content Include="Views\Usuario\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">
+      <Project>{a3178693-66bc-4e4c-89b8-e32235dd117c}</Project>
+      <Name>UPC.SISGFRAN.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UPC.SISGFRAN.EL\UPC.SISGFRAN.EL.csproj">
+      <Project>{26b1c8bd-ee9a-44b4-843e-ea3cc36b42f6}</Project>
+      <Name>UPC.SISGFRAN.EL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UPC.SISGFRAN.WS\UPC.SISGFRAN.WS.csproj">
       <Project>{d14a4f81-c29e-40aa-9cc5-86e266d45e62}</Project>
       <Name>UPC.SISGFRAN.WS</Name>
