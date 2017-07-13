@@ -1,0 +1,5 @@
+C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\bin\Release\DAAB.dll
+C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\bin\Release\DAAB.pdb
+C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\obj\Release\DAAB.dll
+C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\obj\Release\DAAB.pdb
+C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\obj\Release\DAAB.csprojResolveAssemblyReference.cache
