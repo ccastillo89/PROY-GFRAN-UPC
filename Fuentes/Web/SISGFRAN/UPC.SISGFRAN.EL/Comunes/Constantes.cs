@@ -16,8 +16,8 @@ namespace UPC.SISGFRAN.EL.Comunes
 
         public enum Filtros
         {
-            Todos = 0,
-            Ninguno = -1
+            Todos = -1,
+            Ninguno = 0
         }
 
         public enum Estado

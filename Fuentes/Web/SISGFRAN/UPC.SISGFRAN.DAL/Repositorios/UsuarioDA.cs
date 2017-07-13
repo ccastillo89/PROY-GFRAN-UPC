@@ -14,7 +14,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
 {
     public class UsuarioDA
     {
-        public UsuarioEL Login(UsuarioEL usuario, int? idAplicativo)
+        public UsuarioEL Login(UsuarioEL usuario)
         {
             DAABRequest.Parameter[] arrParam = {
                 new DAABRequest.Parameter("@usuario", DbType.String, 50, ParameterDirection.Input),
@@ -27,7 +27,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
 
             arrParam[0].Value = usuario.CtaUsuario;
             arrParam[1].Value = usuario.Password;
-            arrParam[2].Value = idAplicativo;
+            arrParam[2].Value = usuario.Perfil.Aplicacion.Id;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();

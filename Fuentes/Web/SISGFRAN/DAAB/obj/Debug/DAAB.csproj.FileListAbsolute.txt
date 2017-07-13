@@ -30,3 +30,4 @@ C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\De
 C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
 C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
 C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.csprojResolveAssemblyReference.cache

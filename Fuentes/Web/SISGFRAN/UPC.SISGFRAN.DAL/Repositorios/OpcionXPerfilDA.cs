@@ -47,7 +47,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     AplicacionEL aplicacion = new AplicacionEL()
                     {
                         Id = Funciones.CheckInt(dr["AplicacionId"]),
-                        Descripcion = Funciones.CheckStr(dr["Descripcion"])
+                        Descripcion = Funciones.CheckStr(dr["Aplicacion"])
                     };
 
                     item.Aplicacion = aplicacion;
@@ -55,7 +55,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     PerfilEL perfil = new PerfilEL()
                     {
                         Id = Funciones.CheckInt(dr["PerfilId"]),
-                        Nombre = Funciones.CheckStr(dr["Nombre"])
+                        Nombre = Funciones.CheckStr(dr["Perfil"])
                     };
 
                     item.Aplicacion = aplicacion;

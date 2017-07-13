@@ -9,9 +9,9 @@ namespace UPC.SISGFRAN.BL.Repositorios
 {
     public class UsuarioBL
     {
-        public UsuarioEL Login(UsuarioEL usuario, int? idAplicativo)
+        public UsuarioEL Login(UsuarioEL usuario)
         {
-            return new UsuarioDA().Login(usuario, idAplicativo);
+            return new UsuarioDA().Login(usuario);
         }
 
         public List<UsuarioEL> GetUsuarios(UsuarioEL usuario)

@@ -11,7 +11,7 @@ using UPC.SISGFRAN.EL.Inherited;
 
 namespace UPC.SISGFRAN.WS.Repositorios
 {
-    public class UsuarioBL
+    public class UsuarioWS
     {
         public UsuarioEL Login(UsuarioEL usuario)
         {

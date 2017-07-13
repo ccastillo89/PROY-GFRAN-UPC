@@ -7,7 +7,7 @@ using System.Web.Security;
 using UPC.SISGFRAN.Web.Helper;
 using UPC.SISGFRAN.EL.Comunes;
 using UPC.SISGFRAN.EL.Inherited;
-using UPC.SISGFRAN.WS.Repositorios;
+using UPC.SISGFRAN.BL.Repositorios;
 
 namespace UPC.SISGFRAN.Web.Controllers
 {
@@ -107,7 +107,7 @@ namespace UPC.SISGFRAN.Web.Controllers
         public static List<OpcionXPerfilEL> SetearMenu(bool padre)
         {
             List<OpcionXPerfilEL> lista = null;
-            MenuBL menuBL = new MenuBL();
+            OpcionXPerfilBL menuBL = new OpcionXPerfilBL();
 
             OpcionXPerfilEL opcionesXPerfil = new OpcionXPerfilEL()
             {
@@ -115,7 +115,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 Perfil = SesionUsuario.Usuario.Perfil
             };
 
-            lista = menuBL.ListarMenu(opcionesXPerfil);
+            lista = menuBL.ListMenu(opcionesXPerfil);
 
             List<OpcionXPerfilEL> menuArbol = new List<OpcionXPerfilEL>();
             //primero seteamos los padres

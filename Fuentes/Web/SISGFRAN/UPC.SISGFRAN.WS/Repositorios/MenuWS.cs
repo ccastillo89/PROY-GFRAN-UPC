@@ -11,7 +11,7 @@ using System.IO;
 
 namespace UPC.SISGFRAN.WS.Repositorios
 {
-    public class MenuBL
+    public class MenuWS
     {
         public List<OpcionXPerfilEL> ListarMenu(OpcionXPerfilEL opcionPerfil)
         {

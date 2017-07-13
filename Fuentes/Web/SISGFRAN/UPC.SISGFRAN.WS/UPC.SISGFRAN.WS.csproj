@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorios\MenuBL.cs" />
-    <Compile Include="Repositorios\UsuarioBL.cs" />
+    <Compile Include="Repositorios\MenuWS.cs" />
+    <Compile Include="Repositorios\UsuarioWS.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.EL\UPC.SISGFRAN.EL.csproj">

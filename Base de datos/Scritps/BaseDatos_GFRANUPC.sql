@@ -4,7 +4,7 @@ GO
 --CREATE DATABASE [PARDOSDB] ON  PRIMARY 
 --( NAME = N'PARDOSDB', FILENAME = N'K:\Data\PARDOSDB.mdf' , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
 -- LOG ON 
---(NAME = N'GFRANDB_log', FILENAME = N'K:\Data\PARDOSDB_1.ldf' , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+--(NAME = N'PARDOSDB_log', FILENAME = N'K:\Data\PARDOSDB_1.ldf' , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 --GO
 
 --DROP DATABASE PARDOSDB
@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[Usuario](
 	[Contrasenia]	VARBINARY(8000) NOT NULL,
 	[Nombres]		[varchar](50) NOT NULL,
 	[Apellidos]		[varchar](50) NOT NULL,
-	[CodCargo]		[varchar](48) NULL,
+	[Cargo]		    [varchar](48) NULL,
 	[Email]			[varchar](255) NOT NULL,
 	[Telefono]		[varchar](50) NULL,
 	[Estado]		[tinyint] NOT NULL, --Activo Inactivo
@@ -266,8 +266,7 @@ BEGIN TRY
 			U.CtaUsuario,
 			U.Apellidos,
 			U.Nombres,
-			U.CodCargo,
-			PC.Nombre AS Cargo,
+			U.Cargo,
 			U.Email,
 			U.telefono,
 			U.CambiarContrasenia,
@@ -276,11 +275,10 @@ BEGIN TRY
 			U.Estado
 	FROM Usuario U
 		INNER JOIN Perfil P ON U.PerfilId = P.Id
-		LEFT JOIN Parametro PC ON U.CodCargo = PC.Codigo AND PC.CodigoGrupo = 1
 	WHERE ((@estado = -1) OR (U.Estado = @estado))
-	AND ((@idUsuario = 0) OR (U.Id = @idUsuario))
+	AND ((@idUsuario = -1) OR (U.Id = @idUsuario))
 	AND ((RTRIM(LTRIM(@nombres)) = '') OR ((U.Nombres + ' ' + U.Apellidos) LIKE '%' + @nombres + '%'))
-	AND ((@idPerfil = 0) OR (U.PerfilId = @idPerfil))
+	AND ((@idPerfil = -1) OR (U.PerfilId = @idPerfil))
 	
 	Set @coderr = 0
 	Set @msgerr = 'OK'
@@ -320,8 +318,8 @@ BEGIN TRY
 			A.Descripcion as Aplicacion
 	FROM Perfil P
 		inner join Aplicacion A on P.AplicacionId = A.Id and A.Estado = 1
-	WHERE ((@idperfil = 0) OR (P.Id = @idperfil))
-	AND ((@idapp = 0) OR (P.AplicacionId = @idapp))
+	WHERE ((@idperfil = -1) OR (P.Id = @idperfil))
+	AND ((@idapp = -1) OR (P.AplicacionId = @idapp))
 	AND ((@nombre = '') OR (UPPER(P.Nombre) like '%' + UPPER(@nombre) + '%'))
 	
 	Set @coderr = 0
@@ -371,8 +369,8 @@ BEGIN TRY
 			O.Estado
 	FROM Opcion O
 		INNER JOIN Aplicacion A ON o.AplicacionId = A.Id
-	WHERE ((@idOpcion = 0) OR (O.Id = @idOpcion)) 
-	AND ((@idapp = 0) OR (O.AplicacionId = @idapp))
+	WHERE ((@idOpcion = -1) OR (O.Id = @idOpcion)) 
+	AND ((@idapp = -1) OR (O.AplicacionId = @idapp))
 	AND ((@estado = -1) OR (O.Accion = @estado))
 	
 	Set @coderr = 0
@@ -406,18 +404,18 @@ AS
 BEGIN TRY
 
 	SELECT	OP.OpcionId,
-			O.Nombre,
+			O.Nombre as Opcion,
 			OP.AplicacionId,
-			A.Descripcion,
+			A.Descripcion as Aplicacion,
 			OP.PerfilId,
-			P.Nombre,
+			P.Nombre as Perfil,
 			OP.Escritura
 	FROM OpcionPerfil OP
 		INNER JOIN Aplicacion A ON OP.AplicacionId = A.Id
 		INNER JOIN Perfil P ON OP.PerfilId = P.Id
 		INNER JOIN Opcion O ON OP.OpcionId= O.Id
-	WHERE ((@idapp = 0) OR (OP.AplicacionId = @idapp))
-	AND ((@idperfil = 0) OR (OP.PerfilId = @idperfil))
+	WHERE ((@idapp = -1) OR (OP.AplicacionId = @idapp))
+	AND ((@idperfil = -1) OR (OP.PerfilId = @idperfil))
 	order by O.orden
 	
 	Set @coderr = 0
