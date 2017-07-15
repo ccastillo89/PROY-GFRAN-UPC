@@ -1,0 +1,36 @@
+﻿
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Lista de Solicitudes</div>
+    <input type="button" value="Evaluar" class="btn btn-default pull-right" />
+    <input type="button" value="Exportar" class="btn btn-default pull-right" />
+  
+
+    <!-- Table -->
+    <table class="table table-bordered table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>Solicitud</th>
+                <th>Fecha Solicitud</th>
+                <th>Solicitante</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.listSolicitudes)
+            {
+                <tr>
+                    <td>@item.NumSolicitud</td>
+                    <td>@item.FechaSolicitud</td>
+                    <td>@item.Solicitante</td>  
+                    <td>                        
+                        <a data-toggle="modal" data-target="#mCargo" href="#">
+                            <i class="fa fa-hand-o-left"></i>
+                        </a>
+                    </td>                  
+                </tr>
+            }
+        </tbody>     
+    </table>
+
+</div>

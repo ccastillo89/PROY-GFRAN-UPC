@@ -54,6 +54,8 @@
     <Compile Include="Inherited\OpcionEL.cs" />
     <Compile Include="Inherited\OpcionXPerfilEL.cs" />
     <Compile Include="Inherited\PerfilEL.cs" />
+    <Compile Include="Inherited\SolicitanteEL.cs" />
+    <Compile Include="Inherited\SolicitudEL.cs" />
     <Compile Include="Inherited\UsuarioEL.cs" />
     <Compile Include="NonInherited\ArchivoFtpEN.cs" />
     <Compile Include="NonInherited\ListaPaginada.cs" />

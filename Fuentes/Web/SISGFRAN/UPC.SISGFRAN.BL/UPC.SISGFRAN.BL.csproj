@@ -44,6 +44,7 @@
     <Compile Include="Repositorios\OpcionXPerfilBL.cs" />
     <Compile Include="Repositorios\ParametroBL.cs" />
     <Compile Include="Repositorios\PerfilBL.cs" />
+    <Compile Include="Repositorios\SolicitudBL.cs" />
     <Compile Include="Repositorios\UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>

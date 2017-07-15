@@ -11,9 +11,6 @@
     <Setting Name="IntegratedSecurity" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="serverName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SERVER7\SQLEXPRESS</Value>
-    </Setting>
     <Setting Name="UserID" Type="System.String" Scope="Application">
       <Value Profile="(Default)">sa</Value>
     </Setting>
@@ -26,8 +23,11 @@
     <Setting Name="MultipleActiveResultSets" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="serverName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ASUS\MSSQLSERVER2014</Value>
+    </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Sredes</Value>
+      <Value Profile="(Default)">sql</Value>
     </Setting>
   </Settings>
 </SettingsFile>

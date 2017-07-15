@@ -4,7 +4,7 @@
     nombre1.addEventListener("input", validacion, false);
     nombre2.addEventListener("input", validacion, false);
 
-    if (validacion()) {
+    if (validacion()) {        
         var urlLgn = domainName + '/Usuario/Login';
         var dataObject = { CtaUsuario: $("#NombreUsuario").val(), Password: $("#Password").val() };
         $.ajax({
