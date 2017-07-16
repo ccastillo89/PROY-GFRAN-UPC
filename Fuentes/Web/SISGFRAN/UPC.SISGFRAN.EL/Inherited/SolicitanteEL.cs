@@ -14,5 +14,6 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string NombreCompleto { get { return string.Concat(ApellidoPaterno, " ", ApellidoMaterno, ", ", Nombres); } }
+        public string Direccion { get; set; }
     }
 }
