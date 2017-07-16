@@ -51,9 +51,11 @@
     <Compile Include="Helpers\FTPUtil.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Inherited\AplicacionEL.cs" />
+    <Compile Include="Inherited\EntrevistaEL.cs" />
     <Compile Include="Inherited\OpcionEL.cs" />
     <Compile Include="Inherited\OpcionXPerfilEL.cs" />
     <Compile Include="Inherited\PerfilEL.cs" />
+    <Compile Include="Inherited\ReporteEvaluacionEL.cs" />
     <Compile Include="Inherited\SolicitanteEL.cs" />
     <Compile Include="Inherited\SolicitudEL.cs" />
     <Compile Include="Inherited\UsuarioEL.cs" />
