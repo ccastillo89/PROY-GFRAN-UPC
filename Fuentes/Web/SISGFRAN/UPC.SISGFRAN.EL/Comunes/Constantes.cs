@@ -27,6 +27,14 @@ namespace UPC.SISGFRAN.EL.Comunes
             Activo = 1
         }
 
+        public enum EstadoSolicitud
+        {
+            Todos = -1,
+            Pendiente = 1,
+            Aprobada = 2,
+            Rechazada = 3
+        }
+
 
     }
 }

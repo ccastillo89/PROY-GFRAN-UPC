@@ -9,10 +9,9 @@ namespace UPC.SISGFRAN.EL.Inherited
 {
     public class SolicitudEL : BaseEL
     {
-        public int Id_Solicitud { get; set; }
-        public int Id_Solicitante { get; set; }
+        public int Id { get; set; }
+        public SolicitanteEL Solicitante { get; set; }
         public string NumSolicitud { get; set; }
         public DateTime FechaSolicitud { get; set; }
-        public string Solicitante { get; set; }        
     }
 }

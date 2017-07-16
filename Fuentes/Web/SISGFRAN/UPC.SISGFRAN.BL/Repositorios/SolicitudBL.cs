@@ -10,9 +10,9 @@ namespace UPC.SISGFRAN.BL.Repositorios
 {
     public class SolicitudBL
     {
-        public List<SolicitudEL> GetSolicitudes()
+        public List<SolicitudEL> GetSolicitudesPendientes()
         {
-            return new SolicitudDA().GetSolicitudes();
+            return new SolicitudDA().GetSolicitudesPendientes();
         }
 
     }

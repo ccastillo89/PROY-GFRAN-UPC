@@ -129,6 +129,141 @@ CREATE TABLE [dbo].[Parametro](
 ([Id] ASC)ON [PRIMARY]) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[Solicitud](
+	[Id]					[int] IDENTITY(1,1) NOT NULL,
+	[NumSolicitud]			[varchar](15) NULL,
+	[FechaSolicitud]		[datetime] NULL,
+	[CiudadInteres]			[varchar](50) NULL, --Nombre de la ciudad de interes
+	[UbigeoCiudadInteres]	[varchar](6) NULL, --Ubigeo de la ciudad de interes deberia de quedar.
+	[MontoCapital]			[decimal](18,2) NULL,
+	[FuenteFinanciamiento]	[varchar](50) NULL,
+	[FechaInicioOperacion]	[datetime] NULL,
+	[LocalDisponible]		[int] NULL, ---0: NO 1:SI
+	[CondicionLocalId]		[int] NULL, --DESCRIPCION EN TABLA PARAMETROS :: GRUPO=CONDICION_LOCAL
+	[UbigeoLocal]			[varchar](6) NULL,
+	[DireccionLocal]		[varchar](250) NULL,
+	[TipoUbicacionLocalId]	[int] NULL, --DESCRIPCION EN TABLA PARAMETROS  :: GRUPO=UBICACION_LOCAL
+	[ReferenciaComercial]	[varchar](500) NULL,
+	[ReferenciaBancaria]	[varchar](500) NULL,
+	[Estado]				[int]		NULL, --Estado de la solicitud 1:Pendiente 2: Aprobada 3:Rechazada DESCRIPCION EN TABLA PARAMETROS  :: GRUPO=ESTADO_SOLICITUD
+	[AuditoriaUC]			[int] NOT NULL,
+	[AuditoriaUM]			[int] NULL,
+	[AuditoriaFC]			[datetime] NOT NULL,
+	[AuditoriaFM]			[datetime] NULL,
+ CONSTRAINT [PK_Solicitud] PRIMARY KEY CLUSTERED 
+([Id] ASC) ON [PRIMARY]) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Solicitante](
+	[Id]					[int] IDENTITY(1,1) NOT NULL,
+	[TipoSolicitanteId]		[int] NOT NULL, -- DESCRIPCION EN TABLA PARAMETROS :: GRUPO=TIPO_SOLICITANTE
+	[SolicitudId]			[int] NOT NULL,
+	[Nombres]				[varchar](50) NULL,
+	[ApellidoPaterno]		[varchar](50) NULL,
+	[ApellidoMaterno]		[varchar](50) NULL,
+	[RazonSocial]			[varchar](250) NULL,
+	[TipoDocumentoId]		[int] NULL,  -- DESCRIPCION EN TABLA PARAMETROS :: GRUPO=TIPO_DOCUMENTO
+	[NumeroDocumento]		[varchar](15) NULL,
+	[SexoId]				[int] NULL,	-- DESCRIPCION EN TABLA PARAMETROS :: GRUPO=SEXO
+	[EstadoCivilId]			[int] NULL, -- DESCRIPCION EN TABLA PARAMETROS :: GRUPO=ESTADO_CIVIL
+	[FechaIniCargoAct]		[datetime] NULL,
+	[FechaFinCargoAct]		[datetime] NULL,
+	[NombreJefeDirecto]		[varchar](250) NULL,
+	[TelefonoJefeDirecto]	[varchar](15) NULL,
+	[FechaConstitucion]		[datetime] NULL,
+	[ActividadEconomica]	[varchar](250) NULL,
+	[NumeroEmpleados]		[int] NULL,
+	[MontoIngresosAnuales]	[decimal](18,2) NULL,
+	[UbigeoDireccion]		[varchar](6) NULL,
+	[Direccion]				[varchar](250) NULL,
+	[Email]					[varchar](50) NULL,
+	[Telefono]				[varchar](15) NULL,
+	[InstitucionEducativa]	[varchar](100) NULL, --Ultima Institucion de estudios
+	[TituloObtenido]		[varchar](50) NULL,
+	[DuracionEstudios]		[int] NULL, -- Cantidad de años academicos
+	[Idiomas]				[varchar](50) NULL,
+	[Empresa]				[varchar](100) NULL, --Ultima empresa de laburo
+	[Cargo]					[varchar](100) NULL, 
+	[MontoIngresosMes]		[decimal](18,2) NULL,
+	[MontoGastosMes]		[decimal](18,2) NULL,
+	[Observacion]			[varchar](250) NULL, 
+	[AuditoriaUC]			[int] NOT NULL,
+	[AuditoriaUM]			[int] NULL,
+	[AuditoriaFC]			[datetime] NOT NULL,
+	[AuditoriaFM]			[datetime] NULL,
+ CONSTRAINT [PK_Solicitante] PRIMARY KEY CLUSTERED 
+( [Id] ASC) ON [PRIMARY]) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Entrevista](
+	[Id]			[int] IDENTITY(1,1) NOT NULL,
+	[SolicitudId]	[int] NOT NULL,
+	[FechaEntrevisa] [varchar](10) NULL, -- Formato: DD/MM/YYYY
+	[HoraEntrevisa] [varchar](5) NULL, -- Formato: HH24:MM
+	[EntrevistadorId]	[int] NOT NULL, --Sera un usuario registrado en el sistema
+	[LugarId]	[int] NOT NULL, --Sera una sala de la empresa registrada en el sistema DESCRIPCION EN TABLA PARAMETROS :: GRUPO=SALAS
+	[Observacion] [varchar](250) NULL,
+	[Estado]		[int] NOT NULL, -- Estados: 1:Enviada Pendiente de confirmar 2: Confirmada 3: Rechazada 4:Reprogramada 5:Cancelada DESCRIPCION EN TABLA PARAMETROS :: GRUPO=ESTADO_ENTREVISTA
+	[AuditoriaUC]	[int] NOT NULL,
+	[AuditoriaUM]	[int] NULL,
+	[AuditoriaFC]	[datetime] NOT NULL,
+	[AuditoriaFM]	[datetime] NULL,
+ CONSTRAINT [PK_Entrevista] PRIMARY KEY CLUSTERED 
+([Id] ASC)ON [PRIMARY]) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ReporteEvaluacion](
+	[Id]			[int] IDENTITY(1,1) NOT NULL,
+	[SolicitudId]	[int] NOT NULL,
+	[FechaReporte]  [datetime] NULL,
+	[ResultadoEjercicio] [varchar](250) NULL,
+	[ErroresEncontrados] [varchar](400) NULL,
+	[AuditoriaUC]	[int] NOT NULL,
+	[AuditoriaUM]	[int] NULL,
+	[AuditoriaFC]	[datetime] NOT NULL,
+	[AuditoriaFM]	[datetime] NULL,
+ CONSTRAINT [PK_ReporteEvaluacion] PRIMARY KEY CLUSTERED 
+([Id] ASC)ON [PRIMARY]) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Ubigeo](
+	[Id]				[char](6) NOT NULL,
+	[DepartamentoId]	[char](2) NULL,
+	[ProvinciaId]		[char](2) NULL,
+	[DistritoId]		[char](2) NULL,
+	[Nombre]			[varchar](50) NOT NULL,
+	[Estado]			[tinyint] NOT NULL,
+	[AuditoriaUC]		[int] NULL,
+	[AuditoriaUM]		[int] NULL,
+	[AuditoriaFC]		[datetime] NOT NULL,
+	[AuditoriaFM]		[datetime] NULL,
+ CONSTRAINT [PK_Ubigeo] PRIMARY KEY CLUSTERED 
+ ([Id] ASC) ON [PRIMARY]) ON [PRIMARY]
+GO
+
+/**************************************/
+/************ Restricciones  **************/
+/**************************************/
+
+-- ForeignKey [FK_Entrevista_Solicitud]
+ALTER TABLE [dbo].[Entrevista]  WITH CHECK ADD  CONSTRAINT [FK_Entrevista_Solicitud] FOREIGN KEY([SolicitudId])
+REFERENCES [dbo].[Solicitud] ([Id])
+GO
+ALTER TABLE [dbo].[Entrevista] CHECK CONSTRAINT [FK_Entrevista_Solicitud]
+GO
+-- ForeignKey [FK_ReporteEvaluacion_Solicitud] 
+ALTER TABLE [dbo].[ReporteEvaluacion]  WITH CHECK ADD  CONSTRAINT [FK_ReporteEvaluacion_Solicitud] FOREIGN KEY([SolicitudId])
+REFERENCES [dbo].[Solicitud] ([Id])
+GO
+ALTER TABLE [dbo].[ReporteEvaluacion] CHECK CONSTRAINT [FK_ReporteEvaluacion_Solicitud]
+GO
+-- ForeignKey [FK_Solicitud_Solicitante] 
+ALTER TABLE [dbo].[Solicitante]  WITH CHECK ADD  CONSTRAINT [FK_Solicitante_Solicitud] FOREIGN KEY([SolicitudId])
+REFERENCES [dbo].[Solicitud]([Id])
+GO
+ALTER TABLE [dbo].[Solicitante] CHECK CONSTRAINT [FK_Solicitante_Solicitud]
+GO
+
 /**************************************/
 /************ Funciones  **************/
 /**************************************/
@@ -477,6 +612,53 @@ BEGIN TRY
 		WHERE P.CodigoGrupo = @idAgrupador;
 		
 	END
+	
+	Set @coderr = 0
+	Set @msgerr = 'OK'
+
+END TRY
+BEGIN CATCH
+	DECLARE @mensajeError as varchar(4000)
+	DECLARE @codSeveridad as int
+	DECLARE @codStatus as int
+
+	Select @mensajeError = ERROR_MESSAGE(),
+		   @codSeveridad = ERROR_SEVERITY(),
+		   @codStatus = ERROR_STATE()
+	
+	set @coderr = 1
+	set @msgerr = @mensajeError
+
+	-- RAISERROR(@mensajeError, @codSeveridad, @codStatus)
+END CATCH
+GO
+
+-- =============================================
+-- Author:		Yussel Ulloa
+-- Create date: 15/07/2017
+-- Description:	lista las solicitudes por solicitante
+-- =============================================
+-- DROP PROCEDURE [dbo].[USPS_SolicitudXSolicitante]
+ALTER PROCEDURE [dbo].[USPS_SolicitudXSolicitante] 
+	@estado			int,
+	@coderr			int OUT,
+	@msgerr			varchar(1000) OUT
+WITH ENCRYPTION
+AS
+BEGIN TRY
+
+	SET NOCOUNT ON;
+
+	SELECT  SL.ID AS IdSolicitud,
+			S.ID AS IdSolicitante, 
+			SL.NumSolicitud,
+			SL.FechaSolicitud,
+			S.Nombres,
+			S.ApellidoPaterno,
+			S.ApellidoMaterno
+	FROM Solicitud SL
+		INNER JOIN Solicitante S ON SL.Id = S.SolicitudId
+	WHERE SL.Estado = @estado
 	
 	Set @coderr = 0
 	Set @msgerr = 'OK'

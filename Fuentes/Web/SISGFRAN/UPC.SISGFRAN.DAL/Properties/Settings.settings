@@ -24,10 +24,10 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="serverName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ASUS\MSSQLSERVER2014</Value>
+      <Value Profile="(Default)">SERVER7\SQLEXPRESS</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">sql</Value>
+      <Value Profile="(Default)">Sredes</Value>
     </Setting>
   </Settings>
 </SettingsFile>

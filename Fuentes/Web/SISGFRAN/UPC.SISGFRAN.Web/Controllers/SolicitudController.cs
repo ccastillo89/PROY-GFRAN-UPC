@@ -21,7 +21,7 @@ namespace UPC.SISGFRAN.Web.Controllers
         // GET: /Solicitud/
         public ActionResult Index()
         {            
-            ViewBag.listSolicitudes = solicitudBL.GetSolicitudes();
+            ViewBag.listSolicitudes = solicitudBL.GetSolicitudesPendientes();
             return View();
         }  
 
@@ -31,17 +31,7 @@ namespace UPC.SISGFRAN.Web.Controllers
         {
             base.Dispose(disposing);
         }
-
-        private bool IsValid(string usuario, string pass)
-        {
-            bool valido = false;
-            if (usuario != null || pass != null)
-            {
-                valido = true;
-            }
-            return valido;
-        }     
-
+ 
         #endregion
 
 	}

@@ -9,10 +9,10 @@ namespace UPC.SISGFRAN.EL.Inherited
 {
     public class SolicitanteEL : BaseEL
     {
-        public int Id_Solicitante { get; set; }
-        public string Nombre { get; set; }
+        public int Id { get; set; }
+        public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-
+        public string NombreCompleto { get { return string.Concat(ApellidoPaterno, " ", ApellidoMaterno, ", ", Nombres); } }
     }
 }
