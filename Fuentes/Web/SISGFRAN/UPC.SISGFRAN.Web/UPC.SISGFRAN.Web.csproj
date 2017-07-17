@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\Librerias\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -124,6 +127,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\PdfReportGenerator\BinaryContentResult.cs" />
+    <Compile Include="Helper\PdfReportGenerator\FakeView.cs" />
+    <Compile Include="Helper\PdfReportGenerator\HtmlViewRenderer.cs" />
+    <Compile Include="Helper\PdfReportGenerator\PdfViewController.cs" />
+    <Compile Include="Helper\PdfReportGenerator\PrintHeaderFooter.cs" />
+    <Compile Include="Helper\PdfReportGenerator\StandardPdfRenderer.cs" />
     <Compile Include="Helper\SesionUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -137,6 +146,7 @@
     <Content Include="Content\Images\FondoInicio.jpg" />
     <Content Include="Content\Images\horizontal.png" />
     <Content Include="Content\Images\logo-pardos.png" />
+    <Content Include="Content\Images\logo_pc.jpeg" />
     <Content Include="Content\Images\vertical.png" />
     <Content Include="Content\Images\Wait.gif" />
     <Content Include="Content\login.css" />
@@ -185,6 +195,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Solicitud\Index.cshtml" />
     <Content Include="Views\Solicitud\_Solicitud.cshtml" />
+    <Content Include="Views\Solicitud\_ReporteEval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

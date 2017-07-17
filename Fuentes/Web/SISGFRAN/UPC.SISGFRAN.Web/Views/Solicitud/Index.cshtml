@@ -114,8 +114,11 @@
             if ($(radio).is(':checked')) {
                 var codSol = $(radio).val();
                 $("#hddCodSolicitud").val(codSol);
+                var urlExportar = "/Solicitud/Exportar/" + codSol;
+                $("a#btnExportar").attr("href", urlExportar);
             } else {
                 $("#hddCodSolicitud").val("");
+                $("a#btnExportar").attr("href", "#");
             }
         }
 
@@ -152,7 +155,15 @@
         }
 
         function Exportar() {
-            
+            var solicitud = $("#hddCodSolicitud").val();
+
+            if (solicitud == "") {
+                bootbox.alert({
+                    message: "Seleccione solicitud",
+                    size: 'small'
+                });
+                return;
+            }
         }
 
 </script>

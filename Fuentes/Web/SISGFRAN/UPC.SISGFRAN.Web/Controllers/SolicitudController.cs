@@ -10,10 +10,11 @@ using UPC.SISGFRAN.EL.Comunes;
 using UPC.SISGFRAN.EL.Inherited;
 using UPC.SISGFRAN.BL.Repositorios;
 using UPC.SISGFRAN.EL.NonInherited;
+using UPC.SISGFRAN.Web.Helper.PdfReportGenerator;
 
 namespace UPC.SISGFRAN.Web.Controllers
 {
-    public class SolicitudController : Controller
+    public class SolicitudController : PdfViewController
     {
         #region "Variables globales"
         SolicitudBL solicitudBL = new SolicitudBL();
@@ -76,13 +77,39 @@ namespace UPC.SISGFRAN.Web.Controllers
             }
         }
 
+        public ActionResult Exportar(int id)
+        {
+            string titulo = string.Empty;
+            int solId = id;
+            SolicitudEL solicitudEval = solicitudBL.GetResultadoEvaluacion(solId);
+
+            if (solicitudEval != null)
+            {
+                titulo = "Evaluación de la solicitud N° " + solicitudEval.NumSolicitud;
+                FillImageUrl(solicitudEval.ReporteEvaluacion, "logo_pc.jpeg");
+                return this.ViewPdf(titulo, "_ReporteEval", solicitudEval);
+            }
+            else
+            {
+                TempData["msg"] = "No existe evaluación";
+                return RedirectToAction("Index");
+            }
+            
+        }
+
         #region Metodos
 
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
         }
- 
+
+        private void FillImageUrl(ReporteEvaluacionEL reporte, string imageName)
+        {
+            string url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+            reporte.ImageUrl = url + "Content/Images/" + imageName;
+        }
+
         #endregion
 
 	}

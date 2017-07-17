@@ -13,5 +13,7 @@ namespace UPC.SISGFRAN.EL.Inherited
         public DateTime Fecha { get; set; }
         public string ResultadoEjercicio { get; set; }
         public string ErroresEncontrados { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

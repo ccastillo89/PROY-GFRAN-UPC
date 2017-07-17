@@ -689,17 +689,23 @@ WITH ENCRYPTION
 AS
 BEGIN TRY
 
-	SELECT	RE.Id,
-			RE.SolicitudId,
+	SELECT	RE.Id as ReporteEvalId,
+			S.Id as SolicitudId,
 			S.NumSolicitud,
 			S.MontoCapital,
-			S.Estado,
+			S.FechaSolicitud,
+			S.Estado as EstadoId,
+			E.Nombre as Estado,
+			SL.ApellidoMaterno,
+			SL.ApellidoPaterno,
+			SL.Nombres,
 			RE.FechaReporte,
 			RE.ResultadoEjercicio,
 			RE.ErroresEncontrados
 	FROM Solicitud S
 	inner join Solicitante SL on S.id = SL.SolicitudId
 	inner join ReporteEvaluacion RE on S.Id = Re.SolicitudId
+	inner join Parametro E on S.Estado = E.Codigo and E.CodigoGrupo = 3
 	WHERE S.Id = @solicitudId
 	order by 1
 	
