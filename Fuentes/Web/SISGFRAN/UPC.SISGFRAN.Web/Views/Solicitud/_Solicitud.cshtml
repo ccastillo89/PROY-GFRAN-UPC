@@ -26,6 +26,8 @@
                 grid.Column(format: @<text><input id="idSolicitud" class="chkRbSol" name="idSolicitud" type="radio" value="@item.Id" onclick="javascript: SolicitudSelected(this)" /></text>),
                 grid.Column("NumSolicitud", "# Solicitud"),
                 grid.Column("FechaSolicitud", "Fecha Solicitud"),
+                grid.Column("Solicitante.TipoDocumento.Nombre", "Tipo Documento"),
+                grid.Column("Solicitante.NumeroDocumento", "Nro. Documento"),
                 grid.Column("Solicitante.NombreCompleto", "Solicitante"),
                 grid.Column("Solicitante.Direccion", "Dirección")
             ));

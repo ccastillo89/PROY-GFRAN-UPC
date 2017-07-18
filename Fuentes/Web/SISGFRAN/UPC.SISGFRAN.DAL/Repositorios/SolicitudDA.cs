@@ -15,15 +15,17 @@ namespace UPC.SISGFRAN.DAL.Repositorios
 {
     public class SolicitudDA
     {
-        public List<SolicitudEL> GetSolicitudesPendientes()
+        public List<SolicitudEL> GetSolicitudesPendientes(string desc)
         {
             DAABRequest.Parameter[] arrParam = {
+                new DAABRequest.Parameter("@desc", DbType.String, 100 ,ParameterDirection.Input),
                 new DAABRequest.Parameter("@estado", DbType.Int32 ,ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
             };
 
-            arrParam[0].Value = Constantes.EstadoSolicitud.Pendiente;
+            arrParam[0].Value = desc;
+            arrParam[1].Value = Constantes.EstadoSolicitud.Pendiente;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
@@ -48,6 +50,24 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     solicitante.ApellidoPaterno = Funciones.CheckStr(dr["ApellidoPaterno"]);
                     solicitante.ApellidoMaterno = Funciones.CheckStr(dr["ApellidoMaterno"]);
                     solicitante.Nombres = Funciones.CheckStr(dr["Nombres"]);
+                    solicitante.Direccion = Funciones.CheckStr(dr["Direccion"]);
+
+                    ParametroEL oTipoDocumento = new ParametroEL()
+                    {
+                        Codigo = Funciones.CheckInt(dr["TipoDocumentoId"]),
+                        Nombre = Funciones.CheckStr(dr["TipoDocumento"])
+                    };
+
+                    solicitante.TipoDocumento = oTipoDocumento;
+                    solicitante.NumeroDocumento = Funciones.CheckStr(dr["NumeroDocumento"]);
+
+                    ParametroEL oEstado = new ParametroEL()
+                    {
+                        Codigo = Funciones.CheckInt(dr["EstadoId"]),
+                        Nombre = Funciones.CheckStr(dr["Estado"])
+                    };
+
+                    item.Estado = oEstado;
 
                     item.Solicitante = solicitante;
                     lstSolicitudes.Add(item);

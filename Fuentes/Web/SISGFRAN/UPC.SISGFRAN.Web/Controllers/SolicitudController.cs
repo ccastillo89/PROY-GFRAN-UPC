@@ -26,8 +26,9 @@ namespace UPC.SISGFRAN.Web.Controllers
         {
             SolicitudEL records = new SolicitudEL();
             ListaPaginada<SolicitudEL> listaContentSolicitud = new ListaPaginada<SolicitudEL>();
-            
-            List<SolicitudEL> listSolicitudesPendientes = solicitudBL.GetSolicitudesPendientes();
+
+            string desc = string.Empty;
+            List<SolicitudEL> listSolicitudesPendientes = solicitudBL.GetSolicitudesPendientes(desc);
 
             listaContentSolicitud.Content = listSolicitudesPendientes
                         .OrderBy(sort + " " + sortdir)
@@ -55,7 +56,7 @@ namespace UPC.SISGFRAN.Web.Controllers
 
                 ListaPaginada<SolicitudEL> listaContentSolicitud = new ListaPaginada<SolicitudEL>();
 
-                List<SolicitudEL> listSolicitudesPendientes = solicitudBL.GetSolicitudesPendientes();
+                List<SolicitudEL> listSolicitudesPendientes = solicitudBL.GetSolicitudesPendientes(desc);
 
                 listaContentSolicitud.Content = listSolicitudesPendientes
                             .OrderBy(sort + " " + sortdir)

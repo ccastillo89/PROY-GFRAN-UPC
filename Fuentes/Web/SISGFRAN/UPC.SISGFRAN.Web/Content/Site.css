@@ -476,3 +476,7 @@ div.desc {
 }
 
 .fc-state-highlight {background:red;}
+
+.OcultarDiv {
+  display:none;
+}

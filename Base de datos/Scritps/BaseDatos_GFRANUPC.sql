@@ -639,7 +639,8 @@ GO
 -- Description:	lista las solicitudes por solicitante
 -- =============================================
 -- DROP PROCEDURE [dbo].[USPS_SolicitudXSolicitante]
-ALTER PROCEDURE [dbo].[USPS_SolicitudXSolicitante] 
+CREATE PROCEDURE [dbo].[USPS_SolicitudXSolicitante]
+	@desc			varchar(100),
 	@estado			int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
@@ -655,10 +656,23 @@ BEGIN TRY
 			SL.FechaSolicitud,
 			S.Nombres,
 			S.ApellidoPaterno,
-			S.ApellidoMaterno
+			S.ApellidoMaterno,
+			S.Direccion,
+			S.TipoDocumentoId,
+			TD.Nombre as TipoDocumento,
+			S.NumeroDocumento,
+			SL.Estado as EstadoId,
+			E.Nombre as Estado
 	FROM Solicitud SL
 		INNER JOIN Solicitante S ON SL.Id = S.SolicitudId
-	WHERE SL.Estado = @estado
+		inner join Parametro E on SL.Estado = E.Codigo and E.CodigoGrupo = 3
+		inner join Parametro TD on S.TipoDocumentoId = TD.Codigo and TD.CodigoGrupo = 5
+	WHERE ((@estado = -1 ) or (SL.Estado = @estado))
+	AND ((@desc = '' ) or (SL.NumSolicitud like '%' + @desc + '%' or 
+						  S.NumeroDocumento like '%' + @desc + '%' or 
+						  S.Nombres like '%' + @desc + '%' or 
+						  S.ApellidoPaterno like '%' + @desc + '%' or 
+						  S.ApellidoMaterno like '%' + @desc + '%'))
 	
 	Set @coderr = 0
 	Set @msgerr = 'OK'
