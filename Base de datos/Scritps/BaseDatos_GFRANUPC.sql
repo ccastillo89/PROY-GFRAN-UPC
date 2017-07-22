@@ -744,7 +744,6 @@ BEGIN CATCH
 END CATCH
 GO
 
-<<<<<<< HEAD
 -- DROP PROCEDURE [dbo].[USPU_Solicitud]
 CREATE PROCEDURE [dbo].[USPU_Solicitud]
 	@solicitudId	int,
@@ -754,6 +753,7 @@ CREATE PROCEDURE [dbo].[USPU_Solicitud]
 	@msgerr			varchar(1000) OUT
 WITH ENCRYPTION
 AS
+BEGIN TRAN [tu_solicitud]
 BEGIN TRY
 
 	UPDATE Solicitud
@@ -762,6 +762,8 @@ BEGIN TRY
 		AuditoriaFM = GETDATE()
 	WHERE Id = @solicitudId
 	
+	COMMIT TRAN [tu_solicitud]
+
 	Set @coderr = 0
 	Set @msgerr = 'OK'
 
@@ -778,6 +780,7 @@ BEGIN CATCH
 	set @coderr = 1
 	set @msgerr = @mensajeError
 
+	ROLLBACK TRAN [tu_solicitud]
 	-- RAISERROR(@mensajeError, @codSeveridad, @codStatus)
 END CATCH
 GO
@@ -812,7 +815,24 @@ BEGIN TRY
 
 	COMMIT TRAN [ti_ResultadoE]
 
-=======
+END TRY
+BEGIN CATCH
+	DECLARE @mensajeError as varchar(4000)
+	DECLARE @codSeveridad as int
+	DECLARE @codStatus as int
+
+	Select @mensajeError = ERROR_MESSAGE(),
+		   @codSeveridad = ERROR_SEVERITY(),
+		   @codStatus = ERROR_STATE()
+	
+	set @coderr = 1
+	set @msgerr = @mensajeError
+
+	ROLLBACK TRAN [ti_ResultadoE]
+	-- RAISERROR(@mensajeError, @codSeveridad, @codStatus)
+END CATCH
+GO
+
 -- =============================================
 -- Author:		Yussel Ulloa Gómez
 -- Create date: 21/07/2017
@@ -842,10 +862,9 @@ BEGIN TRY
 	INNER JOIN Solicitud SL on S.SolicitudId = SL.Id
 	INNER JOIN Parametro TD on S.TipoDocumentoId = TD.Codigo and TD.CodigoGrupo = 5
 
-Set @coderr = 0
+	Set @coderr = 0
 	Set @msgerr = 'OK'
 
->>>>>>> f099eb9320c57e19cb439625e34a8cd93aebbe2a
 END TRY
 BEGIN CATCH
 	DECLARE @mensajeError as varchar(4000)
@@ -858,12 +877,7 @@ BEGIN CATCH
 	
 	set @coderr = 1
 	set @msgerr = @mensajeError
-<<<<<<< HEAD
-
-	ROLLBACK TRAN [ti_ResultadoE]
 
 	-- RAISERROR(@mensajeError, @codSeveridad, @codStatus)
-=======
->>>>>>> f099eb9320c57e19cb439625e34a8cd93aebbe2a
 END CATCH
 GO
