@@ -122,6 +122,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SolicitanteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -142,6 +143,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\BajoRiesgo.png" />
     <Content Include="Content\Images\bg-module.jpg" />
     <Content Include="Content\Images\FondoInicio.jpg" />
     <Content Include="Content\Images\horizontal.png" />
@@ -201,6 +203,9 @@
     <Content Include="Views\Solicitud\Index.cshtml" />
     <Content Include="Views\Solicitud\_Solicitud.cshtml" />
     <Content Include="Views\Solicitud\_ReporteEval.cshtml" />
+    <Content Include="Views\Solicitante\Index.cshtml" />
+    <Content Include="Views\Solicitante\_Solicitud.cshtml" />
+    <Content Include="Views\Solicitante\_ReporteEval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

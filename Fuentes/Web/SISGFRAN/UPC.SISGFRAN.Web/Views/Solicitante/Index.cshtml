@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Formato Actividad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var message = TempData["msg"] ?? string.Empty;
+}
+
+<!-- Paneles -->
+<div class="container2">
+    <div class="margenPanelRigth">
+        <fieldset>
+            <legend>Explorador de Solicitantes de Franquicia</legend>
+            <div class="form-group row OcultarDiv">
+                <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
+                @*<div class="col-md-9">
+                        <input type="text" class="form-control" name="txtDesc" id="txtDesc" placeholder="#Solicitud, #documento o Nombres" value="@ViewBag.desc" />
+                    </div>*@
+                @*<div class="form-group">
+                        <span class="input-group-btn">
+                            <a class="btn btn-primary" href='#' onclick="BuscarSolicitud();" id='btnBuscar' title='Buscar solicitud'>
+                                <span class='glyphicon glyphicon-search'>
+                                    Buscar
+                                </span>
+                            </a>
+                        </span>
+                        <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
+                    </div>*@
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-table"></i> Listado de solicitantes a evaluar</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="gridSolicitud">
+                                @Html.Partial("_solicitud")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row col-md-3">
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <a class="btn btn-success" href='#' onclick="EvaluarSolicitante();" id='btnEvaluarSolicitante' title='Evaluar Solicitante'>
+                            <span class='glyphicon glyphicon-tasks'>
+                                Evaluar Solicitante
+                            </span>
+                        </a>
+                    </span>
+                </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="modal fade in" id="mEvaluar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h2 class="modal-title">Evaluar Solicitante</h2>
+            </div>
+            <div class="modal-body">
+                           
+                <div class="container">
+                    @*<h2>Dynamic Pills</h2>*@                   
+                    <ul class="nav nav-pills">                        
+                        <li class="active" ><a data-toggle="pill" href="#menu1">Datos Reniec</a></li>
+                        <li><a data-toggle="pill" href="#menu2">Información Financiera</a></li>                        
+                    </ul>
+
+                    @*<div class="row">
+                        <div class='col-sm-6'>
+                            <input type='text' class="form-control" id='datetimepicker1' />
+                        </div>
+                    </div>
+
+
+                    <label>Correo</label>
+                    <input type="email" class="form-control" id="email"
+                           placeholder="Introduce tu email">*@
+
+
+                    <div class="tab-content">                        
+                        <div id="menu1" class="tab-pane fade in active">
+                            <h2></h2>
+                            <label>Número Documento</label>                            
+                            <input type="text" class="form-control" id="NroDoc"/>
+                            <label>Nombres y Apellidos</label>
+                            <input type="text" class="form-control" id="NombreCompleto" />
+                            <label>Fecha de Nacimiento</label>
+                            <input type="text" class="form-control" id="FechNacimiento" />
+                            <label>Sexo</label>
+                            <input type="text" class="form-control" id="Sexo" />
+                            <label>Grado de Instrucción</label>
+                            <input type="text" class="form-control" id="GradoInstruccion" />
+                        </div>
+                        <div id="menu2" class="tab-pane fade">                            
+                            <h2></h2>
+                            <label>Salario</label>
+                            <input type="text" class="form-control" id="Salario" />                            
+                            <label>Gastos</label>
+                            <input type="text" class="form-control" id="Gastos" />        
+                            <label>Cargo</label>
+                            <input type="text" class="form-control" id="Cargo" />        
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" href='#' target="_parent" id='btnEvaluacionCrediticia' onclick="EvaluacionCrediticia();" title='Evaluación Crediticia'>
+                    <span>
+                        Evaluación Crediticia
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        });
+
+        function SolicitudSelected(radio) {
+            console.log(radio)
+            if ($(radio).is(':checked')) {
+                console.log("1")
+                var codSol = $(radio).val();
+                $("#hddCodSolicitud").val(codSol);
+                var urlExportar = "/Solicitante/EvaluacionCrediticia/" + codSol;
+                $("a#btnEvaluacionCrediticia").attr("href", urlExportar);
+                console.log("2")
+            } else {
+                console.log("3")
+                $("#hddCodSolicitud").val("");
+                $("a#btnEvaluacionCrediticia").attr("href", "#");
+            }
+        }
+
+        function EvaluarSolicitante() {
+            $('#mEvaluar').modal('show');
+            //var solicitud = $("#hddCodSolicitud").val();
+
+            //if (solicitud == "") {
+            //    bootbox.alert({
+            //        message: "Seleccione solicitud",
+            //        size: 'small'
+            //    });
+            //    return;
+            //}
+
+            //var formData = { solicitud: solicitud };
+            //$.ajax({
+            //    url: "/Solicitud/Evaluar",
+            //    type: "POST",
+            //    data: formData,
+            //    success: function (data) {
+            //        if (!data.status) {
+            //            bootbox.alert({
+            //                message: data.message,
+            //                size: 'small'
+            //            });
+            //        } else {
+
+            //        }
+            //    },
+            //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //        bootbox.alert('error', textStatus, 'Error');
+            //    }
+            //});
+        }
+
+        
+        function EvaluacionCrediticia() {
+            var solicitud = $("#hddCodSolicitud").val();
+
+            //if (solicitud == "") {
+            //    bootbox.alert({
+            //        message: "Seleccione solicitud",
+            //        size: 'small'
+            //    });
+            //    return;
+            //}
+
+            //var formData = { solicitud: solicitud };
+            //$.ajax({
+            //    url: "/Solicitud/Evaluar",
+            //    type: "POST",
+            //    data: formData,
+            //    success: function (data) {
+            //        if (!data.status) {
+            //            bootbox.alert({
+            //                message: data.message,
+            //                size: 'small'
+            //            });
+            //        } else {
+
+            //        }
+            //    },
+            //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //        bootbox.alert('error', textStatus, 'Error');
+            //    }
+            //});
+
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        var message = '@message';
+        if (message)
+            bootbox.alert(message);
+    </script>
+}

@@ -28,6 +28,7 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string ReferenciaBancaria { get; set; }
         public ParametroEL Estado { get; set; }
 
+        public string NumeroDocumento { get; set; }
 
         public EntrevistaEL Entrevista { get; set; }
         public ReporteEvaluacionEL ReporteEvaluacion { get; set; }

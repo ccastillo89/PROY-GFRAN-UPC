@@ -744,6 +744,7 @@ BEGIN CATCH
 END CATCH
 GO
 
+<<<<<<< HEAD
 -- DROP PROCEDURE [dbo].[USPU_Solicitud]
 CREATE PROCEDURE [dbo].[USPU_Solicitud]
 	@solicitudId	int,
@@ -811,6 +812,40 @@ BEGIN TRY
 
 	COMMIT TRAN [ti_ResultadoE]
 
+=======
+-- =============================================
+-- Author:		Yussel Ulloa Gómez
+-- Create date: 21/07/2017
+-- Description:	Listado de solicitantes
+-- =============================================
+-- DROP PROCEDURE [dbo].[USPS_SolicitanteXEvaluar]
+CREATE PROCEDURE [dbo].[USPS_SolicitanteXEvaluar]	
+	@coderr			int OUT,
+	@msgerr			varchar(1000) OUT
+AS
+BEGIN TRY
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT SL.ID AS IdSolicitud,
+		   S.ID AS IdSolicitante,  
+		   S.Nombres,
+		   S.ApellidoPaterno, 
+		   S.ApellidoMaterno,
+		   S.NumeroDocumento,
+		   S.TipoDocumentoId,
+		   TD.Nombre as TipoDocumento,
+		   SL.NumSolicitud 
+	FROM Solicitante S 
+	INNER JOIN Solicitud SL on S.SolicitudId = SL.Id
+	INNER JOIN Parametro TD on S.TipoDocumentoId = TD.Codigo and TD.CodigoGrupo = 5
+
+Set @coderr = 0
+	Set @msgerr = 'OK'
+
+>>>>>>> f099eb9320c57e19cb439625e34a8cd93aebbe2a
 END TRY
 BEGIN CATCH
 	DECLARE @mensajeError as varchar(4000)
@@ -823,9 +858,12 @@ BEGIN CATCH
 	
 	set @coderr = 1
 	set @msgerr = @mensajeError
+<<<<<<< HEAD
 
 	ROLLBACK TRAN [ti_ResultadoE]
 
 	-- RAISERROR(@mensajeError, @codSeveridad, @codStatus)
+=======
+>>>>>>> f099eb9320c57e19cb439625e34a8cd93aebbe2a
 END CATCH
 GO
