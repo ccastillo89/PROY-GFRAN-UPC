@@ -51,6 +51,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     solicitante.ApellidoMaterno = Funciones.CheckStr(dr["ApellidoMaterno"]);
                     solicitante.Nombres = Funciones.CheckStr(dr["Nombres"]);
                     solicitante.Direccion = Funciones.CheckStr(dr["Direccion"]);
+                    solicitante.Email = Funciones.CheckStr(dr["Email"]);
 
                     ParametroEL oTipoDocumento = new ParametroEL()
                     {

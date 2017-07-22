@@ -11,7 +11,7 @@
 <div class="container2">
     <div class="margenPanelRigth">
         <fieldset>
-            <legend>Explorador de solicitudes de franquicias pendientes</legend>
+            <legend>Explorador de solicitudes de franquicia registradas</legend>
             <div class="form-group row OcultarDiv">
                 <div class="col-md-9">
                     <input type="text" class="form-control" name="txtDesc" id="txtDesc" placeholder="#Solicitud, #documento o Nombres" value="@ViewBag.desc" />
@@ -63,10 +63,39 @@
 </div>
 
 <!-- modal placeholder-->
-<div id='myModal' class='modal fade in'>
+<div id='myModal1' class='modal fade' role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div id='myModalContent'></div>
+            <div id='myModalContent'>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title">Invitación por Solicitud aprobada</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nomSolicitante" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label for="usrCorreo"><span class="glyphicon glyphicon-book"></span> Correo</label>
+                            <input type="text" class="form-control" id="idCorreo" placeholder="Ingresar Correo">
+                        </div>
+                        <div class="form-group">
+                            <label for="usrfecha"><span class="glyphicon glyphicon-book"></span> Fecha </label>
+                            <div class='input-group date' id='dtpFecha'>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                <input id="fechaModal" type='text' class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="submit" value="Aceptar" />
+                    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -74,11 +103,14 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/JsEvalSol/jsEvalSol.js")
 
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            $('#dtpFecha').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
         });
 
         function BuscarSolicitud() {
@@ -115,10 +147,12 @@
                 var codSol = $(radio).val();
                 $("#hddCodSolicitud").val(codSol);
                 var urlExportar = "/Solicitud/Exportar/" + codSol;
+                var urlInvitacion = "/Solicitud/Invitacion/" + codSol;
                 $("a#btnExportar").attr("href", urlExportar);
             } else {
                 $("#hddCodSolicitud").val("");
                 $("a#btnExportar").attr("href", "#");
+                $("a#btnEvaluar").attr("href", "#");
             }
         }
 
@@ -130,28 +164,43 @@
                     message: "Seleccione solicitud",
                     size: 'small'
                 });
-                return;
-            }
+                return false;
+            } else {
 
-            var formData = { solicitud: solicitud};
-            $.ajax({
-                url: "/Solicitud/Evaluar",
-                type: "POST",
-                data: formData,
-                success: function (data) {
-                    if (!data.status) {
-                        bootbox.alert({
-                            message: data.message,
-                            size: 'small'
-                        });
-                    } else {
-
+                $.ajax({
+                    url: "/Solicitud/Evaluar",
+                    type: "GET",
+                    data: { solicitud: solicitud },
+                    dataType: "html",
+                    traditional: true,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var datos = jQuery.parseJSON(data);
+                        if (datos.status == true) {
+                            bootbox.alert({
+                                message: datos.message,
+                                size: 'small',
+                                callback: function () {
+                                    $("#nomSolicitante").val(datos.Solicitante);
+                                    $("#idCorreo").val(datos.Email);
+                                    $("#myModal1").modal();
+                                }
+                            });
+                        } else {
+                            bootbox.alert({
+                                message: datos.message,
+                                size: 'small'
+                            });
+                            return false;
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        bootbox.alert('error', textStatus, 'Error');
                     }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    bootbox.alert('error', textStatus, 'Error');
-                }
-            });
+                });
+
+            };
         }
 
         function Exportar() {

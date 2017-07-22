@@ -24,8 +24,8 @@
             mode: WebGridPagerModes.All,
             columns: grid.Columns(
                 grid.Column(format: @<text><input id="idSolicitud" class="chkRbSol" name="idSolicitud" type="radio" value="@item.Id" onclick="javascript: SolicitudSelected(this)" /></text>),
-                grid.Column("NumSolicitud", "# Solicitud"),
-                grid.Column("FechaSolicitud", "Fecha Solicitud"),
+                grid.Column("NumSolicitud", "# Solicitud", style: "col-md-1"),
+                grid.Column("FechaSolicitud", "Fecha Solicitud", format: @<text>@String.Format("{0:dd-MM-yyyy}", item.FechaSolicitud)</text>, style: "col-md-1"),
                 grid.Column("Solicitante.TipoDocumento.Nombre", "Tipo Documento"),
                 grid.Column("Solicitante.NumeroDocumento", "Nro. Documento"),
                 grid.Column("Solicitante.NombreCompleto", "Solicitante"),

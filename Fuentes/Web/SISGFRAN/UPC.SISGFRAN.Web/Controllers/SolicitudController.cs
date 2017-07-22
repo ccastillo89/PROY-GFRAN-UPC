@@ -9,6 +9,7 @@ using UPC.SISGFRAN.Web.Helper;
 using UPC.SISGFRAN.EL.Comunes;
 using UPC.SISGFRAN.EL.Inherited;
 using UPC.SISGFRAN.BL.Repositorios;
+using UPC.SISGFRAN.WS.Repositorios;
 using UPC.SISGFRAN.EL.NonInherited;
 using UPC.SISGFRAN.Web.Helper.PdfReportGenerator;
 
@@ -18,6 +19,7 @@ namespace UPC.SISGFRAN.Web.Controllers
     {
         #region "Variables globales"
         SolicitudBL solicitudBL = new SolicitudBL();
+        EvaluadorWS evaluadorClient = new EvaluadorWS();
         #endregion
 
         //
@@ -98,6 +100,12 @@ namespace UPC.SISGFRAN.Web.Controllers
             
         }
 
+        [HttpGet]
+        public ActionResult Invitacion(int id)
+        {
+            return PartialView("_Invitacion");
+        }
+
         #region Metodos
 
         protected override void Dispose(bool disposing)
@@ -110,6 +118,32 @@ namespace UPC.SISGFRAN.Web.Controllers
             string url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             reporte.ImageUrl = url + "Content/Images/" + imageName;
         }
+
+        public JsonResult Evaluar(string solicitud)
+        {
+            try
+            {
+                bool bOK = false;
+                int idSolicitud = Convert.ToInt32(solicitud);
+
+                bOK = evaluadorClient.EvaluarSolicitud(idSolicitud);
+
+                if (bOK) // true
+                {
+                    return Json(new { status = true, message = "La solicitud de franquicia seleccionada ha sido aprobada." }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, message = "La solicitud de franquicia seleccionada ha sido rechazada" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
 
         #endregion
 
