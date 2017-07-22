@@ -13,6 +13,7 @@
         <fieldset>
             <legend>Explorador de Solicitantes de Franquicia</legend>
             <div class="form-group row OcultarDiv">
+                <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
                 @*<div class="col-md-9">
                         <input type="text" class="form-control" name="txtDesc" id="txtDesc" placeholder="#Solicitud, #documento o Nombres" value="@ViewBag.desc" />
                     </div>*@
@@ -112,7 +113,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-success" href='#' target="_parent" id='btnAceptar' title='Evaluación Crediticia'>
+                <a class="btn btn-success" href='#' target="_parent" id='btnEvaluacionCrediticia' onclick="EvaluacionCrediticia();" title='Evaluación Crediticia'>
                     <span>
                         Evaluación Crediticia
                     </span>
@@ -142,15 +143,18 @@
 
         function SolicitudSelected(radio) {
             console.log(radio)
-            //if ($(radio).is(':checked')) {
-            //    var codSol = $(radio).val();
-            //    $("#hddCodSolicitud").val(codSol);
-            //    var urlExportar = "/Solicitud/Exportar/" + codSol;
-            //    $("a#btnExportar").attr("href", urlExportar);
-            //} else {
-            //    $("#hddCodSolicitud").val("");
-            //    $("a#btnExportar").attr("href", "#");
-            //}
+            if ($(radio).is(':checked')) {
+                console.log("1")
+                var codSol = $(radio).val();
+                $("#hddCodSolicitud").val(codSol);
+                var urlExportar = "/Solicitante/EvaluacionCrediticia/" + codSol;
+                $("a#btnEvaluacionCrediticia").attr("href", urlExportar);
+                console.log("2")
+            } else {
+                console.log("3")
+                $("#hddCodSolicitud").val("");
+                $("a#btnEvaluacionCrediticia").attr("href", "#");
+            }
         }
 
         function EvaluarSolicitante() {
@@ -184,6 +188,40 @@
             //        bootbox.alert('error', textStatus, 'Error');
             //    }
             //});
+        }
+
+        
+        function EvaluacionCrediticia() {
+            var solicitud = $("#hddCodSolicitud").val();
+
+            //if (solicitud == "") {
+            //    bootbox.alert({
+            //        message: "Seleccione solicitud",
+            //        size: 'small'
+            //    });
+            //    return;
+            //}
+
+            //var formData = { solicitud: solicitud };
+            //$.ajax({
+            //    url: "/Solicitud/Evaluar",
+            //    type: "POST",
+            //    data: formData,
+            //    success: function (data) {
+            //        if (!data.status) {
+            //            bootbox.alert({
+            //                message: data.message,
+            //                size: 'small'
+            //            });
+            //        } else {
+
+            //        }
+            //    },
+            //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //        bootbox.alert('error', textStatus, 'Error');
+            //    }
+            //});
+
         }
 
     </script>

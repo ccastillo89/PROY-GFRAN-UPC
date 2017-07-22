@@ -40,5 +40,43 @@ namespace UPC.SISGFRAN.Web.Controllers
             records.ListaSolicitudes = listaContentSolicitante;
             return View(records);
         }
+
+        public ActionResult EvaluacionCrediticia(int id)
+        {
+            string titulo = string.Empty;
+            int solId = id;
+            SolicitudBL a = new SolicitudBL();
+            SolicitudEL solicitudEval = a.GetResultadoEvaluacion(1);
+
+            if (solicitudEval != null)
+            {
+                titulo = "Evaluación de la solicitud N° " + solicitudEval.NumSolicitud;
+                FillImageUrl(solicitudEval.ReporteEvaluacion, "logo_pc.jpeg");
+                return this.ViewPdf(titulo, "_ReporteEval", solicitudEval);
+            }
+            else
+            {
+                TempData["msg"] = "No existe evaluación";
+                return RedirectToAction("Index");
+            }
+
+
+        }
+
+        #region Metodos
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
+
+        private void FillImageUrl(ReporteEvaluacionEL reporte, string imageName)
+        {
+            string url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+            reporte.ImageUrl = url + "Content/Images/" + imageName;
+        }
+
+        #endregion
+
     }
 }
