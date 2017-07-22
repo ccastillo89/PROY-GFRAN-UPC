@@ -100,3 +100,5 @@ E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.W
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.pdb
 C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Linq.Dynamic.dll
 C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\itextsharp.dll
+E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\itextsharp.dll
+E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Linq.Dynamic.dll

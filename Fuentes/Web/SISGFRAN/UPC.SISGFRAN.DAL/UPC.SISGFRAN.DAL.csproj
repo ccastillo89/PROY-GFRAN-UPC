@@ -50,6 +50,7 @@
     <Compile Include="Repositorios\OpcionXPerfilDA.cs" />
     <Compile Include="Repositorios\ParametroDA.cs" />
     <Compile Include="Repositorios\PerfilDA.cs" />
+    <Compile Include="Repositorios\SolicitanteDA.cs" />
     <Compile Include="Repositorios\SolicitudDA.cs" />
     <Compile Include="Repositorios\UsuarioDA.cs" />
   </ItemGroup>
