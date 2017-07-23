@@ -41,18 +41,24 @@ namespace UPC.SISGFRAN.Web.Controllers
             return View(records);
         }
 
+        
         public ActionResult EvaluacionCrediticia(int id)
         {
+            //ESTE ID QUE SE ESTÁ PASANDO ES DEL SOLICITANTE... AQUÍ DEBERÍA CONECTARSE CON EL SERVICIO
             string titulo = string.Empty;
             int solId = id;
-            SolicitudBL a = new SolicitudBL();
-            SolicitudEL solicitudEval = a.GetResultadoEvaluacion(1);
+             var a = new SolicitanteBL();
+            SolicitanteEL solicitanteEval = a.SetResultadoEvaluacion(id);
 
-            if (solicitudEval != null)
+            if (solicitanteEval != null)
             {
-                titulo = "Evaluación de la solicitud N° " + solicitudEval.NumSolicitud;
-                FillImageUrl(solicitudEval.ReporteEvaluacion, "logo_pc.jpeg");
-                return this.ViewPdf(titulo, "_ReporteEval", solicitudEval);
+                //titulo = "Evaluación de la solicitud N° " + solicitudEval.NumSolicitud;
+                //FillImageUrl(solicitudEval.ReporteEvaluacion, "logo_pc.jpeg");
+                //return this.ViewPdf(titulo, "_ReporteEval", solicitudEval);
+
+                TempData["id"] = id;
+                TempData["msg"] = (solicitanteEval.FueAprobado ? "Solicitante Aprobado" : "Solicitante Rechazado");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -61,6 +67,15 @@ namespace UPC.SISGFRAN.Web.Controllers
             }
 
 
+        }
+
+
+        public ActionResult RechazarSolicitud(int id)
+        {
+            var sel = new SolicitanteBL();
+            sel.SetResultadoEvaluacion(id, true);
+
+            return RedirectToAction("Index");
         }
 
         #region Metodos

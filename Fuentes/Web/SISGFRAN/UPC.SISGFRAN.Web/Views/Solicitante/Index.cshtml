@@ -5,6 +5,7 @@
 
 @{
     var message = TempData["msg"] ?? string.Empty;
+    var id = TempData["id"] ?? string.Empty;
 }
 
 <!-- Paneles -->
@@ -56,6 +57,38 @@
     </div>
 </div>
 
+<div class="modal fade in" id="mReporteCrediticio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h2 class="modal-title">Reporte Crediticio</h2>
+            </div>
+                <div class="modal-body">
+
+                    <div class="container">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a data-toggle="pill" href="#menu1">Datos del solicitante</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="menu1" class="tab-pane fade in active">
+                                <label>Solicitante</label>
+                                <input type="text" class="form-control" id="nomSolicitante" />
+                                <label>Capital</label>
+                                <input type="text" class="form-control" value="0" id="capital" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="button">Cerrar</button>
+                </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade in" id="mEvaluar">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -65,60 +98,66 @@
                 </button>
                 <h2 class="modal-title">Evaluar Solicitante</h2>
             </div>
-            <div class="modal-body">
+            @using (Html.BeginForm("EvaluacionCrediticia", "Solicitante", FormMethod.Get))
+            {
+
+                <div class="modal-body">
                            
-                <div class="container">
-                    @*<h2>Dynamic Pills</h2>*@                   
-                    <ul class="nav nav-pills">                        
-                        <li class="active" ><a data-toggle="pill" href="#menu1">Datos Reniec</a></li>
-                        <li><a data-toggle="pill" href="#menu2">Información Financiera</a></li>                        
-                    </ul>
+                    <div class="container">
+                        @*<h2>Dynamic Pills</h2>*@                   
+                        <ul class="nav nav-pills">                        
+                            <li class="active" ><a data-toggle="pill" href="#menu1">Datos Reniec</a></li>
+                            <li><a data-toggle="pill" href="#menu2">Información Financiera</a></li>                        
+                        </ul>
 
-                    @*<div class="row">
-                        <div class='col-sm-6'>
-                            <input type='text' class="form-control" id='datetimepicker1' />
+                        @*<div class="row">
+                            <div class='col-sm-6'>
+                                <input type='text' class="form-control" id='datetimepicker1' />
+                            </div>
                         </div>
-                    </div>
 
 
-                    <label>Correo</label>
-                    <input type="email" class="form-control" id="email"
-                           placeholder="Introduce tu email">*@
+                        <label>Correo</label>
+                        <input type="email" class="form-control" id="email"
+                               placeholder="Introduce tu email">*@
 
 
-                    <div class="tab-content">                        
-                        <div id="menu1" class="tab-pane fade in active">
-                            <h2></h2>
-                            <label>Número Documento</label>                            
-                            <input type="text" class="form-control" id="NroDoc"/>
-                            <label>Nombres y Apellidos</label>
-                            <input type="text" class="form-control" id="NombreCompleto" />
-                            <label>Fecha de Nacimiento</label>
-                            <input type="text" class="form-control" id="FechNacimiento" />
-                            <label>Sexo</label>
-                            <input type="text" class="form-control" id="Sexo" />
-                            <label>Grado de Instrucción</label>
-                            <input type="text" class="form-control" id="GradoInstruccion" />
+                        <div class="tab-content">                        
+                            <div id="menu1" class="tab-pane fade in active">
+                                <h2></h2>
+                                <input type="hidden" id="id" name="id"/>
+                                <label>Número Documento</label>                            
+                                <input type="text" class="form-control" id="NroDoc"/>
+                                <label>Nombres y Apellidos</label>
+                                <input type="text" class="form-control" id="NombreCompleto" />
+                                <label>Fecha de Nacimiento</label>
+                                <input type="text" class="form-control" id="FechNacimiento" />
+                                <label>Sexo</label>
+                                <input type="text" class="form-control" id="Sexo" />
+                                <label>Grado de Instrucción</label>
+                                <input type="text" class="form-control" id="GradoInstruccion" />
+                            </div>
+                            <div id="menu2" class="tab-pane fade">                            
+                                <h2></h2>
+                                <label>Salario</label>
+                                <input type="text" class="form-control" id="Salario" />                            
+                                <label>Gastos</label>
+                                <input type="text" class="form-control" id="Gastos" />        
+                                <label>Cargo</label>
+                                <input type="text" class="form-control" id="Cargo" />        
+                            </div>                    
                         </div>
-                        <div id="menu2" class="tab-pane fade">                            
-                            <h2></h2>
-                            <label>Salario</label>
-                            <input type="text" class="form-control" id="Salario" />                            
-                            <label>Gastos</label>
-                            <input type="text" class="form-control" id="Gastos" />        
-                            <label>Cargo</label>
-                            <input type="text" class="form-control" id="Cargo" />        
-                        </div>                    
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-success" href='#' target="_parent" id='btnEvaluacionCrediticia' onclick="EvaluacionCrediticia();" title='Evaluación Crediticia'>
-                    <span>
-                        Evaluación Crediticia
-                    </span>
-                </a>
-            </div>
+                <div class="modal-footer">
+                    <button id="btnEvaluar"  class="btn btn-success"  type="submit">Enviar a evaluación crediticia</button>
+                    @*<a class="btn btn-success" href='#' target="_parent" id='btnEvaluacionCrediticia' onclick="EvaluacionCrediticia();" title='Evaluación Crediticia'>
+                        <span>
+                            Evaluación Crediticia
+                        </span>
+                    </a>*@
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -158,16 +197,59 @@
         }
 
         function EvaluarSolicitante() {
-            $('#mEvaluar').modal('show');
-            //var solicitud = $("#hddCodSolicitud").val();
+            var solicitud = $("#hddCodSolicitud").val();
+            
+            if (solicitud == "") {
+                bootbox.alert({
+                    message: "Seleccione solicitante a evaluar",
+                    size: 'small'
+                });
+                return;
+            } else {
 
-            //if (solicitud == "") {
-            //    bootbox.alert({
-            //        message: "Seleccione solicitud",
-            //        size: 'small'
-            //    });
-            //    return;
-            //}
+
+                if (solicitud === "45792117") {
+                    bootbox.alert({
+                        message: "Verificación incorrecta",
+                        size: 'small',
+                        buttons: {
+                            ok: {
+                                label: 'Rechazar solicitud'
+                            }
+                        },
+                        callback: function () {
+
+                            var id = $("#id_" + solicitud).val();
+                            $.ajax({
+                                url: 'RechazarSolicitud',
+                                type: 'GET',
+                                data: { id: id },
+                                success: function (valid) {
+                                 
+                                }
+                            });
+                            location.reload();
+                        }
+                    });
+
+                    return;
+                }
+
+                bootbox.alert("Verificación Correcta"
+                , function () {
+                    $('#mEvaluar').modal('show');
+                    $("#NroDoc").val($("#num_" + solicitud).text());
+                    $("#NombreCompleto").val($("#nom_" + solicitud).text());
+                    $("#FechNacimiento").val($("#fecha_" + solicitud).text());
+                    $("#Sexo").val($("#sexo_" + solicitud).text());
+                    $("#GradoInstruccion").val($("#grad_" + solicitud).text());
+                    $("#Salario").val($("#ing_" + solicitud).text());
+                    $("#Gastos").val($("#gast_" + solicitud).text());
+                    $("#Cargo").val($("#cargo_" + solicitud).text());
+                    $("#id").val($("#id_" + solicitud).val());
+                });
+
+            }
 
             //var formData = { solicitud: solicitud };
             //$.ajax({
@@ -230,5 +312,12 @@
         var message = '@message';
         if (message)
             bootbox.alert(message);
+
+        var id = @id;
+        if (id) {
+            console.log(id);
+            $("#nomSolicitante").val($(".nom_" + id).text());
+            $("#mReporteCrediticio").modal('show');
+        }
     </script>
 }

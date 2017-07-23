@@ -14,5 +14,28 @@ namespace UPC.SISGFRAN.BL.Repositorios
         {
             return new SolicitanteDA().GetSolicitantes();
         }
+
+        public SolicitanteEL SetResultadoEvaluacion(int idSolicitante, bool fueRechazado = false)
+        {
+
+            Random rdn = new Random();
+            int probabilidad = rdn.Next(100);
+
+            if (idSolicitante == 3)
+                fueRechazado = true;
+
+            var solicitante = new SolicitanteEL()
+            {
+                FueAprobado = (fueRechazado ? false : (probabilidad <= 55)) 
+            };
+
+            if (idSolicitante == 5)
+                solicitante.FueAprobado = true;
+
+            SolicitanteDA dao = new SolicitanteDA();
+            dao.UpdateApprovalStatus(idSolicitante, solicitante.FueAprobado);
+
+            return solicitante;
+        }
     }
 }

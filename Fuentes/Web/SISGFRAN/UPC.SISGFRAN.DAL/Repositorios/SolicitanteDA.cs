@@ -14,6 +14,34 @@ namespace UPC.SISGFRAN.DAL.Repositorios
 {
     public class SolicitanteDA
     {
+
+        public void UpdateApprovalStatus(int idSolicitante, bool fueAprobado)
+        {
+            DAABRequest.Parameter[] arrParam = {
+                new DAABRequest.Parameter("@IdSolicitante", DbType.Int32,ParameterDirection.Input),
+                new DAABRequest.Parameter("@FueAprobado", DbType.Boolean,ParameterDirection.Input)
+            };
+
+            arrParam[0].Value = idSolicitante;
+            arrParam[1].Value = fueAprobado;
+
+            configPARDOSDB objPardosDb = new configPARDOSDB();
+            DAABRequest objRequest = objPardosDb.CreaRequest();
+            objRequest.CommandType = CommandType.StoredProcedure;
+            objRequest.Command = "USPI_EvaluacionSolicitante";
+            objRequest.Parameters.AddRange(arrParam);
+
+            try
+            {
+                int result = objRequest.Factory.ExecuteNonQuery(ref objRequest);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+
+        }
         public List<SolicitudEL> GetSolicitantes()
         {
             DAABRequest.Parameter[] arrParam = {            
@@ -43,15 +71,22 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     solicitante.ApellidoPaterno = Funciones.CheckStr(dr["ApellidoPaterno"]);
                     solicitante.ApellidoMaterno = Funciones.CheckStr(dr["ApellidoMaterno"]);
                     solicitante.Nombres = Funciones.CheckStr(dr["Nombres"]);
-
+                    solicitante.Sexo = new ParametroEL()
+                    {
+                        Nombre = Funciones.CheckStr(dr["Sexo"])
+                    };
+                        
                     ParametroEL oTipoDocumento = new ParametroEL()
                     {
                         Codigo = Funciones.CheckInt(dr["TipoDocumentoId"]),
                         Nombre = Funciones.CheckStr(dr["TipoDocumento"])
                     };
-
+                    solicitante.TituloObtenido = Funciones.CheckStr(dr["TituloObtenido"]);
+                    solicitante.MontoIngresosMes = Funciones.CheckDecimal(dr["MontoIngresosMes"]);
+                    solicitante.MontoGastosMes = Funciones.CheckDecimal(dr["MontoGastosMes"]);
+                    solicitante.Cargo = Funciones.CheckStr(dr["Cargo"]);
                     solicitante.TipoDocumento = oTipoDocumento;
-         
+                    solicitante.FechaNacimiento = Funciones.CheckDate(dr["FechaNacimiento"]);
                     item.NumeroDocumento = Funciones.CheckStr(dr["NumeroDocumento"]);
                                
                     item.Solicitante = solicitante;

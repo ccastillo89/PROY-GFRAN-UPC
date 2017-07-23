@@ -1,14 +1,4 @@
-USE [master]
-GO
--- creacion de base de datos
---CREATE DATABASE [PARDOSDB] ON  PRIMARY 
---( NAME = N'PARDOSDB', FILENAME = N'K:\Data\PARDOSDB.mdf' , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
--- LOG ON 
---(NAME = N'PARDOSDB_log', FILENAME = N'K:\Data\PARDOSDB_1.ldf' , MAXSIZE = 2048GB , FILEGROWTH = 10%)
---GO
 
---DROP DATABASE PARDOSDB
-GO
 
 USE [PARDOSDB]
 GO
@@ -270,7 +260,7 @@ GO
 
 -- DROP FUNCTION UFN_PASS_DECRIPT
 CREATE FUNCTION UFN_PASS_DECRIPT(@PASS VARBINARY(8000)) RETURNS VARCHAR(50) 
---WITH ENCRYPTION
+--
 BEGIN
 	
 	DECLARE @D_PASS AS VARCHAR(50)
@@ -285,7 +275,7 @@ go
 
 -- DROP FUNCTION UFN_PASS_ENCRIPT
 CREATE FUNCTION UFN_PASS_ENCRIPT(@PASS VARCHAR(50)) RETURNS VARBINARY(8000) 
---WITH ENCRYPTION
+--
 BEGIN
 	
 	DECLARE @D_PASS AS  VARBINARY(8000)
@@ -310,7 +300,7 @@ CREATE PROCEDURE [dbo].[USPS_Login]
 	@userID			int OUT,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 	Declare @cant int
@@ -391,7 +381,7 @@ CREATE PROCEDURE [dbo].[USPS_Usuario]
 	@estado			int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -442,7 +432,7 @@ CREATE PROCEDURE [dbo].[USPS_Perfil]
 	@nombre			varchar(50),
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -485,7 +475,7 @@ CREATE PROCEDURE [dbo].[USPS_Opcion]
 	@estado			int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -534,7 +524,7 @@ CREATE PROCEDURE [dbo].[USPS_OpcionXPerfil]
 	@idperfil		int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -579,7 +569,7 @@ CREATE PROCEDURE [dbo].[USPS_Parametro]
 	@idAgrupador	int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -645,7 +635,7 @@ CREATE PROCEDURE [dbo].[USPS_SolicitudXSolicitante]
 	@estado			int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -702,7 +692,7 @@ CREATE PROCEDURE [dbo].[USPS_ResultadoEvaluacion]
 	@solicitudId	int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRY
 
@@ -753,7 +743,7 @@ CREATE PROCEDURE [dbo].[USPU_Solicitud]
 	@usuarioId		int,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRAN [tu_solicitud]
 BEGIN TRY
@@ -796,7 +786,7 @@ CREATE PROCEDURE [dbo].[USPI_ResultadoEvaluacion]
 	@idResultadoEva	int OUT,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
-WITH ENCRYPTION
+
 AS
 BEGIN TRAN [ti_ResultadoE]
 BEGIN TRY

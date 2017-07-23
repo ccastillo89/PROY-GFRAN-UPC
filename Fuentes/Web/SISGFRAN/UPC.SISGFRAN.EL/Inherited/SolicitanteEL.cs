@@ -41,6 +41,8 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string NombreJefeDirecto { get; set; }
         public string TelefonoJefeDirecto { get; set; }
 
+        public DateTime FechaNacimiento { get; set; }
+
         #endregion
         
         #region "Juridico"
@@ -50,7 +52,7 @@ namespace UPC.SISGFRAN.EL.Inherited
         public int NumeroEmpleados { get; set; }
         #endregion
         
-
-        
+        //Aquí comienza la mariconada!!!
+        public bool FueAprobado { get; set; }
     }
 }
