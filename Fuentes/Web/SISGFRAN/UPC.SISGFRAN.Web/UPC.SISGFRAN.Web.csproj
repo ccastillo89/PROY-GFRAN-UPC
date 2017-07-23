@@ -128,6 +128,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Mail\MailHelper.cs" />
     <Compile Include="Helper\PdfReportGenerator\BinaryContentResult.cs" />
     <Compile Include="Helper\PdfReportGenerator\FakeView.cs" />
     <Compile Include="Helper\PdfReportGenerator\HtmlViewRenderer.cs" />

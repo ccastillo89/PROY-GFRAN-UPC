@@ -640,6 +640,7 @@ GO
 -- =============================================
 -- DROP PROCEDURE [dbo].[USPS_SolicitudXSolicitante]
 CREATE PROCEDURE [dbo].[USPS_SolicitudXSolicitante]
+	@solicitudId	int,
 	@desc			varchar(100),
 	@estado			int,
 	@coderr			int OUT,
@@ -668,7 +669,8 @@ BEGIN TRY
 		INNER JOIN Solicitante S ON SL.Id = S.SolicitudId
 		inner join Parametro E on SL.Estado = E.Codigo and E.CodigoGrupo = 3
 		inner join Parametro TD on S.TipoDocumentoId = TD.Codigo and TD.CodigoGrupo = 5
-	WHERE ((@estado = -1 ) or (SL.Estado = @estado))
+	WHERE ((@solicitudId = -1 ) or (SL.Id = @solicitudId))
+	AND ((@estado = -1 ) or (SL.Estado = @estado))
 	AND ((@desc = '' ) or (SL.NumSolicitud like '%' + @desc + '%' or 
 						  S.NumeroDocumento like '%' + @desc + '%' or 
 						  S.Nombres like '%' + @desc + '%' or 
@@ -791,7 +793,7 @@ CREATE PROCEDURE [dbo].[USPI_ResultadoEvaluacion]
 	@resultado		varchar(250),
 	@errores		varchar(400),
 	@usuarioId		int,
-	@resultadoEid	int OUT,
+	@idResultadoEva	int OUT,
 	@coderr			int OUT,
 	@msgerr			varchar(1000) OUT
 WITH ENCRYPTION
@@ -808,7 +810,7 @@ BEGIN TRY
 	Values (@solicitudId, GETDATE(),
 		@resultado, @errores, @usuarioId, GETDATE());
 	
-	Select @resultadoEid = SCOPE_IDENTITY();
+	Select @idResultadoEva = SCOPE_IDENTITY();
 
 	Set @coderr = 0
 	Set @msgerr = 'OK'

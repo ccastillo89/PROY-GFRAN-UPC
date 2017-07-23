@@ -12,6 +12,9 @@ using UPC.SISGFRAN.WS.Repositorios;
 using UPC.SISGFRAN.EL.NonInherited;
 using UPC.SISGFRAN.Web.Helper.PdfReportGenerator;
 using System.Web.Mvc;
+using System.Configuration;
+using System.Text;
+using UPC.SISGFRAN.Web.Helper.Mail;
 
 namespace UPC.SISGFRAN.Web.Controllers
 {
@@ -101,9 +104,35 @@ namespace UPC.SISGFRAN.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Invitacion(int id)
+        public ActionResult EnviarCorreo(string id, string fecha, string hora, string correo)
         {
-            return PartialView("_Invitacion");
+            try
+            {
+                int idSol = Convert.ToInt32(id);
+                SolicitudEL oSolicitud = solicitudBL.GetSolicitudById(idSol);
+
+                // Configurar envio de correo
+                string subject = string.Format("{0}: {1} - {2}", ConfigurationManager.AppSettings.Get("AsuntoMail"), "Pardos Chicken", DateTime.Now.ToString("dd / MMM / yyy hh:mm:ss"));
+                string mailFrom = ConfigurationManager.AppSettings.Get("MailEmisor");
+                string passwordMailEmisor = ConfigurationManager.AppSettings.Get("PasswordMailEmisor");
+                StringBuilder buffer = new StringBuilder();
+                buffer.Append("Estimado <b>{0} {1}, {2} </b> ");
+                buffer.Append(" Es grato saludarlo e informarle que se le convoca a una entrevista en nuestra oficina principal<br />");
+                buffer.Append(" Fecha:" + fecha + " <br/><br/>");
+                buffer.Append(" Hora:" + hora + "<br/><br/>");
+                buffer.Append(" Saludos cordiales. <br/><br/>");
+                buffer.Append("<i> Nota: Por favor no responda este correo. <i>");
+
+
+                MailHelper.SendMail(mailFrom, passwordMailEmisor, correo, subject, string.Format(buffer.ToString(), oSolicitud.Solicitante.ApellidoPaterno, oSolicitud.Solicitante.ApellidoMaterno, oSolicitud.Solicitante.Nombres), true, System.Net.Mail.MailPriority.Normal);
+
+
+                return Json(new { status = true, message = "Se envió correctamente el correo." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #region Metodos
@@ -123,14 +152,48 @@ namespace UPC.SISGFRAN.Web.Controllers
         {
             try
             {
-                bool bOK = false;
+                SolicitudEL solictudEvaluada = null;
+                ReporteEvaluacionEL resultado;
+                int oEstado = -1;
                 int idSolicitud = Convert.ToInt32(solicitud);
 
-                bOK = evaluadorClient.EvaluarSolicitud(idSolicitud);
+                //Obtener datos de la solicitud a Evaluar
+                solictudEvaluada = solicitudBL.GetSolicitudById(idSolicitud);
 
-                if (bOK) // true
+                SolicitudEL solicitudActualizada;
+                // Enviar al servicio web a evaluar
+                resultado = evaluadorClient.EvaluarSolicitud(solictudEvaluada);
+                resultado.UsuarioCreacion = SesionUsuario.Usuario.Id;
+
+                if (resultado.Resultado)
+	            {
+		            oEstado = (int)Constantes.EstadoSolicitud.Aprobada;
+	            }
+                else
+	            {
+                    oEstado = (int)Constantes.EstadoSolicitud.Rechazada;
+	            }
+
+                // Actualizar el estado de la solicitud
+                ParametroEL estado = new ParametroEL(){ Codigo = oEstado };
+
+                SolicitudEL oSolicitud = new SolicitudEL()
                 {
-                    return Json(new { status = true, message = "La solicitud de franquicia seleccionada ha sido aprobada." }, JsonRequestBehavior.AllowGet);
+                    Id = idSolicitud,
+                    Estado = estado,
+                    UsuarioModifica = SesionUsuario.Usuario.Id,
+                    ReporteEvaluacion = resultado
+                };
+
+                solicitudActualizada = solicitudBL.Actualizar(oSolicitud);
+
+                // Actualizar resultado del reporte para descargar el reporte.
+                solicitudBL.RegistrarReporteEvaluacion(oSolicitud);
+
+                if (resultado.Resultado) // true
+                {
+                    //Enviar Nombre, Correo, 
+                    return Json(new { status = true, message = "La solicitud de franquicia seleccionada ha sido aprobada.", Solicitante = solicitudActualizada.Solicitante.NombreCompleto, Email = solicitudActualizada.Solicitante.Email }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

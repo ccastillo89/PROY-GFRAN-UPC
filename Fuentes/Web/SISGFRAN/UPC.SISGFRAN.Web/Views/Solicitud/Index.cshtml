@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Formato Actividad";
+    ViewBag.Title = "Evaluar solicitud";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -69,12 +69,13 @@
         <div class="modal-content">
             <div id='myModalContent'>
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h3 class="modal-title">Invitación por Solicitud aprobada</h3>
                 </div>
                 <div class="modal-body">
                     <div class="modal-body" style="padding:40px 50px;">
+
                         <div class="form-group">
+                            <label for="usrCorreo"><span class="glyphicon glyphicon-user"></span> Solicitante</label>
                             <input type="text" class="form-control" id="nomSolicitante" readonly />
                         </div>
                         <div class="form-group">
@@ -82,19 +83,30 @@
                             <input type="text" class="form-control" id="idCorreo" placeholder="Ingresar Correo">
                         </div>
                         <div class="form-group">
-                            <label for="usrfecha"><span class="glyphicon glyphicon-book"></span> Fecha </label>
-                            <div class='input-group date' id='dtpFecha'>
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                                <input id="fechaModal" type='text' class="form-control" />
+                            <div style="float:left;">
+                                <label for="usrfecha"><span class="glyphicon glyphicon-book"></span> Fecha </label>
+                                <div class='input-group date' id='dtpFecha'>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input id="fechaModal" type='text' class="form-control" style="width:120px" />
+                                </div>
                             </div>
+                            <div style="float:left;">
+                                <label for="usrHora"><span class="glyphicon glyphicon-time"></span> Hora </label>
+                                <div class='input-group date' id='dtpHora'>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input id="horaModal" type='text' class="form-control" style="width:120px" />
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input class="btn btn-primary" type="submit" value="Aceptar" />
-                    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <input class="btn btn-primary" type="submit" value="Aceptar" onclick="EnviarMail()" />
                 </div>
             </div>
         </div>
@@ -104,14 +116,19 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/JsEvalSol/jsEvalSol.js")
-
+    <script src="~/Scripts/moment-with-locales.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#dtpFecha').datetimepicker({
+
+            $('#horaModal').datetimepicker({
+                format: 'HH:mm'
+            });
+
+            $('#fechaModal').datetimepicker({
                 format: 'DD/MM/YYYY'
             });
+
         });
 
         function BuscarSolicitud() {
@@ -185,7 +202,11 @@
                                 callback: function () {
                                     $("#nomSolicitante").val(datos.Solicitante);
                                     $("#idCorreo").val(datos.Email);
-                                    $("#myModal1").modal();
+                                    $('#btnExportar span').trigger('click');
+                                    $('#myModal1').modal({
+                                        keyboard: false,
+                                        backdrop: 'static'
+                                    }, 'show');
                                 }
                             });
                         } else {
@@ -214,6 +235,68 @@
                 });
                 return;
             }
+        }
+
+        function EnviarMail()
+        {
+            if ($("#idCorreo").val() === "") {
+                bootbox.alert({
+                    message: "Debe ingresar un correo.",
+                    size: 'small'
+                });
+                return false;
+            }
+
+            if ($("#fechaModal").val() === "") {
+                bootbox.alert({
+                    message: "Debe ingresar una fecha tentativa.",
+                    size: 'small'
+                });
+                return false;
+            }
+
+            if ($("#horaModal").val() === "") {
+                bootbox.alert({
+                    message: "Debe ingresar una hora tentativa.",
+                    size: 'small'
+                });
+                return false;
+            }
+
+            var solicitud = $("#hddCodSolicitud").val();
+            var fecha = $("#fechaModal").val();
+            var hora = $("#horaModal").val();
+            var mail = $("#idCorreo").val();
+
+            $.ajax({
+                url: "/Solicitud/EnviarCorreo",
+                type: "GET",
+                data: { id: solicitud, fecha: fecha, hora: hora, correo: mail },
+                dataType: "html",
+                traditional: true,
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var datos = jQuery.parseJSON(data);
+                    if (datos.status == true) {
+                        bootbox.alert({
+                            message: datos.message,
+                            size: 'small'
+                        });
+                    } else {
+                        bootbox.alert({
+                            message: datos.message,
+                            size: 'small'
+                        });
+                    }
+                    $("#myModal1").modal('toggle');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    bootbox.alert('error', textStatus, 'Error');
+                }
+            });
+
+            $("#hddCodSolicitud").val("");
         }
 
 </script>

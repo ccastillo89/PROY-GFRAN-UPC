@@ -15,5 +15,6 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string ErroresEncontrados { get; set; }
 
         public string ImageUrl { get; set; }
+        public bool Resultado { get; set; }
     }
 }

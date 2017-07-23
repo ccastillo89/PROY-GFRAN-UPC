@@ -19,5 +19,21 @@ namespace UPC.SISGFRAN.BL.Repositorios
         {
             return new SolicitudDA().GetResultadoEvaluacion(IdSolicitud);
         }
+
+        public SolicitudEL Actualizar(SolicitudEL solicitud)
+        {
+            return new SolicitudDA().Actualizar(solicitud);
+        }
+
+        public SolicitudEL GetSolicitudById(int solicitudId) 
+        {
+            return new SolicitudDA().GetSolicitudById(solicitudId);
+        }
+
+        public SolicitudEL RegistrarReporteEvaluacion(SolicitudEL solicitud)
+        {
+            return new SolicitudDA().RegistrarReporteEvaluacion(solicitud);
+        }
+
     }
 }
