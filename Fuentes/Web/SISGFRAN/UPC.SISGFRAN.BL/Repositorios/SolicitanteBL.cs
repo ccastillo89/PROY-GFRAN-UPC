@@ -15,6 +15,11 @@ namespace UPC.SISGFRAN.BL.Repositorios
             return new SolicitanteDA().GetSolicitantes();
         }
 
+        public SolicitudEL GetSolicitante(int id)
+        {
+            return new SolicitanteDA().GetSolicitante(id);
+        }
+
         public SolicitanteEL SetResultadoEvaluacion(int idSolicitante, bool fueRechazado = false)
         {
 

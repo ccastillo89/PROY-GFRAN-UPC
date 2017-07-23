@@ -91,6 +91,43 @@ namespace UPC.SISGFRAN.Web.Controllers
             reporte.ImageUrl = url + "Content/Images/" + imageName;
         }
 
+        public JsonResult EvaluacionCredito(string solicitante)
+        {
+            try
+            {
+                int idSolicitud = Convert.ToInt32(solicitante);
+                SolicitudEL oSolicitante;
+
+                //Obtener datos de la solicitud a Evaluar
+                oSolicitante = solicitanteBL.GetSolicitante(idSolicitud);
+                string strRiesgo;
+                strRiesgo = CalcularRiesgoEco(oSolicitante.NumeroDocumento);
+
+                return Json(new { status = true, message = "", nombre = oSolicitante.Solicitante.NombreCompleto, capital = oSolicitante.MontoCapital, riesgo = strRiesgo }, JsonRequestBehavior.AllowGet);
+ 
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private string CalcularRiesgoEco(string dni)
+        {
+            string resultado = "";
+            switch (dni)
+            {
+                case "45792117": resultado = "Bajo riesgo, No reporta información de deudas"; break;
+                case "40404548": resultado = "Mediano Riesgo, Deudas con poco atraso"; break;
+                case "10444478981": resultado = "Alto Riesgo, Deudas con atraso significativo"; break;
+                case "10445278981": resultado = "Mínimo Riesgo, Sin deudas vencidas"; break;
+                case "65523322": resultado = "Bajo riesgo, No reporta información de deudas"; break;
+                default:
+                    break;
+            }
+            return resultado;
+        }
+
         #endregion
 
     }
