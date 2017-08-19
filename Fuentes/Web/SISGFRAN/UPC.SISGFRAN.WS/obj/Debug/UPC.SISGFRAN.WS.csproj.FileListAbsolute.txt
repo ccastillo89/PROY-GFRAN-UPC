@@ -23,3 +23,10 @@ C:\Users\Rafae\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN
 C:\Users\Rafae\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.csprojResolveAssemblyReference.cache
 C:\Users\Rafae\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.dll
 C:\Users\Rafae\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.pdb
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.WS.dll
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.WS.pdb
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.csprojResolveAssemblyReference.cache
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.dll
+C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.pdb

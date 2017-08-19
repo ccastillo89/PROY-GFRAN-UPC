@@ -34,7 +34,7 @@ namespace UPC.SISGFRAN.DAL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PARDOSDB")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BDPARDOS")]
         public string databaseName {
             get {
                 return ((string)(this["databaseName"]));
@@ -88,7 +88,7 @@ namespace UPC.SISGFRAN.DAL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVER7\\SQLEXPRESS")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".")]
         public string serverName {
             get {
                 return ((string)(this["serverName"]));
@@ -97,7 +97,7 @@ namespace UPC.SISGFRAN.DAL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Sredes")]
+        [global::System.Configuration.DefaultSettingValueAttribute("RDCH2016.")]
         public string Password {
             get {
                 return ((string)(this["Password"]));

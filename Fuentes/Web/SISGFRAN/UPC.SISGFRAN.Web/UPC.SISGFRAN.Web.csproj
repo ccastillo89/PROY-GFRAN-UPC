@@ -142,17 +142,27 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\flexslider.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\1.jpg" />
+    <Content Include="Content\Images\2.jpg" />
+    <Content Include="Content\Images\3.jpg" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\BajoRiesgo.png" />
     <Content Include="Content\Images\bg-module.jpg" />
     <Content Include="Content\Images\FondoInicio.jpg" />
     <Content Include="Content\Images\horizontal.png" />
+    <Content Include="Content\Images\imagen1.jpg" />
+    <Content Include="Content\Images\imagen2.jpg" />
+    <Content Include="Content\Images\imagen3.jpg" />
+    <Content Include="Content\Images\imagen4.jpg" />
     <Content Include="Content\Images\logo-pardos.png" />
     <Content Include="Content\Images\logo_pc.jpeg" />
     <Content Include="Content\Images\vertical.png" />
     <Content Include="Content\Images\Wait.gif" />
+    <Content Include="Content\js\jquery.flexslider-min.js" />
+    <Content Include="Content\js\jquery.flexslider.js" />
     <Content Include="Content\login.css" />
     <Content Include="Content\WebGridPardos.css" />
     <Content Include="favicon.ico" />
@@ -177,6 +187,8 @@
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.flexslider-min.js" />
+    <Content Include="Scripts\jquery.flexslider.js" />
     <Content Include="Scripts\JsLogin\Login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
