@@ -220,6 +220,7 @@
     <Content Include="Views\Solicitante\Index.cshtml" />
     <Content Include="Views\Solicitante\_Solicitud.cshtml" />
     <Content Include="Views\Solicitante\_ReporteEval.cshtml" />
+    <Content Include="Views\Solicitante\_EvaluarSolicitante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

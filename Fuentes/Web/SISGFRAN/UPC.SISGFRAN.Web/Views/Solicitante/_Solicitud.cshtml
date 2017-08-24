@@ -32,9 +32,10 @@
                  grid.Column("Solicitante.MontoIngresosMes", "Salario", format: @<text><span id="ing_@item.NumeroDocumento">@item.Solicitante.MontoIngresosMes</span></text>),
                  grid.Column("Solicitante.MontoGastosMes", "Gastos", format: @<text><span id="gast_@item.NumeroDocumento">@item.Solicitante.MontoGastosMes</span></text>),
                  grid.Column("Solicitante.Cargo", "Cargo", format: @<text><span id="cargo_@item.NumeroDocumento">@item.Solicitante.Cargo</span></text>),
-                 grid.Column("Solicitante.FechaNacimiento", "Fecha Nacimiento", format: @<text><span id="fecha_@item.NumeroDocumento">@String.Format("{0:dd-MM-yyyy}", @item.Solicitante.FechaNacimiento)</span></text>, style: "col-md-1")
-                
- ));
+                 grid.Column("Solicitante.FechaNacimiento", "Fecha Nacimiento", format: @<text><span id="fecha_@item.NumeroDocumento">@String.Format("{0:dd-MM-yyyy}", @item.Solicitante.FechaNacimiento)</span></text>, style: "col-md-1"),
+                 grid.Column("FechaSolicitud", "Fecha Solicitud", format: @<text><span id="fecha_@item.NumeroDocumento">@String.Format("{0:dd-MM-yyyy}", @item.FechaSolicitud)</span></text>, style: "col-md-1")
+
+));
 }
 
 </div>

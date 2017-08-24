@@ -18,7 +18,7 @@ namespace UPC.SISGFRAN.Web.Controllers
         SolicitanteBL solicitanteBL = new SolicitanteBL();
         #endregion
 
-        public ActionResult Index(int page = 1, int pageSize = 10, string sort = "Id", string sortdir = "DESC")
+        public ActionResult Index(int page = 1, int pageSize = 10, string sort = "FechaSolicitud", string sortdir = "ASC")
         {
             SolicitudEL records = new SolicitudEL();
             ListaPaginada<SolicitudEL> listaContentSolicitante = new ListaPaginada<SolicitudEL>();

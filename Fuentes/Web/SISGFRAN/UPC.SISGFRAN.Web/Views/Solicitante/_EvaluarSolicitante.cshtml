@@ -32,14 +32,14 @@
             </div>
             <br />
             <div class="form-group row col-md-3">
-                    <span class="input-group-btn" style="padding-left:0px;">
-                        <a class="btn btn-success" href='#' onclick="EvaluarSolicitante();" id='btnEvaluarSolicitante' title='Evaluar Solicitante'>
-                            <span class='glyphicon glyphicon-tasks'>
-                                Evaluar solicitante
-                            </span>
-                        </a>
-                    </span>
-                </div>
+                <span class="input-group-btn" style="padding-left:0px;">
+                    <a class="btn btn-success" href='#' onclick="EvaluarSolicitante();" id='btnEvaluarSolicitante' title='Evaluar Solicitante'>
+                        <span class='glyphicon glyphicon-tasks'>
+                            Evaluar solicitante
+                        </span>
+                    </a>
+                </span>
+            </div>
         </fieldset>
     </div>
 </div>
@@ -53,27 +53,27 @@
                 </button>
                 <h2 class="modal-title">Reporte Crediticio</h2>
             </div>
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    <div class="container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#menu1">Datos del solicitante</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="menu1" class="tab-pane fade in active">
-                                <label>Solicitante</label>
-                                <input type="text" class="form-control" id="nomSolicitante" />
-                                <label>Capital</label>
-                                <input type="text" class="form-control" value="0" id="capital" />
-                                <label>Riesgo</label>
-                                <input type="text" class="form-control" id="txtRiesgo" />
-                            </div>
+                <div class="container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#menu1">Datos del solicitante</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="menu1" class="tab-pane fade in active">
+                            <label>Solicitante</label>
+                            <input type="text" class="form-control" id="nomSolicitante" />
+                            <label>Capital</label>
+                            <input type="text" class="form-control" value="0" id="capital" />
+                            <label>Riesgo</label>
+                            <input type="text" class="form-control" id="txtRiesgo" />
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cerrar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -91,9 +91,9 @@
             {
                 <div class="modal-body">
                     <div class="container">
-                        <ul class="nav nav-tabs">                        
-                            <li class="active" ><a data-toggle="tab" href="#menu1">Datos Reniec</a></li>
-                            <li><a data-toggle="tab" href="#menu2">Información Financiera</a></li>                        
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#menu1">Datos Reniec</a></li>
+                            <li><a data-toggle="tab" href="#menu2">Información Financiera</a></li>
                         </ul>
 
                         <div id="myTabContent" class="tab-content">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnEvaluar" class="btn btn-success"  type="submit">Enviar a evaluación crediticia</button>
+                    <button id="btnEvaluar" class="btn btn-success" type="submit">Enviar a evaluación crediticia</button>
                 </div>
             }
         </div>
@@ -146,7 +146,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            
+
         });
 
         function SolicitudSelected(radio) {
@@ -163,7 +163,7 @@
 
         function EvaluarSolicitante() {
             var solicitud = $("#hddCodSolicitud").val();
-            
+
             if (solicitud == "") {
                 bootbox.alert({
                     message: "Por favor, seleccione un solicitante.",
@@ -190,7 +190,7 @@
                                 type: 'GET',
                                 data: { id: id },
                                 success: function (valid) {
-                                 
+
                                 }
                             });
                             location.reload();
@@ -201,7 +201,7 @@
                 }
 
                 bootbox.alert("Verificación Correcta"
-                , function () {                    
+                , function () {
                     $('#mEvaluar').modal('show');
                     $("#NroDoc").val($("#num_" + solicitud).text());
                     $("#NombreCompleto").val($("#nom_" + solicitud).text());
@@ -216,7 +216,7 @@
 
             }
         }
-        
+
         function EvaluacionCrediticia() {
             var solicitud = $("#hddCodSolicitud").val();
         }
