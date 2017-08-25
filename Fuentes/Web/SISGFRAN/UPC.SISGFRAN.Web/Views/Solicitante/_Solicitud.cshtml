@@ -27,21 +27,9 @@
                  grid.Column("Solicitante.NombreCompleto", "Solicitante", format: @<text><input type="hidden" id="id_@item.NumeroDocumento" value="@item.Solicitante.Id" /><span class="nom_@item.Id" id="nom_@item.NumeroDocumento">@item.Solicitante.NombreCompleto</span></text>),
                  grid.Column("Solicitante.TipoDocumento.Nombre", "Tipo Documento"),
                  grid.Column("NumeroDocumento", "Nro. Documento", format: @<text><span id="num_@item.NumeroDocumento">@item.NumeroDocumento</span></text>),
-<<<<<<< HEAD
                  grid.Column("FechaSolicitud", "Fecha de Solicitud ", format: @<text>@String.Format("{0:dd-MM-yyyy}", item.FechaSolicitud) </text>)
                 
  ));
-=======
-                 grid.Column("Solicitante.TituloObtenido", "Grado de Instrucción", format: @<text><span id="grad_@item.NumeroDocumento">@item.Solicitante.TituloObtenido</span></text>),
-                 grid.Column("Solicitante.Sexo.Nombre", "Sexo", format: @<text><span id="sexo_@item.NumeroDocumento">@item.Solicitante.Sexo.Nombre</span></text>),
-                 grid.Column("Solicitante.MontoIngresosMes", "Salario", format: @<text><span id="ing_@item.NumeroDocumento">@item.Solicitante.MontoIngresosMes</span></text>),
-                 grid.Column("Solicitante.MontoGastosMes", "Gastos", format: @<text><span id="gast_@item.NumeroDocumento">@item.Solicitante.MontoGastosMes</span></text>),
-                 grid.Column("Solicitante.Cargo", "Cargo", format: @<text><span id="cargo_@item.NumeroDocumento">@item.Solicitante.Cargo</span></text>),
-                 grid.Column("Solicitante.FechaNacimiento", "Fecha Nacimiento", format: @<text><span id="fecha_@item.NumeroDocumento">@String.Format("{0:dd-MM-yyyy}", @item.Solicitante.FechaNacimiento)</span></text>, style: "col-md-1"),
-                 grid.Column("FechaSolicitud", "Fecha Solicitud", format: @<text><span id="fecha_@item.NumeroDocumento">@String.Format("{0:dd-MM-yyyy}", @item.FechaSolicitud)</span></text>, style: "col-md-1")
-
-));
->>>>>>> 4e05a7bb861f5dc3175ba8da5c062128ed221765
 }
 
 </div>

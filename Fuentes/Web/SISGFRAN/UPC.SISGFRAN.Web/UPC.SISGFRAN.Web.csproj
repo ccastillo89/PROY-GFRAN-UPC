@@ -221,11 +221,7 @@
     <Content Include="Views\Solicitante\Index.cshtml" />
     <Content Include="Views\Solicitante\_Solicitud.cshtml" />
     <Content Include="Views\Solicitante\_ReporteEval.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Solicitante\EvaluacionSolicitante.cshtml" />
-=======
-    <Content Include="Views\Solicitante\_EvaluarSolicitante.cshtml" />
->>>>>>> 4e05a7bb861f5dc3175ba8da5c062128ed221765
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

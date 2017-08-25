@@ -9,7 +9,6 @@
 }
 
 <!-- Paneles -->
-<<<<<<< HEAD
 @using (Html.BeginForm("EvaluacionSolicitante", "Solicitante", FormMethod.Get))
             {
         <div class="container2">
@@ -37,35 +36,6 @@
                     <div class="form-group row col-md-3">
                             <span class="input-group-btn" style="padding-left:5px;">                                
                                 <button id="btnEvaluar" class="btn btn-success" type="submit">Evaluar Solicitante</button>
-=======
-<div class="container2">
-    <div class="margenPanelRigth">
-        <fieldset>
-            <legend>Explorador de Solicitantes de Franquicia</legend>
-            <div class="form-group row OcultarDiv">
-                <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
-            </div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-table"></i> Listado de solicitantes a evaluar</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div id="gridSolicitud2">
-                                @Html.Partial("_solicitud")
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div class="form-group row col-md-3">
-                    <span class="input-group-btn" style="padding-left:0px;">
-                        <a class="btn btn-success" href='#' onclick="EvaluarSolicitante();" id='btnEvaluarSolicitante' title='Evaluar Solicitante'>
-                            <span class='glyphicon glyphicon-tasks'>
-                                Evaluar solicitante
->>>>>>> 4e05a7bb861f5dc3175ba8da5c062128ed221765
                             </span>
                         </div>
                 </fieldset>
@@ -194,7 +164,7 @@
             
             if (solicitud == "") {
                 bootbox.alert({
-                    message: "Por favor, seleccione un solicitante.",
+                    message: "Seleccione solicitante a evaluar",
                     size: 'small'
                 });
                 return;
