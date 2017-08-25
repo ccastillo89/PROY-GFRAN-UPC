@@ -17,8 +17,3 @@ C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGF
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\bin\Debug\UPC.SISGFRAN.EL.pdb
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.dll
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.pdb
-C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\bin\Debug\UPC.SISGFRAN.EL.dll
-C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\bin\Debug\UPC.SISGFRAN.EL.pdb
-C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.csprojResolveAssemblyReference.cache
-C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.dll
-C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.pdb

@@ -34,7 +34,7 @@ namespace UPC.SISGFRAN.DAL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PARDOSDB")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BDPARDOS")]
         public string databaseName {
             get {
                 return ((string)(this["databaseName"]));
@@ -97,7 +97,7 @@ namespace UPC.SISGFRAN.DAL.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Peru123.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("RDCH2016.")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
