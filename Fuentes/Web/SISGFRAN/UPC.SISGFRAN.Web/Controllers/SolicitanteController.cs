@@ -8,6 +8,7 @@ using System.Web.Security;
 using UPC.SISGFRAN.BL.Repositorios;
 using UPC.SISGFRAN.EL.Inherited;
 using UPC.SISGFRAN.EL.NonInherited;
+using UPC.SISGFRAN.Web.Helper;
 using UPC.SISGFRAN.Web.Helper.PdfReportGenerator;
 
 namespace UPC.SISGFRAN.Web.Controllers
@@ -18,7 +19,7 @@ namespace UPC.SISGFRAN.Web.Controllers
         SolicitanteBL solicitanteBL = new SolicitanteBL();
         #endregion
 
-        public ActionResult Index(int page = 1, int pageSize = 10, string sort = "Id", string sortdir = "DESC")
+        public ActionResult Index(int page = 1, int pageSize = 10, string sort = "FechaSolicitud", string sortdir = "asc")
         {
             SolicitudEL records = new SolicitudEL();
             ListaPaginada<SolicitudEL> listaContentSolicitante = new ListaPaginada<SolicitudEL>();
@@ -42,10 +43,27 @@ namespace UPC.SISGFRAN.Web.Controllers
         }
 
         
-        public ActionResult EvaluacionCrediticia(int id)
+
+        public ActionResult EvaluacionSolicitante(String hddCodSolicitud)
         {
+            CreditoBancario credito = new CreditoBancario();
+
+            credito.nombreBanco = "BCP";
+            credito.numeroProducto = "8445778516";
+            credito.tipoProducto = "Tarjeta de crédito";
+            credito.estado = "Activo";
+            credito.saldoCredito = "3000";
+            credito.saldoActual = "25";
+            credito.formaPago = "Mensual";
+            credito.bancario = "SI";
+
+            List<CreditoBancario> listaCreditos = new List<CreditoBancario>();
+            listaCreditos.Add(credito);
+
             //ESTE ID QUE SE ESTÁ PASANDO ES DEL SOLICITANTE... AQUÍ DEBERÍA CONECTARSE CON EL SERVICIO
-            string titulo = string.Empty;
+            return View(listaCreditos);
+
+          /*  string titulo = string.Empty;
             int solId = id;
              var a = new SolicitanteBL();
             SolicitanteEL solicitanteEval = a.SetResultadoEvaluacion(id);
@@ -65,7 +83,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 TempData["msg"] = "No existe evaluación";
                 return RedirectToAction("Index");
             }
-
+            */
 
         }
 

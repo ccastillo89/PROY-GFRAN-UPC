@@ -1,0 +1,169 @@
+﻿@model IEnumerable<UPC.SISGFRAN.Web.Helper.CreditoBancario>
+
+@{
+    ViewBag.Title = "Evaluar solicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    
+
+    var grid= new WebGrid(
+        source: Model,
+        rowsPerPage: 4, canPage: true, canSort: false);
+}
+
+<div class="container2">
+    <div class="margenPanelRigth">
+        <fieldset>
+            <legend><center>Evaluar Solicitante</center></legend>
+            <div class="form-group row OcultarDiv">
+                <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-table"></i> Datos Reniec</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="gridEvaluarSolicitante">
+                                <table>
+                                    <tr style="height: 50px;">
+                                        <td>
+                                            Número Documento:
+                                        </td>
+                                        <td colspan="3"><input type="text" size="12" name="NumeroDocumento" value="" id="NumeroDocumento" /></td>
+                                        <td></td>
+                                        <td>Nombres y Apellidos:</td>
+                                        <td colspan="2"><input type="text" size="50" name="nombreApellido" value="" id="nombreApellido" /></td>
+                                    </tr>
+                                    <tr style="height: 50px;">
+                                        <td style="width:15%">
+                                            Fecha de Nacimiento:
+                                        </td>
+                                        <td><input type="text" size="12" name="FechaNacimiento" value="" id="FechaNacimiento" /></td>
+                                        <td></td>
+                                        <td>Sexo:</td>
+                                        <td><input type="text" size="12" name="Sexo" value="" id="Sexo" /></td>
+                                        <td></td>
+                                        <td>Estado civil:</td>
+                                        <td><input type="text" size="12" name="EstadoCivil" value="" id="EstadoCivil" /></td>
+                                    </tr>
+                                    <tr style="height: 50px;">
+                                        <td>
+                                            Dirección:
+                                        </td>
+                                        <td colspan="3"><input type="text" size="65" name="direccion" value="" id="direccion" /></td>
+                                        <td></td>
+                                        <td>Departamento:</td>
+                                        <td colspan="2"><input type="text" size="65" name="departamento" value="" id="departamento" /></td>
+                                    </tr>
+                                    <tr style="height: 50px;">
+                                        <td>
+                                            Provincia:
+                                        </td>
+                                        <td colspan="3"><input type="text" size="65" name="Provincia" value="" id="Provincia" /></td>
+                                        <td></td>
+                                        <td>Distrito:</td>
+                                        <td colspan="2"><input type="text" size="65" name="Distrito" value="" id="Distrito" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-table"></i> Información Crediticia</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="gridInformacionCrediticia">
+                                <table>
+                                    <tr style="height: 50px;">
+                                        <td>
+                                            Ingresos del solicitante:
+                                        </td>
+                                        <td><input type="text" size="20" name="ingresos" value="" id="ingresos" /></td>
+                                        <td>Gastos del solicitante:</td>
+                                        <td><input type="text" size="20" name="gastos" value="" id="gastos" /></td>
+                                    </tr>
+                                </table>
+
+                                <br />
+                                <table>
+                                    <tr><td>Créditos bancarios</td></tr>
+                                </table>
+
+                                <div id="gridSolicitud">
+                                    @grid.GetHtml(
+                                             tableStyle: "webgrid",
+                                             headerStyle: "webgrid-header",
+                                             footerStyle: "webgrid-footer",
+                                             alternatingRowStyle: "webgrid-alternating-row",
+                                             selectedRowStyle: "webgrid-selected-row",
+                                             rowStyle: "webgrid-row-style",
+                                    columns: grid.Columns(
+                                                      grid.Column("nombreBanco", "Nombre banco", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Número Producto", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Tipo Producto", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Estado", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Saldo crédito", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Saldo actual", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Fecha pago", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Forma pago", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Comportamiento", style: "col-md-1")
+                                    )
+                                    )
+                                </div>
+                                <br />
+                                <br />
+                                <table>
+                                    <tr><td>Créditos no bancarios</td></tr>
+                                </table>
+                                <div id="gridSolicitud">
+                                    @grid.GetHtml(
+                                             tableStyle: "webgrid",
+                                             headerStyle: "webgrid-header",
+                                             footerStyle: "webgrid-footer",
+                                             alternatingRowStyle: "webgrid-alternating-row",
+                                             selectedRowStyle: "webgrid-selected-row",
+                                             rowStyle: "webgrid-row-style",
+                                    columns: grid.Columns(
+                                                      grid.Column("nombreBanco", "Nombre banco", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Número Producto", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Tipo Producto", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Estado", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Saldo crédito", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Saldo actual", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Fecha pago", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Forma pago", style: "col-md-1"),
+                                                      grid.Column("nombreBanco", "Comportamiento", style: "col-md-1")
+                                    )
+                                    )
+                                </div>
+                                <table>
+                                    <tr><td colspan="3">Leyenda:</td></tr>
+                                    <tr><td>Al corriente</td><td>Atraso</td><td>Deudor</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group row col-md-3">
+                <span class="input-group-btn" style="padding-left:5px;">
+                    <button id="btnEvaluar" class="btn btn-success" type="submit">Evaluación Crediticia</button>
+                </span>
+            </div>
+        </fieldset>
+    </div>
+</div>
