@@ -39,3 +39,8 @@ C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.csprojResolveAssemblyReference.cache
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb

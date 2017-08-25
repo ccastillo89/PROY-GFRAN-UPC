@@ -1,11 +1,13 @@
-﻿using System;
+﻿using UPC.SISGFRAN.EL.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace UPC.SISGFRAN.Web.Helper
+namespace UPC.SISGFRAN.EL.Inherited
 {
-    public class CreditoBancario
+    public class DeudorEL : BaseEL
     {
         public int Id { get; set; }
         public string ApellidoPaterno { get; set; }
@@ -17,9 +19,6 @@ namespace UPC.SISGFRAN.Web.Helper
         public string UbigeoNac { get; set; }
         public string FechaEmision { get; set; }
         public string PeriodoReportado { get; set; }
-        public string NombreCompleto { get; set; }
-        public List<CreditoBancarioDetalle> CreditoBancarioDetalle { get; set; }
-
-
+        public List<DeudaDetalleEL> DeudaDetalle { get; set; }
     }
 }

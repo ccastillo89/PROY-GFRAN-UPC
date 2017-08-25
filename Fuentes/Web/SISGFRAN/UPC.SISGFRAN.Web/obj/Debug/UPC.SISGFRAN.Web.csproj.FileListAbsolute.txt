@@ -179,3 +179,41 @@ C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGF
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.csprojResolveAssemblyReference.cache
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.dll
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.Web.dll.config
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.Web.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.Web.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\Antlr3.Runtime.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\itextsharp.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\Newtonsoft.Json.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Linq.Dynamic.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Helpers.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Mvc.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Optimization.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Razor.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.WebPages.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.WebPages.Razor.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.BL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.EL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.WS.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\WebGrease.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.DAL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\DAAB.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.BL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.EL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.WS.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Helpers.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Mvc.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Optimization.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.Razor.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.WebPages.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\System.Web.WebPages.Razor.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\Newtonsoft.Json.xml
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\Antlr3.Runtime.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\UPC.SISGFRAN.DAL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\bin\DAAB.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.csprojResolveAssemblyReference.cache
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.Web\obj\Debug\UPC.SISGFRAN.Web.pdb

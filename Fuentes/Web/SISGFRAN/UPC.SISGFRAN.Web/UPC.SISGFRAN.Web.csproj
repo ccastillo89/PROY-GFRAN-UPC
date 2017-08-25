@@ -51,6 +51,9 @@
     <Reference Include="System.Linq.Dynamic">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -129,6 +132,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CreditoBancario.cs" />
+    <Compile Include="Helper\CreditoBancarioDetalle.cs" />
     <Compile Include="Helper\Mail\MailHelper.cs" />
     <Compile Include="Helper\PdfReportGenerator\BinaryContentResult.cs" />
     <Compile Include="Helper\PdfReportGenerator\FakeView.cs" />
@@ -220,6 +225,7 @@
     <Content Include="Views\Solicitante\Index.cshtml" />
     <Content Include="Views\Solicitante\_Solicitud.cshtml" />
     <Content Include="Views\Solicitante\_ReporteEval.cshtml" />
+    <Content Include="Views\Solicitante\EvaluacionSolicitante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">
@@ -242,6 +248,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

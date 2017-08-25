@@ -46,47 +46,47 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         public ActionResult EvaluacionSolicitante(String hddCodSolicitud)
         {
-            CreditoBancario credito = new CreditoBancario();
+            DeudorBL deudorBL = new DeudorBL();
 
-            credito.nombreBanco = "BCP";
-            credito.numeroProducto = "8445778516";
-            credito.tipoProducto = "Tarjeta de crédito";
-            credito.estado = "Activo";
-            credito.saldoCredito = "3000";
-            credito.saldoActual = "25";
-            credito.formaPago = "Mensual";
-            credito.bancario = "SI";
+            DeudorEL deudor = deudorBL.ConsultaSBS("45792116");
 
-            List<CreditoBancario> listaCreditos = new List<CreditoBancario>();
-            listaCreditos.Add(credito);
+            CreditoBancario creditoBancario = new CreditoBancario();
 
-            //ESTE ID QUE SE ESTÁ PASANDO ES DEL SOLICITANTE... AQUÍ DEBERÍA CONECTARSE CON EL SERVICIO
-            return View(listaCreditos);
+            metodoSetear(creditoBancario, deudor);
 
-          /*  string titulo = string.Empty;
-            int solId = id;
-             var a = new SolicitanteBL();
-            SolicitanteEL solicitanteEval = a.SetResultadoEvaluacion(id);
+            return View(creditoBancario);
 
-            if (solicitanteEval != null)
-            {
-                //titulo = "Evaluación de la solicitud N° " + solicitudEval.NumSolicitud;
-                //FillImageUrl(solicitudEval.ReporteEvaluacion, "logo_pc.jpeg");
-                //return this.ViewPdf(titulo, "_ReporteEval", solicitudEval);
-
-                TempData["id"] = id;
-                TempData["msg"] = (solicitanteEval.FueAprobado ? "Solicitante Aprobado" : "Solicitante Rechazado");
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                TempData["msg"] = "No existe evaluación";
-                return RedirectToAction("Index");
-            }
-            */
 
         }
 
+        public void metodoSetear(CreditoBancario creditoBancario, DeudorEL deudor)
+        {
+            creditoBancario.NombreCompleto = deudor.ApellidoPaterno + " " + deudor.ApellidoMaterno + ", " + deudor.Nombres;
+            creditoBancario.NumeroDocumento = deudor.NumeroDocumento;
+            creditoBancario.FechaNacimiento = deudor.FechaNacimiento;
+
+            List <CreditoBancarioDetalle> detalleCredito = new List<CreditoBancarioDetalle>();
+            
+            foreach (DeudaDetalleEL s in deudor.DeudaDetalle){
+                CreditoBancarioDetalle creditoDetalle = new CreditoBancarioDetalle();
+                creditoDetalle.Calificacion = s.Calificacion;
+                creditoDetalle.Capital = s.Capital;
+                creditoDetalle.CodCalificacion = s.CodCalificacion;
+                creditoDetalle.CodEstadoProducto = s.CodEstadoProducto;
+                creditoDetalle.CodFrecuenciaPago=s.CodFrecuenciaPago;
+                creditoDetalle.CodTipoProducto = s.CodTipoProducto;
+                creditoDetalle.DeudaTotal = s.DeudaTotal;
+                creditoDetalle.EntidadFinanciera = s.EntidadFinanciera;
+                creditoDetalle.EstadoProducto = s.EstadoProducto;
+                creditoDetalle.Id = s.Id;
+                creditoDetalle.Intereses = s.Intereses;
+                creditoDetalle.NumeroProducto = s.NumeroProducto;
+                creditoDetalle.FrecuenciaPago = s.FrecuenciaPago;
+                creditoDetalle.TipoProducto = s.TipoProducto;
+                detalleCredito.Add(creditoDetalle);
+            }
+            creditoBancario.CreditoBancarioDetalle = detalleCredito;
+        }
 
         public ActionResult RechazarSolicitud(int id)
         {

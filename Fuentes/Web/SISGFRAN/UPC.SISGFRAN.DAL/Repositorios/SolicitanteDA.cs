@@ -88,6 +88,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     solicitante.TipoDocumento = oTipoDocumento;
                     solicitante.FechaNacimiento = Funciones.CheckDate(dr["FechaNacimiento"]);
                     item.NumeroDocumento = Funciones.CheckStr(dr["NumeroDocumento"]);
+                    item.FechaSolicitud = Funciones.CheckDate(dr["FechaSolicitud"]);
                                
                     item.Solicitante = solicitante;
                     lstSolicitudes.Add(item);

@@ -9,8 +9,8 @@ namespace UPC.SISGFRAN.EL.Comunes
 {
     public class Constantes
     {
-        public static string servidorSeg = ConfigurationManager.AppSettings["ServidorSeguridadWS"];
-        public static string puertoSeg = ConfigurationManager.AppSettings["PuertoSeguridadWS"];
+        public static string servidorSBS = ConfigurationManager.AppSettings["ServidorSBSWS"];
+        public static string puertoSBS = ConfigurationManager.AppSettings["PuertoSBSWS"];
         public static string CodigoAplicacion = ConfigurationManager.AppSettings["CodAplicacion"];
 
 
