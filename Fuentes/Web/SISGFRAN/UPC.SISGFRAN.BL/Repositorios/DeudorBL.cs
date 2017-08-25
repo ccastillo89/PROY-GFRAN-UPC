@@ -7,7 +7,7 @@ using UPC.SISGFRAN.EL.Inherited;
 using System.Web.Script.Serialization;
 using System.Net;
 using System.IO;
-using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 using UPC.SISGFRAN.EL.Comunes;
 
 namespace UPC.SISGFRAN.BL.Repositorios
