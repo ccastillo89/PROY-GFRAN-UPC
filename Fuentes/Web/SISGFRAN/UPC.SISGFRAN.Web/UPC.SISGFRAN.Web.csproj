@@ -129,7 +129,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\CreditoBancario.cs" />
     <Compile Include="Helper\Mail\MailHelper.cs" />
     <Compile Include="Helper\PdfReportGenerator\BinaryContentResult.cs" />
     <Compile Include="Helper\PdfReportGenerator\FakeView.cs" />
@@ -221,7 +220,6 @@
     <Content Include="Views\Solicitante\Index.cshtml" />
     <Content Include="Views\Solicitante\_Solicitud.cshtml" />
     <Content Include="Views\Solicitante\_ReporteEval.cshtml" />
-    <Content Include="Views\Solicitante\EvaluacionSolicitante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

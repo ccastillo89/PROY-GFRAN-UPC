@@ -36,7 +36,7 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string NombreCompleto { get { return string.Concat(ApellidoPaterno, " ", ApellidoMaterno, ", ", Nombres); } }
         public ParametroEL Sexo { get; set; }
         public ParametroEL EstadoCivil { get; set; }
-        public DateTime FechaIniCargoAct { get; set; }
+        public DateTime FechaIniCargoActual { get; set; }
         public DateTime FechaFinCargoActual { get; set; }
         public string NombreJefeDirecto { get; set; }
         public string TelefonoJefeDirecto { get; set; }

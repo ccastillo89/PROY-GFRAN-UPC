@@ -64,9 +64,8 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                 {
                     SolicitudEL item = new SolicitudEL();
                     item.Id = Funciones.CheckInt(dr["IdSolicitud"]);
-                    item.NumSolicitud = Funciones.CheckStr(dr["NumSolicitud"]);
-                    item.FechaSolicitud = Funciones.CheckDate(dr["FechaSolicitud"]);   
-
+                    item.NumSolicitud = Funciones.CheckStr(dr["NumSolicitud"]);                    
+                    
                     SolicitanteEL solicitante = new SolicitanteEL();
                     solicitante.Id = Funciones.CheckInt(dr["IdSolicitante"]);
                     solicitante.ApellidoPaterno = Funciones.CheckStr(dr["ApellidoPaterno"]);
@@ -88,7 +87,6 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     solicitante.Cargo = Funciones.CheckStr(dr["Cargo"]);
                     solicitante.TipoDocumento = oTipoDocumento;
                     solicitante.FechaNacimiento = Funciones.CheckDate(dr["FechaNacimiento"]);
-                    
                     item.NumeroDocumento = Funciones.CheckStr(dr["NumeroDocumento"]);
                                
                     item.Solicitante = solicitante;
