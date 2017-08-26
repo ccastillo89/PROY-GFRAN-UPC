@@ -37,3 +37,10 @@ C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\F
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.csprojResolveAssemblyReference.cache
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.dll
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.WS.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.WS.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.csprojResolveAssemblyReference.cache
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.WS\obj\Debug\UPC.SISGFRAN.WS.pdb

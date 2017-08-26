@@ -21,5 +21,7 @@ namespace UPC.SISGFRAN.Web.Helper
         public string DeudaTotal { get; set; }
         public int CodFrecuenciaPago { get; set; }
         public string FrecuenciaPago { get; set; }
+
+        public int calificacionCliente { get; set; }
     }
 }

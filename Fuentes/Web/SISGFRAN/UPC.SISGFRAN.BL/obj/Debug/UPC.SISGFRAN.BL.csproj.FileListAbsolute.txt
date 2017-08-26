@@ -54,3 +54,25 @@ C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\F
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.csprojResolveAssemblyReference.cache
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.dll
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\Proyecto_Franquicia\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.BL.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.BL.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.DAL.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\DAAB.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.DAL.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\DAAB.pdb
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.csprojResolveAssemblyReference.cache
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.dll
+C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.BL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.BL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.DAL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\DAAB.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.DAL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\DAAB.pdb
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.csprojResolveAssemblyReference.cache
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.dll
+C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.pdb

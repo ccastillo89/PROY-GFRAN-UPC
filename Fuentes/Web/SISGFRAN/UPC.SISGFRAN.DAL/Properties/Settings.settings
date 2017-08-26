@@ -5,9 +5,6 @@
     <Setting Name="providerName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">System.Data.SqlClient</Value>
     </Setting>
-    <Setting Name="databaseName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">PARDOSDB</Value>
-    </Setting>
     <Setting Name="IntegratedSecurity" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -24,10 +21,14 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="serverName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SERVER7\SQLEXPRESS</Value>
+      <Value Profile="(Default)">.</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Sredes</Value>
+      <Value Profile="(Default)">Peru123.</Value>
+    </Setting>
+    <Setting Name="databaseName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">PARDOSDB
+                </Value>
     </Setting>
   </Settings>
 </SettingsFile>

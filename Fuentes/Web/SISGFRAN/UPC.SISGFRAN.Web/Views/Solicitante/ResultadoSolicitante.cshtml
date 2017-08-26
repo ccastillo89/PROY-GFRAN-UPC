@@ -1,0 +1,96 @@
+﻿@model UPC.SISGFRAN.Web.Helper.ReporteCrediticio
+
+@{
+    ViewBag.Title = "Evaluar solicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "Solicitante"))
+
+{
+
+<div class="container2">
+    <div class="margenPanelRigth">
+        <fieldset>
+            <legend><center>Reporte Crediticio</center></legend>
+            <div class="form-group row OcultarDiv">
+                <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-table"></i> Datos del solicitante</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table>
+                                <tr>
+                                    <td>Capital disponible mensual:</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" name="capitalDisponible" value="@Html.DisplayTextFor(model => model.capitalDisponibleMensual)" size="80"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Clasificación crediticia:</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" name="clasificacionCrediticia" value="@Html.DisplayTextFor(model => model.clasificacionCrediticia)" size="80"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Comentario sobre la clasificación crediticia:</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea rows="4" cols="50">@Html.DisplayTextFor(model => model.comentario)</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Riesgos</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea rows="4" cols="50">@Html.DisplayTextFor(model => model.riesgos)</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Estado:</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" name="estado" value="@Html.DisplayTextFor(model => model.estado)" size="40"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br />
+            <div class="form-group row col-md-3">
+                <span class="input-group-btn" style="padding-left:5px;">
+                    <button id="btnEvaluar" class="btn btn-success" type="submit">Cerrar</button>
+                </span>
+            </div>
+        </fieldset>
+    </div>
+</div>
+}

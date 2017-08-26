@@ -7,8 +7,8 @@ using UPC.SISGFRAN.EL.Inherited;
 using System.Web.Script.Serialization;
 using System.Net;
 using System.IO;
-using System.Runtime.Serialization;
 using UPC.SISGFRAN.EL.Comunes;
+using System.Web.Script.Serialization;
 
 namespace UPC.SISGFRAN.BL.Repositorios
 {
@@ -22,7 +22,7 @@ namespace UPC.SISGFRAN.BL.Repositorios
             
             req.Method = "GET";
             HttpWebResponse res = null;
-            DeudorEL deudor = null;
+            DeudorEL deudor = new DeudorEL();
             try
             {
                 res = (HttpWebResponse)req.GetResponse();
@@ -32,16 +32,22 @@ namespace UPC.SISGFRAN.BL.Repositorios
                 deudor = js.Deserialize<DeudorEL>(deudorJson);
 
             }
+            
             catch (WebException e)
             {
-                HttpStatusCode code = ((HttpWebResponse)e.Response).StatusCode;
+                /*HttpStatusCode code = ((HttpWebResponse)e.Response).StatusCode;
                 string message = ((HttpWebResponse)e.Response).StatusDescription;
                 StreamReader reader = new StreamReader(e.Response.GetResponseStream());
                 string error = reader.ReadToEnd();
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                string mensaje = js.Deserialize<string>(error);
+                string mensaje = js.Deserialize<string>(error);*/
                 deudor = new DeudorEL();
-                deudor.MessageErr = mensaje;
+                deudor.CodeMessage = -99;
+                deudor.MessageErr = "El servicio de consulta créditos no se encuentra disponible. Por favor, intentar nuevamente. Si el error persiste, contacte al equipo de Soporte.";
+            }
+            catch (Exception ex)
+            {
+                deudor = new DeudorEL();
             }
             return deudor;
         }

@@ -18,6 +18,8 @@
                     <div class="form-group row OcultarDiv">
                         <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
                     </div>
+                    <table><tr><td>@Html.ValidationMessage("validacion", new { @class = "text-danger" })
+                        </td></tr></table>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-table"></i> Listado de solicitantes a evaluar</h3>
@@ -147,12 +149,13 @@
             
         });
 
-        function SolicitudSelected(radio) {
+        function SolicitudSelected(radio,solicitud) {
             if ($(radio).is(':checked')) {
-                var codSol = $(radio).val();
-                $("#hddCodSolicitud").val(codSol);
-                var urlExportar = "/Solicitante/EvaluacionCrediticia/" + codSol;
-                $("a#btnEvaluacionCrediticia").attr("href", urlExportar);
+                var codDNI = $(radio).val();                
+                $("#hddCodSolicitud").val(solicitud);
+                $("#hddDNI").val(codDNI);
+ 
+
             } else {
                 $("#hddCodSolicitud").val("");
                 $("a#btnEvaluacionCrediticia").attr("href", "#");

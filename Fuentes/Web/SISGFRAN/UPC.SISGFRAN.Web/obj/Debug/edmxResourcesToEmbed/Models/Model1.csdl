@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PARDOSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Aplicacion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodTipoAplicacion" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Entrevista">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SolicitudId" Type="Int32" Nullable="false" />
+    <Property Name="FechaEntrevisa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HoraEntrevisa" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="EntrevistadorId" Type="Int32" Nullable="false" />
+    <Property Name="LugarId" Type="Int32" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Solicitud" Relationship="Self.FK_Entrevista_Solicitud" FromRole="Entrevista" ToRole="Solicitud" />
+  </EntityType>
+  <EntityType Name="HistorialContrasenia">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ContraseniaAnt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ContraseniaAct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Opcion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AplicacionId" Type="Int32" Nullable="false" />
+    <Property Name="PadreId" Type="Int32" />
+    <Property Name="Nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nivel" Type="Int32" />
+    <Property Name="NivelPadre" Type="Int32" />
+    <Property Name="Imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Controler" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Orden" Type="Int32" />
+    <Property Name="Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Byte" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Parametro">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoGrupo" Type="Int32" Nullable="false" />
+    <Property Name="Grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Valor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ValueText1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ValueText2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ValueText3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AplicacionId" Type="Int32" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ReporteEvaluacion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SolicitudId" Type="Int32" Nullable="false" />
+    <Property Name="FechaReporte" Type="DateTime" Precision="3" />
+    <Property Name="ResultadoEjercicio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ErroresEncontrados" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Solicitud" Relationship="Self.FK_ReporteEvaluacion_Solicitud" FromRole="ReporteEvaluacion" ToRole="Solicitud" />
+  </EntityType>
+  <EntityType Name="Solicitante">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoSolicitanteId" Type="Int32" Nullable="false" />
+    <Property Name="SolicitudId" Type="Int32" Nullable="false" />
+    <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RazonSocial" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TipoDocumentoId" Type="Int32" />
+    <Property Name="NumeroDocumento" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="SexoId" Type="Int32" />
+    <Property Name="EstadoCivilId" Type="Int32" />
+    <Property Name="FechaIniCargoAct" Type="DateTime" Precision="3" />
+    <Property Name="FechaFinCargoAct" Type="DateTime" Precision="3" />
+    <Property Name="NombreJefeDirecto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TelefonoJefeDirecto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="FechaConstitucion" Type="DateTime" Precision="3" />
+    <Property Name="ActividadEconomica" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroEmpleados" Type="Int32" />
+    <Property Name="MontoIngresosAnuales" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UbigeoDireccion" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="InstitucionEducativa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TituloObtenido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DuracionEstudios" Type="Int32" />
+    <Property Name="Idiomas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Cargo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MontoIngresosMes" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MontoGastosMes" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="FueAprobado" Type="Boolean" />
+    <NavigationProperty Name="Solicitud" Relationship="Self.FK_Solicitante_Solicitud" FromRole="Solicitante" ToRole="Solicitud" />
+  </EntityType>
+  <EntityType Name="Solicitud">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumSolicitud" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="FechaSolicitud" Type="DateTime" Precision="3" />
+    <Property Name="CiudadInteres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UbigeoCiudadInteres" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="MontoCapital" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FuenteFinanciamiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaInicioOperacion" Type="DateTime" Precision="3" />
+    <Property Name="LocalDisponible" Type="Int32" />
+    <Property Name="CondicionLocalId" Type="Int32" />
+    <Property Name="UbigeoLocal" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="DireccionLocal" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TipoUbicacionLocalId" Type="Int32" />
+    <Property Name="ReferenciaComercial" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ReferenciaBancaria" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Entrevista" Relationship="Self.FK_Entrevista_Solicitud" FromRole="Solicitud" ToRole="Entrevista" />
+    <NavigationProperty Name="ReporteEvaluacion" Relationship="Self.FK_ReporteEvaluacion_Solicitud" FromRole="Solicitud" ToRole="ReporteEvaluacion" />
+    <NavigationProperty Name="Solicitante" Relationship="Self.FK_Solicitante_Solicitud" FromRole="Solicitud" ToRole="Solicitante" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Ubigeo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepartamentoId" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="ProvinciaId" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="DistritoId" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="Byte" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PerfilId" Type="Int32" Nullable="false" />
+    <Property Name="CtaUsuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contrasenia" Type="Binary" MaxLength="8000" FixedLength="false" Nullable="false" />
+    <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cargo" Type="String" MaxLength="48" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Byte" Nullable="false" />
+    <Property Name="CambiarContrasenia" Type="Boolean" />
+    <Property Name="FechaVencimientoCta" Type="DateTime" Precision="3" />
+    <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+    <Property Name="AuditoriaUC" Type="Int32" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="OpcionPerfil">
+    <Key>
+      <PropertyRef Name="AplicacionId" />
+      <PropertyRef Name="PerfilId" />
+      <PropertyRef Name="OpcionId" />
+      <PropertyRef Name="Escritura" />
+      <PropertyRef Name="AuditoriaFC" />
+    </Key>
+    <Property Name="AplicacionId" Type="Int32" Nullable="false" />
+    <Property Name="PerfilId" Type="Int32" Nullable="false" />
+    <Property Name="OpcionId" Type="Int32" Nullable="false" />
+    <Property Name="Escritura" Type="Boolean" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_Entrevista_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrevista">
+        <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReporteEvaluacion_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="ReporteEvaluacion" Type="Self.ReporteEvaluacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReporteEvaluacion">
+        <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitante_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="Solicitante" Type="Self.Solicitante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitante">
+        <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PARDOSDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" />
+    <EntitySet Name="Entrevista" EntityType="Self.Entrevista" />
+    <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" />
+    <EntitySet Name="Opcion" EntityType="Self.Opcion" />
+    <EntitySet Name="Parametro" EntityType="Self.Parametro" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+    <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" />
+    <EntitySet Name="Solicitante" EntityType="Self.Solicitante" />
+    <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" />
+    <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicitud" />
+      <End Role="Entrevista" EntitySet="Entrevista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicitud" />
+      <End Role="ReporteEvaluacion" EntitySet="ReporteEvaluacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitante_Solicitud" Association="Self.FK_Solicitante_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicitud" />
+      <End Role="Solicitante" EntitySet="Solicitante" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -13,12 +13,21 @@
         rowsPerPage: 4, canPage: true, canSort: false);
 }
 
+@using (Html.BeginForm("ResultadoSolicitante", "Solicitante"))
+
+{
+    
 <div class="container2">
     <div class="margenPanelRigth">
         <fieldset>
             <legend><center>Evaluar Solicitante</center></legend>
             <div class="form-group row OcultarDiv">
+                <input type="hidden" value="" id="hddDNI" name="hddDNI">
                 <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
+                <input type="hidden" value="@Html.DisplayTextFor(model => model.NumeroDocumento)" id="dni" name="dni">
+                <input type="hidden" value="@Html.DisplayTextFor(model => model.montoCapital)" id="capitalMensual" name="capitalMensual">
+                <input type="hidden" value="@Html.DisplayTextFor(model => model.numeroEntidades )" id="numeroEntidades" name="numeroEntidades">
+                <input type="hidden" value="@Html.DisplayTextFor(model => model.sumaDeuda )" id="sumaDeuda" name="sumaDeuda">
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -36,7 +45,7 @@
                                         <td colspan="3"><input type="text" size="12" name="NumeroDocumento" value="@Html.DisplayTextFor(model => model.NumeroDocumento )" id="NumeroDocumento" /></td>
                                         <td></td>
                                         <td>Nombres y Apellidos:</td>
-                                        <td colspan="2"><input type="text" size="50" name="nombreApellido" value="@Html.DisplayTextFor(model => model.ApellidoPaterno )" id="nombreApellido" /></td>
+                                        <td colspan="2"><input type="text" size="50" name="nombreApellido" value="@Html.DisplayTextFor(model => model.NombreCompleto)" id="nombreApellido" /></td>
                                     </tr>
                                     <tr style="height: 50px;">
                                         <td style="width:15%">
@@ -45,28 +54,28 @@
                                         <td><input type="text" size="12" name="FechaNacimiento" value="@Html.DisplayTextFor(model => model.FechaNacimiento )" id="FechaNacimiento" /></td>
                                         <td></td>
                                         <td>Sexo:</td>
-                                        <td><input type="text" size="12" name="Sexo" value="@Html.DisplayTextFor(model => model.NumeroDocumento )" id="Sexo" /></td>
+                                        <td><input type="text" size="12" name="Sexo" value="@Html.DisplayTextFor(model => model.sexo )" id="Sexo" /></td>
                                         <td></td>
                                         <td>Estado civil:</td>
-                                        <td><input type="text" size="12" name="EstadoCivil" value="" id="EstadoCivil" /></td>
+                                        <td><input type="text" size="12" name="EstadoCivil" value="@Html.DisplayTextFor(model => model.estadoCivil )" id="EstadoCivil" /></td>
                                     </tr>
                                     <tr style="height: 50px;">
                                         <td>
                                             Dirección:
                                         </td>
-                                        <td colspan="3"><input type="text" size="65" name="direccion" value="@Html.DisplayTextFor(model => model.NumeroDocumento )" id="direccion" /></td>
+                                        <td colspan="3"><input type="text" size="65" name="direccion" value="@Html.DisplayTextFor(model => model.direccion )" id="direccion" /></td>
                                         <td></td>
                                         <td>Departamento:</td>
-                                        <td colspan="2"><input type="text" size="65" name="departamento" value="@Html.DisplayTextFor(model => model.NumeroDocumento)" id="departamento" /></td>
+                                        <td colspan="2"><input type="text" size="65" name="departamento" value="@Html.DisplayTextFor(model => model.departamento)" id="departamento" /></td>
                                     </tr>
                                     <tr style="height: 50px;">
                                         <td>
                                             Provincia:
                                         </td>
-                                        <td colspan="3"><input type="text" size="65" name="Provincia" value="" id="Provincia" /></td>
+                                        <td colspan="3"><input type="text" size="65" name="Provincia" value="@Html.DisplayTextFor(model => model.provincia)" id="Provincia" /></td>
                                         <td></td>
                                         <td>Distrito:</td>
-                                        <td colspan="2"><input type="text" size="65" name="Distrito" value="" id="Distrito" /></td>
+                                        <td colspan="2"><input type="text" size="65" name="Distrito" value="@Html.DisplayTextFor(model => model.distrito)" id="Distrito" /></td>
                                     </tr>
                                 </table>
                             </div>
@@ -90,9 +99,17 @@
                                         <td>
                                             Ingresos del solicitante:
                                         </td>
-                                        <td><input type="text" size="20" name="ingresos" value="" id="ingresos" /></td>
+                                        <td><input type="text" size="20" name="ingresos" value="@Html.DisplayTextFor(model => model.ingresos)" id="ingresos" /></td>
                                         <td>Gastos del solicitante:</td>
-                                        <td><input type="text" size="20" name="gastos" value="" id="gastos" /></td>
+                                        <td><input type="text" size="20" name="gastos" value="@Html.DisplayTextFor(model => model.gastos)" id="gastos" /></td>
+                                    </tr>
+                                    <tr style="height: 50px;">
+                                        <td>
+                                            Código de SBS::
+                                        </td>
+                                        <td><input type="text" size="20" name="ingresos" value="@Html.DisplayTextFor(model => model.CodigoSBS)" id="ingresos" /></td>
+                                        <td> </td>
+                                        <td> </td>
                                     </tr>
                                 </table>
 
@@ -118,7 +135,20 @@
                                                                grid.Column("DeudaTotal", "Deuda actual", style: "col-md-1"),
                                                                grid.Column("Intereses", "Intereses", style: "col-md-1"),
                                                                grid.Column("FrecuenciaPago", "Forma pago", style: "col-md-1"),
-                                                               grid.Column("Calificacion", "Comportamiento", style: "col-md-1")
+                                                               grid.Column("Comportamiento", format: (item) =>
+                                                                {
+                                                                    if (item.calificacionCliente == 1)
+                                                                   {
+                                                                       return Html.Raw(string.Format("<text><center><img height='20' width='20' src=\"{0}\" alt=\"Image\"/></center></text>", Url.Content("~/Content/Images/1.png")));
+                                                                   }
+                                                                    else if (item.calificacionCliente == 2)
+                                                                    {
+                                                                        return Html.Raw(string.Format("<text><center><img height='20' width='20' src=\"{0}\" alt=\"Image\"/></center></text>", Url.Content("~/Content/Images/2.png")));
+                                                                    } else
+                                                                   {
+                                                                       return Html.Raw(string.Format("<text><center><img height='20' width='20' src=\"{0}\" alt=\"Image\"/></center></text>", Url.Content("~/Content/Images/3.png")));
+                                                                   }
+                                                               }, style: "firstColumn",canSort:true)
                                     )
                                     )
                                 </div>
@@ -126,7 +156,9 @@
                                 <br />
                                 <table>
                                     <tr><td colspan="3">Leyenda:</td></tr>
-                                    <tr><td>Al corriente</td><td>Atraso</td><td>Deudor</td></tr>
+                                    <tr><td><img height='20' width='20' src="~/Content/Images/3.png" /> Al corriente</td>
+                                    <td><img height='20' width='20'  src="~/Content/Images/2.png" /> Atraso</td>
+                                    <td><img height='20' width='20'  src="~/Content/Images/1.png" /> Deudor</td></tr>
                                 </table>
                             </div>
                         </div>
@@ -134,7 +166,7 @@
 
                 </div>
             </div>
-
+            <br />
             <div class="form-group row col-md-3">
                 <span class="input-group-btn" style="padding-left:5px;">
                     <button id="btnEvaluar" class="btn btn-success" type="submit">Evaluación Crediticia</button>
@@ -143,3 +175,4 @@
         </fieldset>
     </div>
 </div>
+}

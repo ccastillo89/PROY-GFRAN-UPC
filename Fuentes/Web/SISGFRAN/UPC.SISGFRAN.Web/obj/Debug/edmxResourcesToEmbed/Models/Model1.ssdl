@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PARDOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Aplicacion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodTipoAplicacion" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="int" />
+  </EntityType>
+  <EntityType Name="Entrevista">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SolicitudId" Type="int" Nullable="false" />
+    <Property Name="FechaEntrevisa" Type="varchar" MaxLength="10" />
+    <Property Name="HoraEntrevisa" Type="varchar" MaxLength="5" />
+    <Property Name="EntrevistadorId" Type="int" Nullable="false" />
+    <Property Name="LugarId" Type="int" Nullable="false" />
+    <Property Name="Observacion" Type="varchar" MaxLength="250" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="HistorialContrasenia">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="ContraseniaAnt" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ContraseniaAct" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Opcion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AplicacionId" Type="int" Nullable="false" />
+    <Property Name="PadreId" Type="int" />
+    <Property Name="Nombre" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Nivel" Type="int" />
+    <Property Name="NivelPadre" Type="int" />
+    <Property Name="Imagen" Type="varchar" MaxLength="50" />
+    <Property Name="Controler" Type="varchar" MaxLength="50" />
+    <Property Name="Accion" Type="varchar" MaxLength="50" />
+    <Property Name="Orden" Type="int" />
+    <Property Name="Observacion" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="OpcionPerfil">
+    <Key>
+      <PropertyRef Name="AplicacionId" />
+      <PropertyRef Name="PerfilId" />
+      <PropertyRef Name="OpcionId" />
+      <PropertyRef Name="Escritura" />
+      <PropertyRef Name="AuditoriaFC" />
+    </Key>
+    <Property Name="AplicacionId" Type="int" Nullable="false" />
+    <Property Name="PerfilId" Type="int" Nullable="false" />
+    <Property Name="OpcionId" Type="int" Nullable="false" />
+    <Property Name="Escritura" Type="bit" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Parametro">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoGrupo" Type="int" Nullable="false" />
+    <Property Name="Grupo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Codigo" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Valor" Type="varchar" MaxLength="100" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+    <Property Name="ValueText1" Type="varchar" MaxLength="255" />
+    <Property Name="ValueText2" Type="varchar" MaxLength="255" />
+    <Property Name="ValueText3" Type="varchar" MaxLength="255" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AplicacionId" Type="int" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ReporteEvaluacion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SolicitudId" Type="int" Nullable="false" />
+    <Property Name="FechaReporte" Type="datetime" />
+    <Property Name="ResultadoEjercicio" Type="varchar" MaxLength="250" />
+    <Property Name="ErroresEncontrados" Type="varchar" MaxLength="400" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Solicitante">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoSolicitanteId" Type="int" Nullable="false" />
+    <Property Name="SolicitudId" Type="int" Nullable="false" />
+    <Property Name="Nombres" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+    <Property Name="RazonSocial" Type="varchar" MaxLength="250" />
+    <Property Name="TipoDocumentoId" Type="int" />
+    <Property Name="NumeroDocumento" Type="varchar" MaxLength="15" />
+    <Property Name="SexoId" Type="int" />
+    <Property Name="EstadoCivilId" Type="int" />
+    <Property Name="FechaIniCargoAct" Type="datetime" />
+    <Property Name="FechaFinCargoAct" Type="datetime" />
+    <Property Name="NombreJefeDirecto" Type="varchar" MaxLength="250" />
+    <Property Name="TelefonoJefeDirecto" Type="varchar" MaxLength="15" />
+    <Property Name="FechaConstitucion" Type="datetime" />
+    <Property Name="ActividadEconomica" Type="varchar" MaxLength="250" />
+    <Property Name="NumeroEmpleados" Type="int" />
+    <Property Name="MontoIngresosAnuales" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="UbigeoDireccion" Type="varchar" MaxLength="6" />
+    <Property Name="Direccion" Type="varchar" MaxLength="250" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Telefono" Type="varchar" MaxLength="15" />
+    <Property Name="InstitucionEducativa" Type="varchar" MaxLength="100" />
+    <Property Name="TituloObtenido" Type="varchar" MaxLength="50" />
+    <Property Name="DuracionEstudios" Type="int" />
+    <Property Name="Idiomas" Type="varchar" MaxLength="50" />
+    <Property Name="Empresa" Type="varchar" MaxLength="100" />
+    <Property Name="Cargo" Type="varchar" MaxLength="100" />
+    <Property Name="MontoIngresosMes" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MontoGastosMes" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Observacion" Type="varchar" MaxLength="250" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+    <Property Name="FechaNacimiento" Type="smalldatetime" />
+    <Property Name="FueAprobado" Type="bit" />
+  </EntityType>
+  <EntityType Name="Solicitud">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumSolicitud" Type="varchar" MaxLength="15" />
+    <Property Name="FechaSolicitud" Type="datetime" />
+    <Property Name="CiudadInteres" Type="varchar" MaxLength="50" />
+    <Property Name="UbigeoCiudadInteres" Type="varchar" MaxLength="6" />
+    <Property Name="MontoCapital" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FuenteFinanciamiento" Type="varchar" MaxLength="50" />
+    <Property Name="FechaInicioOperacion" Type="datetime" />
+    <Property Name="LocalDisponible" Type="int" />
+    <Property Name="CondicionLocalId" Type="int" />
+    <Property Name="UbigeoLocal" Type="varchar" MaxLength="6" />
+    <Property Name="DireccionLocal" Type="varchar" MaxLength="250" />
+    <Property Name="TipoUbicacionLocalId" Type="int" />
+    <Property Name="ReferenciaComercial" Type="varchar" MaxLength="500" />
+    <Property Name="ReferenciaBancaria" Type="varchar" MaxLength="500" />
+    <Property Name="Estado" Type="int" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Ubigeo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="DepartamentoId" Type="char" MaxLength="2" />
+    <Property Name="ProvinciaId" Type="char" MaxLength="2" />
+    <Property Name="DistritoId" Type="char" MaxLength="2" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PerfilId" Type="int" Nullable="false" />
+    <Property Name="CtaUsuario" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Contrasenia" Type="varbinary" MaxLength="8000" Nullable="false" />
+    <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cargo" Type="varchar" MaxLength="48" />
+    <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
+    <Property Name="CambiarContrasenia" Type="bit" />
+    <Property Name="FechaVencimientoCta" Type="datetime" />
+    <Property Name="FechaVencimiento" Type="datetime" />
+    <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_Entrevista_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrevista">
+        <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReporteEvaluacion_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="ReporteEvaluacion" Type="Self.ReporteEvaluacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReporteEvaluacion">
+        <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitante_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="Solicitante" Type="Self.Solicitante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitante">
+        <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PARDOSDBModelStoreContainer">
+    <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Entrevista" EntityType="Self.Entrevista" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Opcion" EntityType="Self.Opcion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Solicitante" EntityType="Self.Solicitante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[OpcionPerfil].[AplicacionId] AS [AplicacionId], 
+[OpcionPerfil].[PerfilId] AS [PerfilId], 
+[OpcionPerfil].[OpcionId] AS [OpcionId], 
+[OpcionPerfil].[Escritura] AS [Escritura], 
+[OpcionPerfil].[AuditoriaUC] AS [AuditoriaUC], 
+[OpcionPerfil].[AuditoriaUM] AS [AuditoriaUM], 
+[OpcionPerfil].[AuditoriaFC] AS [AuditoriaFC], 
+[OpcionPerfil].[AuditoriaFM] AS [AuditoriaFM]
+FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicitud" />
+      <End Role="Entrevista" EntitySet="Entrevista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicitud" />
+      <End Role="ReporteEvaluacion" EntitySet="ReporteEvaluacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitante_Solicitud" Association="Self.FK_Solicitante_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicitud" />
+      <End Role="Solicitante" EntitySet="Solicitante" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

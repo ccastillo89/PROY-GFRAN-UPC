@@ -1,0 +1,913 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PARDOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aplicacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodTipoAplicacion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Entrevista">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SolicitudId" Type="int" Nullable="false" />
+          <Property Name="FechaEntrevisa" Type="varchar" MaxLength="10" />
+          <Property Name="HoraEntrevisa" Type="varchar" MaxLength="5" />
+          <Property Name="EntrevistadorId" Type="int" Nullable="false" />
+          <Property Name="LugarId" Type="int" Nullable="false" />
+          <Property Name="Observacion" Type="varchar" MaxLength="250" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HistorialContrasenia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="ContraseniaAnt" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContraseniaAct" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Opcion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AplicacionId" Type="int" Nullable="false" />
+          <Property Name="PadreId" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Nivel" Type="int" />
+          <Property Name="NivelPadre" Type="int" />
+          <Property Name="Imagen" Type="varchar" MaxLength="50" />
+          <Property Name="Controler" Type="varchar" MaxLength="50" />
+          <Property Name="Accion" Type="varchar" MaxLength="50" />
+          <Property Name="Orden" Type="int" />
+          <Property Name="Observacion" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="tinyint" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="OpcionPerfil">
+          <Key>
+            <PropertyRef Name="AplicacionId" />
+            <PropertyRef Name="PerfilId" />
+            <PropertyRef Name="OpcionId" />
+            <PropertyRef Name="Escritura" />
+            <PropertyRef Name="AuditoriaFC" />
+          </Key>
+          <Property Name="AplicacionId" Type="int" Nullable="false" />
+          <Property Name="PerfilId" Type="int" Nullable="false" />
+          <Property Name="OpcionId" Type="int" Nullable="false" />
+          <Property Name="Escritura" Type="bit" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoGrupo" Type="int" Nullable="false" />
+          <Property Name="Grupo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Valor" Type="varchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="ValueText1" Type="varchar" MaxLength="255" />
+          <Property Name="ValueText2" Type="varchar" MaxLength="255" />
+          <Property Name="ValueText3" Type="varchar" MaxLength="255" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AplicacionId" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ReporteEvaluacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SolicitudId" Type="int" Nullable="false" />
+          <Property Name="FechaReporte" Type="datetime" />
+          <Property Name="ResultadoEjercicio" Type="varchar" MaxLength="250" />
+          <Property Name="ErroresEncontrados" Type="varchar" MaxLength="400" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Solicitante">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoSolicitanteId" Type="int" Nullable="false" />
+          <Property Name="SolicitudId" Type="int" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="250" />
+          <Property Name="TipoDocumentoId" Type="int" />
+          <Property Name="NumeroDocumento" Type="varchar" MaxLength="15" />
+          <Property Name="SexoId" Type="int" />
+          <Property Name="EstadoCivilId" Type="int" />
+          <Property Name="FechaIniCargoAct" Type="datetime" />
+          <Property Name="FechaFinCargoAct" Type="datetime" />
+          <Property Name="NombreJefeDirecto" Type="varchar" MaxLength="250" />
+          <Property Name="TelefonoJefeDirecto" Type="varchar" MaxLength="15" />
+          <Property Name="FechaConstitucion" Type="datetime" />
+          <Property Name="ActividadEconomica" Type="varchar" MaxLength="250" />
+          <Property Name="NumeroEmpleados" Type="int" />
+          <Property Name="MontoIngresosAnuales" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UbigeoDireccion" Type="varchar" MaxLength="6" />
+          <Property Name="Direccion" Type="varchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="InstitucionEducativa" Type="varchar" MaxLength="100" />
+          <Property Name="TituloObtenido" Type="varchar" MaxLength="50" />
+          <Property Name="DuracionEstudios" Type="int" />
+          <Property Name="Idiomas" Type="varchar" MaxLength="50" />
+          <Property Name="Empresa" Type="varchar" MaxLength="100" />
+          <Property Name="Cargo" Type="varchar" MaxLength="100" />
+          <Property Name="MontoIngresosMes" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MontoGastosMes" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Observacion" Type="varchar" MaxLength="250" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+          <Property Name="FechaNacimiento" Type="smalldatetime" />
+          <Property Name="FueAprobado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumSolicitud" Type="varchar" MaxLength="15" />
+          <Property Name="FechaSolicitud" Type="datetime" />
+          <Property Name="CiudadInteres" Type="varchar" MaxLength="50" />
+          <Property Name="UbigeoCiudadInteres" Type="varchar" MaxLength="6" />
+          <Property Name="MontoCapital" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FuenteFinanciamiento" Type="varchar" MaxLength="50" />
+          <Property Name="FechaInicioOperacion" Type="datetime" />
+          <Property Name="LocalDisponible" Type="int" />
+          <Property Name="CondicionLocalId" Type="int" />
+          <Property Name="UbigeoLocal" Type="varchar" MaxLength="6" />
+          <Property Name="DireccionLocal" Type="varchar" MaxLength="250" />
+          <Property Name="TipoUbicacionLocalId" Type="int" />
+          <Property Name="ReferenciaComercial" Type="varchar" MaxLength="500" />
+          <Property Name="ReferenciaBancaria" Type="varchar" MaxLength="500" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Ubigeo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="DepartamentoId" Type="char" MaxLength="2" />
+          <Property Name="ProvinciaId" Type="char" MaxLength="2" />
+          <Property Name="DistritoId" Type="char" MaxLength="2" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="tinyint" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PerfilId" Type="int" Nullable="false" />
+          <Property Name="CtaUsuario" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Contrasenia" Type="varbinary" MaxLength="8000" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cargo" Type="varchar" MaxLength="48" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="tinyint" Nullable="false" />
+          <Property Name="CambiarContrasenia" Type="bit" />
+          <Property Name="FechaVencimientoCta" Type="datetime" />
+          <Property Name="FechaVencimiento" Type="datetime" />
+          <Property Name="AuditoriaUC" Type="int" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Entrevista_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entrevista">
+              <PropertyRef Name="SolicitudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReporteEvaluacion_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="ReporteEvaluacion" Type="Self.ReporteEvaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReporteEvaluacion">
+              <PropertyRef Name="SolicitudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitante_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="Solicitante" Type="Self.Solicitante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitante">
+              <PropertyRef Name="SolicitudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PARDOSDBModelStoreContainer">
+          <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entrevista" EntityType="Self.Entrevista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Opcion" EntityType="Self.Opcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitante" EntityType="Self.Solicitante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[OpcionPerfil].[AplicacionId] AS [AplicacionId], 
+[OpcionPerfil].[PerfilId] AS [PerfilId], 
+[OpcionPerfil].[OpcionId] AS [OpcionId], 
+[OpcionPerfil].[Escritura] AS [Escritura], 
+[OpcionPerfil].[AuditoriaUC] AS [AuditoriaUC], 
+[OpcionPerfil].[AuditoriaUM] AS [AuditoriaUM], 
+[OpcionPerfil].[AuditoriaFC] AS [AuditoriaFC], 
+[OpcionPerfil].[AuditoriaFM] AS [AuditoriaFM]
+FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="Entrevista" EntitySet="Entrevista" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="ReporteEvaluacion" EntitySet="ReporteEvaluacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitante_Solicitud" Association="Self.FK_Solicitante_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="Solicitante" EntitySet="Solicitante" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PARDOSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aplicacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodTipoAplicacion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Entrevista">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SolicitudId" Type="Int32" Nullable="false" />
+          <Property Name="FechaEntrevisa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HoraEntrevisa" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="EntrevistadorId" Type="Int32" Nullable="false" />
+          <Property Name="LugarId" Type="Int32" Nullable="false" />
+          <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK_Entrevista_Solicitud" FromRole="Entrevista" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="HistorialContrasenia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ContraseniaAnt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContraseniaAct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Opcion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AplicacionId" Type="Int32" Nullable="false" />
+          <Property Name="PadreId" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nivel" Type="Int32" />
+          <Property Name="NivelPadre" Type="Int32" />
+          <Property Name="Imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Controler" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Int32" />
+          <Property Name="Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Byte" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoGrupo" Type="Int32" Nullable="false" />
+          <Property Name="Grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Valor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ValueText1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ValueText2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ValueText3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AplicacionId" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ReporteEvaluacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SolicitudId" Type="Int32" Nullable="false" />
+          <Property Name="FechaReporte" Type="DateTime" Precision="3" />
+          <Property Name="ResultadoEjercicio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ErroresEncontrados" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK_ReporteEvaluacion_Solicitud" FromRole="ReporteEvaluacion" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Solicitante">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoSolicitanteId" Type="Int32" Nullable="false" />
+          <Property Name="SolicitudId" Type="Int32" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RazonSocial" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDocumentoId" Type="Int32" />
+          <Property Name="NumeroDocumento" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SexoId" Type="Int32" />
+          <Property Name="EstadoCivilId" Type="Int32" />
+          <Property Name="FechaIniCargoAct" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinCargoAct" Type="DateTime" Precision="3" />
+          <Property Name="NombreJefeDirecto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoJefeDirecto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaConstitucion" Type="DateTime" Precision="3" />
+          <Property Name="ActividadEconomica" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroEmpleados" Type="Int32" />
+          <Property Name="MontoIngresosAnuales" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UbigeoDireccion" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="InstitucionEducativa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TituloObtenido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DuracionEstudios" Type="Int32" />
+          <Property Name="Idiomas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cargo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MontoIngresosMes" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MontoGastosMes" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="FueAprobado" Type="Boolean" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK_Solicitante_Solicitud" FromRole="Solicitante" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumSolicitud" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaSolicitud" Type="DateTime" Precision="3" />
+          <Property Name="CiudadInteres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UbigeoCiudadInteres" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="MontoCapital" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FuenteFinanciamiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaInicioOperacion" Type="DateTime" Precision="3" />
+          <Property Name="LocalDisponible" Type="Int32" />
+          <Property Name="CondicionLocalId" Type="Int32" />
+          <Property Name="UbigeoLocal" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DireccionLocal" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TipoUbicacionLocalId" Type="Int32" />
+          <Property Name="ReferenciaComercial" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenciaBancaria" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Entrevista" Relationship="Self.FK_Entrevista_Solicitud" FromRole="Solicitud" ToRole="Entrevista" />
+          <NavigationProperty Name="ReporteEvaluacion" Relationship="Self.FK_ReporteEvaluacion_Solicitud" FromRole="Solicitud" ToRole="ReporteEvaluacion" />
+          <NavigationProperty Name="Solicitante" Relationship="Self.FK_Solicitante_Solicitud" FromRole="Solicitud" ToRole="Solicitante" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Ubigeo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DepartamentoId" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="ProvinciaId" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="DistritoId" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Byte" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PerfilId" Type="Int32" Nullable="false" />
+          <Property Name="CtaUsuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasenia" Type="Binary" MaxLength="8000" FixedLength="false" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cargo" Type="String" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Byte" Nullable="false" />
+          <Property Name="CambiarContrasenia" Type="Boolean" />
+          <Property Name="FechaVencimientoCta" Type="DateTime" Precision="3" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+          <Property Name="AuditoriaUC" Type="Int32" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OpcionPerfil">
+          <Key>
+            <PropertyRef Name="AplicacionId" />
+            <PropertyRef Name="PerfilId" />
+            <PropertyRef Name="OpcionId" />
+            <PropertyRef Name="Escritura" />
+            <PropertyRef Name="AuditoriaFC" />
+          </Key>
+          <Property Name="AplicacionId" Type="Int32" Nullable="false" />
+          <Property Name="PerfilId" Type="Int32" Nullable="false" />
+          <Property Name="OpcionId" Type="Int32" Nullable="false" />
+          <Property Name="Escritura" Type="Boolean" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Entrevista_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entrevista">
+              <PropertyRef Name="SolicitudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReporteEvaluacion_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="ReporteEvaluacion" Type="Self.ReporteEvaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReporteEvaluacion">
+              <PropertyRef Name="SolicitudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitante_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="Solicitante" Type="Self.Solicitante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitante">
+              <PropertyRef Name="SolicitudId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PARDOSDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" />
+          <EntitySet Name="Entrevista" EntityType="Self.Entrevista" />
+          <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" />
+          <EntitySet Name="Opcion" EntityType="Self.Opcion" />
+          <EntitySet Name="Parametro" EntityType="Self.Parametro" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+          <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" />
+          <EntitySet Name="Solicitante" EntityType="Self.Solicitante" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" />
+          <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="Entrevista" EntitySet="Entrevista" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="ReporteEvaluacion" EntitySet="ReporteEvaluacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitante_Solicitud" Association="Self.FK_Solicitante_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="Solicitante" EntitySet="Solicitante" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PARDOSDBModelStoreContainer" CdmEntityContainer="PARDOSDBEntities">
+          <EntitySetMapping Name="Aplicacion">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Aplicacion">
+              <MappingFragment StoreEntitySet="Aplicacion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodTipoAplicacion" ColumnName="CodTipoAplicacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entrevista">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Entrevista">
+              <MappingFragment StoreEntitySet="Entrevista">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SolicitudId" ColumnName="SolicitudId" />
+                <ScalarProperty Name="FechaEntrevisa" ColumnName="FechaEntrevisa" />
+                <ScalarProperty Name="HoraEntrevisa" ColumnName="HoraEntrevisa" />
+                <ScalarProperty Name="EntrevistadorId" ColumnName="EntrevistadorId" />
+                <ScalarProperty Name="LugarId" ColumnName="LugarId" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialContrasenia">
+            <EntityTypeMapping TypeName="PARDOSDBModel.HistorialContrasenia">
+              <MappingFragment StoreEntitySet="HistorialContrasenia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ContraseniaAnt" ColumnName="ContraseniaAnt" />
+                <ScalarProperty Name="ContraseniaAct" ColumnName="ContraseniaAct" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Opcion">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Opcion">
+              <MappingFragment StoreEntitySet="Opcion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AplicacionId" ColumnName="AplicacionId" />
+                <ScalarProperty Name="PadreId" ColumnName="PadreId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="NivelPadre" ColumnName="NivelPadre" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Controler" ColumnName="Controler" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametro">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Parametro">
+              <MappingFragment StoreEntitySet="Parametro">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodigoGrupo" ColumnName="CodigoGrupo" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ValueText1" ColumnName="ValueText1" />
+                <ScalarProperty Name="ValueText2" ColumnName="ValueText2" />
+                <ScalarProperty Name="ValueText3" ColumnName="ValueText3" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfil">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AplicacionId" ColumnName="AplicacionId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReporteEvaluacion">
+            <EntityTypeMapping TypeName="PARDOSDBModel.ReporteEvaluacion">
+              <MappingFragment StoreEntitySet="ReporteEvaluacion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SolicitudId" ColumnName="SolicitudId" />
+                <ScalarProperty Name="FechaReporte" ColumnName="FechaReporte" />
+                <ScalarProperty Name="ResultadoEjercicio" ColumnName="ResultadoEjercicio" />
+                <ScalarProperty Name="ErroresEncontrados" ColumnName="ErroresEncontrados" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitante">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Solicitante">
+              <MappingFragment StoreEntitySet="Solicitante">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TipoSolicitanteId" ColumnName="TipoSolicitanteId" />
+                <ScalarProperty Name="SolicitudId" ColumnName="SolicitudId" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="TipoDocumentoId" ColumnName="TipoDocumentoId" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="NumeroDocumento" />
+                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
+                <ScalarProperty Name="EstadoCivilId" ColumnName="EstadoCivilId" />
+                <ScalarProperty Name="FechaIniCargoAct" ColumnName="FechaIniCargoAct" />
+                <ScalarProperty Name="FechaFinCargoAct" ColumnName="FechaFinCargoAct" />
+                <ScalarProperty Name="NombreJefeDirecto" ColumnName="NombreJefeDirecto" />
+                <ScalarProperty Name="TelefonoJefeDirecto" ColumnName="TelefonoJefeDirecto" />
+                <ScalarProperty Name="FechaConstitucion" ColumnName="FechaConstitucion" />
+                <ScalarProperty Name="ActividadEconomica" ColumnName="ActividadEconomica" />
+                <ScalarProperty Name="NumeroEmpleados" ColumnName="NumeroEmpleados" />
+                <ScalarProperty Name="MontoIngresosAnuales" ColumnName="MontoIngresosAnuales" />
+                <ScalarProperty Name="UbigeoDireccion" ColumnName="UbigeoDireccion" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="InstitucionEducativa" ColumnName="InstitucionEducativa" />
+                <ScalarProperty Name="TituloObtenido" ColumnName="TituloObtenido" />
+                <ScalarProperty Name="DuracionEstudios" ColumnName="DuracionEstudios" />
+                <ScalarProperty Name="Idiomas" ColumnName="Idiomas" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="MontoIngresosMes" ColumnName="MontoIngresosMes" />
+                <ScalarProperty Name="MontoGastosMes" ColumnName="MontoGastosMes" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FueAprobado" ColumnName="FueAprobado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitud">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Solicitud">
+              <MappingFragment StoreEntitySet="Solicitud">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumSolicitud" ColumnName="NumSolicitud" />
+                <ScalarProperty Name="FechaSolicitud" ColumnName="FechaSolicitud" />
+                <ScalarProperty Name="CiudadInteres" ColumnName="CiudadInteres" />
+                <ScalarProperty Name="UbigeoCiudadInteres" ColumnName="UbigeoCiudadInteres" />
+                <ScalarProperty Name="MontoCapital" ColumnName="MontoCapital" />
+                <ScalarProperty Name="FuenteFinanciamiento" ColumnName="FuenteFinanciamiento" />
+                <ScalarProperty Name="FechaInicioOperacion" ColumnName="FechaInicioOperacion" />
+                <ScalarProperty Name="LocalDisponible" ColumnName="LocalDisponible" />
+                <ScalarProperty Name="CondicionLocalId" ColumnName="CondicionLocalId" />
+                <ScalarProperty Name="UbigeoLocal" ColumnName="UbigeoLocal" />
+                <ScalarProperty Name="DireccionLocal" ColumnName="DireccionLocal" />
+                <ScalarProperty Name="TipoUbicacionLocalId" ColumnName="TipoUbicacionLocalId" />
+                <ScalarProperty Name="ReferenciaComercial" ColumnName="ReferenciaComercial" />
+                <ScalarProperty Name="ReferenciaBancaria" ColumnName="ReferenciaBancaria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PARDOSDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ubigeo">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Ubigeo">
+              <MappingFragment StoreEntitySet="Ubigeo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
+                <ScalarProperty Name="ProvinciaId" ColumnName="ProvinciaId" />
+                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PARDOSDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PerfilId" ColumnName="PerfilId" />
+                <ScalarProperty Name="CtaUsuario" ColumnName="CtaUsuario" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="CambiarContrasenia" ColumnName="CambiarContrasenia" />
+                <ScalarProperty Name="FechaVencimientoCta" ColumnName="FechaVencimientoCta" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpcionPerfil">
+            <EntityTypeMapping TypeName="PARDOSDBModel.OpcionPerfil">
+              <MappingFragment StoreEntitySet="OpcionPerfil">
+                <ScalarProperty Name="AplicacionId" ColumnName="AplicacionId" />
+                <ScalarProperty Name="PerfilId" ColumnName="PerfilId" />
+                <ScalarProperty Name="OpcionId" ColumnName="OpcionId" />
+                <ScalarProperty Name="Escritura" ColumnName="Escritura" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
