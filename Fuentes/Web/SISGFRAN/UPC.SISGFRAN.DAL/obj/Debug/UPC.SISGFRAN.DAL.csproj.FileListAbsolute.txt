@@ -1,13 +1,3 @@
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.csprojResolveAssemblyReference.cache
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll.config
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.pdb
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll.config
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.pdb
@@ -68,3 +58,13 @@ C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SI
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.csprojResolveAssemblyReference.cache
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.dll
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll.config
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.dll
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.csprojResolveAssemblyReference.cache
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.dll
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.pdb

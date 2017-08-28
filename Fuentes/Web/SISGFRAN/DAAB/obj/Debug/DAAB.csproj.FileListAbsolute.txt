@@ -26,15 +26,10 @@ C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\bin\Debug\DAAB.pdb
 C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\obj\Debug\DAAB.dll
 C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\obj\Debug\DAAB.pdb
 C:\Repositorio\Proyecto_SISMER\SISMERCore\DAAB\obj\Debug\DAAB.csprojResolveAssemblyReference.cache
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.dll
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
 E:\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.csprojResolveAssemblyReference.cache
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.dll
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
 C:\Users\lmoralea\Documents\GitHub\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
@@ -49,3 +44,7 @@ C:\Proyecto_TP3\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
 C:\Proyecto_TP3\SISGFRAN\DAAB\obj\Debug\DAAB.csprojResolveAssemblyReference.cache
 C:\Proyecto_TP3\SISGFRAN\DAAB\obj\Debug\DAAB.dll
 C:\Proyecto_TP3\SISGFRAN\DAAB\obj\Debug\DAAB.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.dll
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
+C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb

@@ -46,12 +46,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repositorios\EvaluacionProcedimientoDA.cs" />
+    <Compile Include="Repositorios\EvaluacionProcedimientoDetDA.cs" />
+    <Compile Include="Repositorios\LocalDA.cs" />
     <Compile Include="Repositorios\OpcionDA.cs" />
     <Compile Include="Repositorios\OpcionXPerfilDA.cs" />
     <Compile Include="Repositorios\ParametroDA.cs" />
     <Compile Include="Repositorios\PerfilDA.cs" />
+    <Compile Include="Repositorios\ProcedimientoDA.cs" />
+    <Compile Include="Repositorios\ReclamoDA.cs" />
     <Compile Include="Repositorios\SolicitanteDA.cs" />
     <Compile Include="Repositorios\SolicitudDA.cs" />
+    <Compile Include="Repositorios\SugerenciaDA.cs" />
     <Compile Include="Repositorios\UsuarioDA.cs" />
   </ItemGroup>
   <ItemGroup>
