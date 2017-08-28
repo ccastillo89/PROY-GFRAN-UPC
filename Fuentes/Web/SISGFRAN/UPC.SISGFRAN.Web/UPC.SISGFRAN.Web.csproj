@@ -123,12 +123,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Procedimiento\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProcedimientoController.cs" />
     <Compile Include="Controllers\SolicitanteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
