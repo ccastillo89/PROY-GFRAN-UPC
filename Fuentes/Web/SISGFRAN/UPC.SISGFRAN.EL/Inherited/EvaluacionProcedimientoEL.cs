@@ -21,5 +21,8 @@ namespace UPC.SISGFRAN.EL.Inherited
         public int ProcedimientoId { get; set; }
 
         public List<EvaluacionProcedimientoDetEL> ListaDetalle { get; set; }
+
+        //Lista Paginada
+        public ListaPaginada<EvaluacionProcedimientoEL> Lista { get; set; }
     }
 }

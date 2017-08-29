@@ -29,12 +29,12 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             arrParam[0].Value = evalProc.Id;
             arrParam[1].Value = evalProc.Local.Id;
             arrParam[2].Value = evalProc.Periodo;
-            arrParam[3].Value = evalProc.Estado.Id;
+            arrParam[3].Value = evalProc.Estado.Codigo;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPS_EvaluacionProcedimiento";
+            objRequest.Command = "GFR.USPS_EvaluacionProcedimiento";
             objRequest.Parameters.AddRange(arrParam);
 
             List<EvaluacionProcedimientoEL> lstEvaluacion = new List<EvaluacionProcedimientoEL>();

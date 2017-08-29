@@ -123,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Procedimiento\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -304,6 +303,8 @@
     <Content Include="Views\Solicitante\_ReporteEval.cshtml" />
     <Content Include="Views\Solicitante\EvaluacionSolicitante.cshtml" />
     <Content Include="Views\Solicitante\ResultadoSolicitante.cshtml" />
+    <Content Include="Views\Procedimiento\Index.cshtml" />
+    <Content Include="Views\Procedimiento\_Procedimientos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">
