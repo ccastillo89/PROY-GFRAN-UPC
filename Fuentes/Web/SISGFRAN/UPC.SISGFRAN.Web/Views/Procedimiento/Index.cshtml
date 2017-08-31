@@ -10,38 +10,42 @@
 
 
 <div class="container2">
-    <div class="row col-lg-12">
+    <div class="row col-lg-11">
         <h3 class="page-header">Evaluación de procedimientos</h3>
     </div>
 
-    <div class="row col-lg-12">
+    <div class="row col-lg-11">
         <fieldset>
-            <div class="col-md-4 width-dash-sh">
-                <label class="control-label col-md-4">Periodo: </label>
+            <div class="col-md-3">
+                <label class="control-label col-md-4">Periodo:</label>
                 <div class="col-md-8">
                     <select class="form-control selectpicker" name="cboPeriodo" id="cboPeriodo" style="width:155px"></select>
                 </div>
             </div>
-            <div class="col-md-3 width-dash-sh">
-                <label class="control-label col-md-4">Franquicia: </label>
+            <div class="col-md-3 width-filter-cc">
+                <label class="control-label col-md-4 ">Franquicia:</label>
                 <div class="col-md-8">
                     <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:155px"></select>
                 </div>
             </div>
-            <div class="col-md-3 width-dash-sh">
-                <label class="control-label col-md-4">Condición: </label>
+            <div class="col-md-3" style="padding:0px;">
+                <label class=" control-label col-md-4">
+                Condición:</label>
                 <div class="col-md-8">
                     <select class="form-control selectpicker" name="cboCondicion" id="cboCondicion" style="width:130px"></select>
                 </div>
             </div>
-            <div class="col-md-1 margenBoton">
-                <span class="input-group-btn">
+            <div class="form-group row col-md-1">
+                <span class="input-group-btn" style="padding-left:5px;">
                     <a class="btn btn-primary" href='#' onclick="Buscar();" id='btnBuscar' title='Buscar'>
                         <span class='glyphicon glyphicon-search'>
                             Buscar
                         </span>
                     </a>
-                    <a data-modal="" class="btn btn-primary" href='#' onclick="Evaluar();" id='btnProcedimiento' title='Evaluar Procedimiento'>
+                </span>
+
+                <span class="input-group-btn" style="padding-left:5px;">
+                    <a data-modal="" class="btn btn-primary spaceBoton" href='/Procedimiento/Evaluar' id='btnProcedimiento' title='Evaluar Procedimiento'>
                         <span class='glyphicon glyphicon-cog'>
                             Evaluar
                         </span>
@@ -50,16 +54,16 @@
             </div>
         </fieldset>
     </div>
-    <div class="row col-lg-12" style="height:25px;">
+    <div class="row col-lg-11" style="height:25px;">
     </div>
-    <div class="row col-lg-12">
+    <div class="row col-lg-11">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-table" aria-hidden="true"></i> Listado de evaluaciones
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-11">
                         <div id="gridProcedimiento">
                             @Html.Partial("_Procedimientos")
                         </div>
@@ -72,7 +76,7 @@
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
-    <div class="modal-dialog" style="width:750px">
+    <div class="modal-dialog" style="width:450px">
         <div class="modal-content">
             <div id='myModalContent'></div>
         </div>
@@ -118,7 +122,7 @@
                 $.each(data, function (i, row) {
                     var $option = $('<option>');
                     $option.val(row.Id);
-                    $option.html(row.Nombre);
+                    $option.html(row.FranquiciaLocal);
                     $('#cboFranquicia').append($option);
                 })
             })
@@ -146,59 +150,21 @@
 
         function Buscar()
         {
-            var clienteId = $('select[name=cboCliente]').val();
-            var equipoId = $('select[name=cboEquipo]').val();
-            var usuarioId = $('select[name=cboUsuario]').val();
-            var fecha = $('#dpFecha').val();
-            var busqueda;
+            var periodo = $('select[name=cboPeriodo]').val();
+            var franquiciaId = $('select[name=cboFranquicia]').val();
+            var estadoId = $('select[name=cboCondicion]').val();
 
-            if (clienteId == 0) {
-                bootbox.alert({
-                    message: "Seleccione cliente",
-                    size: 'small'
-                });
-                return false;
-            }
-
-            if (equipoId == 0) {
-                bootbox.alert({
-                    message: "Seleccione equipo",
-                    size: 'small'
-                });
-                return false;
-            }
-
-            if (fecha == "") {
-                bootbox.alert({
-                    message: "Seleccione fecha",
-                    size: 'small'
-                });
-                return false;
-            }
-
-
-            var arrayFecha = fecha.split('/');
-            var dia = arrayFecha[0];
-            var mes = arrayFecha[1];
-            var anio = arrayFecha[2];
-
-            busqueda = clienteId + "_" + equipoId + "_" + usuarioId + "_" + anio + mes + dia;
             $.ajax({
-                url: "/Tracking/Buscar",
+                url: "/Procedimiento/Buscar",
                 type: "GET",
-                data: { cliente: clienteId, equipo: equipoId, usuario: usuarioId, fecha: fecha },
+                data: { periodo: periodo, franquicia: franquiciaId, estado: estadoId },
                 dataType: "html",
                 traditional: true,
                 cache: false,
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     if (data.status == undefined) {
-                        var rep = jQuery.parseJSON(data);
-                        LoadMapa(rep, usuarioId);
-                        LoadGraficoArea(rep);
-                        var urlVisitas = "/Tracking/Visitas/" + busqueda;
-                        $("a#btnVisitas").attr("href", urlVisitas);
-                        $("#divVisita").removeClass("ocultardiv");
+                        $("#gridProcedimiento").html(data);
                     } else {
                         if (data.status == false) {
                             bootbox.alert({
@@ -212,18 +178,14 @@
                     bootbox.alert('error', textStatus, 'Error');
                 }
             });
-
-            LoadResumen(clienteId, equipoId, usuarioId, fecha);
-            LoadResumenDetalle(clienteId, equipoId, usuarioId, fecha);
         }
 
+    </script>
+    <script type="text/javascript">
+    var message = '@message';
+    if (message)
+        bootbox.alert(message);
+    </script>
 
-        </script>
-        <script type="text/javascript">
-        var message = '@message';
-        if (message)
-            bootbox.alert(message);
-        </script>
-
-    </section>
+</section>
 }

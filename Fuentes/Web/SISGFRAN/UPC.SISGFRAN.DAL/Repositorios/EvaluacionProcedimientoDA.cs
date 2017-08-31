@@ -110,7 +110,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objTrackDb = new configPARDOSDB();
             DAABRequest objRequest = objTrackDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPI_EvaluacionProcedimiento";
+            objRequest.Command = "GFR.USPI_EvaluacionProcedimiento";
             objRequest.Parameters.AddRange(arrParam);
             try
             {
@@ -138,6 +138,77 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             return evaluacionRegistrada;
         }
 
+        public EvaluacionProcedimientoEL GetEvaluacionProcById(int evalProcId)
+        {
+            DAABRequest.Parameter[] arrParam = {
+                new DAABRequest.Parameter("@id", DbType.Int32,ParameterDirection.Input),
+                new DAABRequest.Parameter("@idFranquicia", DbType.Int32,ParameterDirection.Input),
+                new DAABRequest.Parameter("@periodo", DbType.String, 6,ParameterDirection.Input),
+                new DAABRequest.Parameter("@condicion", DbType.Int32,ParameterDirection.Input),
+                new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
+                new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
+            };
+
+            arrParam[0].Value = evalProcId;
+            arrParam[1].Value = -1;
+            arrParam[2].Value = "-1";
+            arrParam[3].Value = -1;
+
+            configPARDOSDB objPardosDb = new configPARDOSDB();
+            DAABRequest objRequest = objPardosDb.CreaRequest();
+            objRequest.CommandType = CommandType.StoredProcedure;
+            objRequest.Command = "GFR.USPS_EvaluacionProcedimiento";
+            objRequest.Parameters.AddRange(arrParam);
+
+            EvaluacionProcedimientoEL oEvaluacion = null;
+            IDataReader dr = null;
+            try
+            {
+                dr = objRequest.Factory.ExecuteReader(ref objRequest).ReturnDataReader;
+                while (dr.Read())
+                {
+                    oEvaluacion = new EvaluacionProcedimientoEL();
+
+                    oEvaluacion.Id = Funciones.CheckInt(dr["Id"]);
+                    oEvaluacion.Periodo = Funciones.CheckStr(dr["Periodo"]);
+
+                    LocalEL oLocal = new LocalEL();
+                    oLocal.Id = Funciones.CheckInt(dr["LocalId"]);
+                    oLocal.Nombre = Funciones.CheckStr(dr["Franquicia"]);
+                    oLocal.Responsable = Funciones.CheckStr(dr["responsable"]);
+
+                    UsuarioEL oUsuario = new UsuarioEL();
+                    oUsuario.Email = Funciones.CheckStr(dr["Email"]);
+                    oLocal.Usuario = oUsuario;
+
+                    oEvaluacion.Local = oLocal;
+
+                    oEvaluacion.CantReclamos = Funciones.CheckInt(dr["Nro_reclamos"]);
+                    oEvaluacion.CantSugerencia = Funciones.CheckInt(dr["Nro_sugerencias"]);
+                    oEvaluacion.FechaEvaluacion = Funciones.CheckStr(dr["FechaEvaluacion"]);
+
+                    ParametroEL oEstado = new ParametroEL()
+                    {
+                        Codigo = Funciones.CheckInt(dr["CondicionId"]),
+                        Nombre = Funciones.CheckStr(dr["Condicion"])
+                    };
+                    oEvaluacion.Estado = oEstado;
+                }
+            }
+            catch (Exception e)
+            {
+                oEvaluacion = null;
+                throw e;
+            }
+            finally
+            {
+                if (dr != null && dr.IsClosed == false) dr.Close();
+                objRequest.Parameters.Clear();
+                objRequest.Factory.Dispose();
+            }
+            return oEvaluacion;
+        }
+
         public List<EvaluacionProcedimientoEL> GetEvaluacionProcGrafico(int evalProcId)
         {
             DAABRequest.Parameter[] arrParam = {
@@ -151,7 +222,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPS_EvaluacionProcGrafico";
+            objRequest.Command = "GFR.USPS_EvaluacionProcGrafico";
             objRequest.Parameters.AddRange(arrParam);
 
             List<EvaluacionProcedimientoEL> lstEvaluacion = new List<EvaluacionProcedimientoEL>();
@@ -163,9 +234,9 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                 {
                     EvaluacionProcedimientoEL item = new EvaluacionProcedimientoEL();
 
-                    item.Periodo = Funciones.CheckStr(dr["Periodo"]);
-                    item.CantReclamos = Funciones.CheckInt(dr["TotSugerencia"]);
-                    item.CantSugerencia = Funciones.CheckInt(dr["TotReclamo"]);
+                    item.PeriodoGra = Funciones.CheckStr(dr["Periodo"]);
+                    item.CantReclamoGra = Funciones.CheckInt(dr["TotSugerencia"]);
+                    item.CantSugerenciaGra = Funciones.CheckInt(dr["TotReclamo"]);
 
                     lstEvaluacion.Add(item);
                 }
@@ -203,7 +274,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objTrackDb = new configPARDOSDB();
             DAABRequest objRequest = objTrackDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPU_EstadoEvaluacionProcedimiento";
+            objRequest.Command = "GFR.USPU_EstadoEvaluacionProcedimiento";
             objRequest.Parameters.AddRange(arrParam);
             try
             {
@@ -248,7 +319,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objTrackDb = new configPARDOSDB();
             DAABRequest objRequest = objTrackDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPU_ComentarioEvaluacionProcedimiento";
+            objRequest.Command = "GFR.USPU_ComentarioEvaluacionProcedimiento";
             objRequest.Parameters.AddRange(arrParam);
             try
             {

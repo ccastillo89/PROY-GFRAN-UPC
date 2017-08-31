@@ -30,7 +30,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPS_Procedimiento";
+            objRequest.Command = "GFR.USPS_Procedimiento";
             objRequest.Parameters.AddRange(arrParam);
 
             List<ProcedimientoEL> lstProcedimiento = new List<ProcedimientoEL>();

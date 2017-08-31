@@ -16,5 +16,13 @@ namespace UPC.SISGFRAN.EL.Inherited
 
         public string ImageUrl { get; set; }
         public bool Resultado { get; set; }
+
+        #region "Reporte de evaluacion de procedimiento"
+
+        public EvaluacionProcedimientoEL EvaluacionPro { get; set; }
+        public List<EvaluacionProcedimientoDetEL> EvaluacionDetalle { get; set; }
+        public List<EvaluacionProcedimientoEL> EvaluacionProGrafico { get; set; }
+
+        #endregion
     }
 }

@@ -16,6 +16,6 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string FechaApertura { get; set; }
         public string Responsable { get; set; }
         public UsuarioEL Usuario { get; set; }
-
+        public string FranquiciaLocal { get; set; }
     }
 }

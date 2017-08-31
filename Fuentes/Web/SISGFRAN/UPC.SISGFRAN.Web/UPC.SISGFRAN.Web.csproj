@@ -215,6 +215,9 @@
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\BajoRiesgo.png" />
     <Content Include="Content\Images\bg-module.jpg" />
+    <Content Include="Content\Images\Circle_Green.png" />
+    <Content Include="Content\Images\Circle_Red.png" />
+    <Content Include="Content\Images\Circle_Yellow.png" />
     <Content Include="Content\Images\FondoInicio.jpg" />
     <Content Include="Content\Images\horizontal.png" />
     <Content Include="Content\Images\imagen1.jpg" />
@@ -270,6 +273,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.flexslider-min.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
+    <Content Include="Scripts\jsEvalProc\Procedimiento.js" />
     <Content Include="Scripts\JsLogin\Login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
@@ -305,6 +309,9 @@
     <Content Include="Views\Solicitante\ResultadoSolicitante.cshtml" />
     <Content Include="Views\Procedimiento\Index.cshtml" />
     <Content Include="Views\Procedimiento\_Procedimientos.cshtml" />
+    <Content Include="Views\Procedimiento\_Evaluar.cshtml" />
+    <Content Include="Views\Procedimiento\Reporte.cshtml" />
+    <Content Include="Views\Procedimiento\_Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

@@ -29,7 +29,10 @@
                 grid.Column("CantReclamos", "# Reclamos"),
                 grid.Column("CantSugerencia", "# Sugerencias"),
                 grid.Column("Estado.Nombre", "Condición"),
-                grid.Column(format: @<text><input id="idEvalPro" class="chkRbEval" name="idEvalPro" type="radio" value="@item.Id" onclick="javascript: EvaluacionSelected(this)" /></text>)
+                grid.Column(header: "Acción", canSort: false, style: "action", 
+                format: @<text>
+                @Html.Raw("<a href='/Procedimiento/Reporte/" + item.Id + "' id='" + item.Id + "' title='Ver Reporte'> <span class='glyphicon glyphicon-list-alt'> </span> Ver reporte</a>")
+                </text>)
 ));
     }
 

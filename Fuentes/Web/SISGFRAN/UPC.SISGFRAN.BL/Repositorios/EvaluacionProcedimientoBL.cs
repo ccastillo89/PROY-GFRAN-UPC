@@ -21,6 +21,11 @@ namespace UPC.SISGFRAN.BL.Repositorios
             return new EvaluacionProcedimientoDA().RegistrarEvaluacionProc(evalProc);
         }
 
+        public EvaluacionProcedimientoEL GetEvaluacionProcById(int evalProcId)
+        {
+            return new EvaluacionProcedimientoDA().GetEvaluacionProcById(evalProcId);
+        }
+
         public List<EvaluacionProcedimientoEL> GetEvaluacionProcGrafico(int evalProcId)
         {
             return new EvaluacionProcedimientoDA().GetEvaluacionProcGrafico(evalProcId);

@@ -18,5 +18,31 @@ namespace UPC.SISGFRAN.EL.Inherited
         public ProcedimientoEL Procedimiento { get; set; }
         public int UsuarioId { get; set; }
 
+        public string Semaforo
+        {
+            get
+            {
+                string imagen;
+                if (Calificacion < decimal.Parse("3"))
+                {
+                    imagen = "/Content/Images/Circle_Green.png";
+                }
+                else if (Calificacion >= decimal.Parse("3") && Calificacion <= decimal.Parse("7"))
+                {
+                    imagen = "/Content/Images/Circle_Yellow.png";
+                }
+                else if (Calificacion > decimal.Parse("7"))
+                {
+                    imagen = "/Content/Images/Circle_Red.png";
+                }
+                else
+                {
+                    imagen = "/Content/Images/BajoRiesgo.png";
+                }
+
+                return imagen;
+            }
+        }
+
     }
 }

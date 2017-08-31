@@ -30,7 +30,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPS_Franquicia";
+            objRequest.Command = "GFR.USPS_Franquicia";
             objRequest.Parameters.AddRange(arrParam);
 
             List<LocalEL> lstLocales = new List<LocalEL>();
@@ -45,7 +45,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     oLocal.Nombre = Funciones.CheckStr(dr["NombreLocal"]);
                     oLocal.FechaApertura = Funciones.CheckStr(dr["fechaApertura"]);
                     oLocal.Responsable = Funciones.CheckStr(dr["responsable"]);
-
+                    oLocal.FranquiciaLocal = Funciones.CheckStr(dr["FranquiLocal"]);
                     FranquiciaEL item = new FranquiciaEL();
                     item.Id = Funciones.CheckInt(dr["FranquiciaId"]);
                     item.Nombre = Funciones.CheckStr(dr["Nombre"]);
