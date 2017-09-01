@@ -138,7 +138,7 @@
                 $('#cboCondicion').append('<option value="-1">--TODOS--</option>');
                 $.each(data, function (i, row) {
                     var $option = $('<option>');
-                    $option.val(row.Id);
+                    $option.val(row.Codigo);
                     $option.html(row.Nombre);
                     $('#cboCondicion').append($option);
                 })

@@ -1,4 +1,4 @@
-﻿
+﻿@model  UPC.SISGFRAN.EL.Inherited.ReporteEvaluacionEL
 @{
     ViewBag.Title = "Reporte De evaluación";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,17 +14,19 @@
     </div>
 
     <div class="row col-lg-11">
+        @Html.HiddenFor(m => m.Id, new { @id = "hddId"})
+        @Html.HiddenFor(m => m.EvaluacionPro.Local.Usuario.Email, new { @id = "hddEmail" })
         <div class="col-md-5">
             <label class="control-label col-md-4">Franquicia: </label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="txtFranquicia" id="txtFranquicia" disabled="disabled" />
+                @Html.TextBoxFor(m => m.EvaluacionPro.Local.Nombre, new { @class = "form-control", @disabled = "disabled" })
             </div>
         </div>
 
         <div class="col-md-5">
             <label class="control-label col-md-4">Responsable: </label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="txtResp" id="txtResp" disabled="disabled" />
+                @Html.TextBoxFor(m => m.EvaluacionPro.Local.Responsable, new { @class = "form-control", @disabled = "disabled" })
             </div>
         </div>
     </div>
@@ -33,14 +35,14 @@
         <div class="col-md-5">
             <label class="control-label col-md-4">Periodo: </label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="txtPeriodo" id="txtPeriodo" disabled="disabled" />
+                @Html.TextBoxFor(m => m.EvaluacionPro.Periodo, new { @class = "form-control", @disabled = "disabled" })
             </div>
         </div>
 
         <div class="col-md-5">
             <label class="control-label col-md-4">Fecha de Evaluación: </label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="txtFecha" id="txtFecha" disabled="disabled" />
+                @Html.TextBoxFor(m => m.EvaluacionPro.FechaEvaluacion, new { @class = "form-control", @disabled = "disabled" })
             </div>
         </div>
 
@@ -49,8 +51,8 @@
     <div class="row col-lg-11">
         <div class="col-md-10">
             <label class="control-label col-md-2">Comentarios: </label>
-            <div class="col-md-8">
-                <textarea rows="4" cols="88" name="txtComentario" id="txtComentario"></textarea>
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.EvaluacionPro.Comentario, new { @class = "form-control", @rows = 4 , @cols = 10})
             </div>
         </div>
 
@@ -73,7 +75,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div style="float: right; width: 50%;">
-                        <label class="control-label col-md-3">Leyenda de calificación: </label>
+                        <label class="control-label col-md-5">Leyenda de calificación: </label>
                         <ul class="legend">
                             <li><span class="legendGreen"></span> De 0 a < 3</li>
                             <li><span class="legendYellow"></span> De 3 a 7</li>
@@ -98,7 +100,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-10">
-                        <div id="morris-area-chart"></div>
+                        <div id="morris-graf-chart"></div>
                     </div>
                 </div>
             </div>
@@ -107,6 +109,9 @@
     <div class="row col-lg-11">
         <div class="row" style="float:right; width:28%">
             <div class="form-group row col-md-3">
+                
+                <input type="hidden" value="0" id="hddNotifico" name="hddNotifico">
+
                 <span class="input-group-btn" style="padding-left:5px;">
                     <a class="btn btn-primary" href='#' onclick="Enviar();" id='btnEnviar' title='Enviar notificación'>
                         <span class='glyphicon glyphicon-tasks'>
@@ -116,9 +121,9 @@
                 </span>
 
                 <span class="input-group-btn" style="padding-left:5px;">
-                    <a class="btn btn-primary" href='#' onclick="Cancelar();" id='btnCancelar' title='Cancelar'>
+                    <a class="btn btn-danger" href='#' onclick="Cancelar();" id='btnCancelar' title='Cancelar'>
                         <span class='glyphicon glyphicon-cancel'>
-                            Cancelar
+                            Regresar
                         </span>
                     </a>
                 </span>
@@ -132,54 +137,129 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
 
+
     <section class="scripts">
-
         <script type="text/javascript">
 
-        $(document).ready(function () {
+            $(document).ready(function () {
+            
+            });
 
+            function Grabar() {
+                var comentario = $("#EvaluacionPro_Comentario").val();
+                var IdEval = $("#hddId").val();
 
-        });
+                var formData = { id: IdEval, coment: comentario };
 
-        function LoadGraficoArea(data)
-        {
-            $("#morris-area-chart").html("");
-            //var grafico = Morris.Area({
-            //    backgroundColor: '#ccc',
-            //    labelColor: '#060',
-            //    element: 'morris-area-chart',
-            //    data: data.ListaCoberturaGrafico,
-            //    xkey: 'FechaCalendario',
-            //    xLabelAngle: 90,
-            //    xLabels: 'day',
-            //    yLabelFormat: function (y) { return ''; },
-            //    ykeys: ['VisitasEfectivas', 'VisitasNoEfectivas', 'RealPdvVisitados'],
-            //    labels: ['Visitas efectivas','Visitas No Efectivas','PDV Asignados' ],
-            //    pointSize: 2,
-            //    hideHover: 'auto',
-            //    resize: true,
-            //    smooth: true,
-            //    grid: false,
-            //    fillOpacity: 0.7,
-            //    lineColors: ['#F79263','#A7B3BC','#0B62A4' ],
-            //    hoverCallback: function(index, options, content) {
-            //    var data = options.data[index];
-            //    return ["PDV Asignados: " + data.PdvAsignados,
-            //            "Visitas No Efectivas: " + data.VisitasNoEfectivas,
-            //            "Visitas Efectivas: " + data.VisitasEfectivas,
-            //             data.SUM].join('<br/>');
-            //    }
+                $.ajax({
+                    url: "/Procedimiento/Grabar",
+                    type: "POST",
+                    data: formData,
+                    success: function (data) {
+                        bootbox.alert({
+                            message: data.message,
+                            size: 'small'
+                        });
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        bootbox.alert('error', textStatus, 'Error');
+                    }
+                });
+            }
+            
+            function Enviar()
+            {
+                var notif = $("#hddNotifico").val();
 
-            //});
+                if (notif == "1")
+                {
+                    bootbox.alert({
+                        message: "Notificación ya enviada",
+                        size: 'small'
+                    });
+                    return false;
+                }   
 
-        }
+                var idEval = $("#hddId").val();
+                var periodo = $("#EvaluacionPro_Periodo").val();
+                var fechaEval = $("#EvaluacionPro_FechaEvaluacion").val();
+                var mail = $("#hddEmail").val();
+                var respons = $("#EvaluacionPro_Local_Responsable").val();
+
+                $.ajax({
+                    url: "/Procedimiento/EnviarCorreo",
+                    type: "GET",
+                    data: { id: idEval, correo: mail, periodo: periodo, resp: respons, fecha: fechaEval },
+                    dataType: "html",
+                    traditional: true,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var datos = jQuery.parseJSON(data);
+                        if (datos.status == true) {
+                            bootbox.alert({
+                                message: datos.message,
+                                size: 'small'
+                            });
+                            $("#hddNotifico").val("1");
+                        } else {
+                            bootbox.alert({
+                                message: datos.message,
+                                size: 'small'
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        bootbox.alert('error', textStatus, 'Error');
+                    }
+                });
+            }
+
+            function Cancelar()
+            {
+                bootbox.confirm({
+                    message: "¿Está seguro que desea regresar?",
+                    buttons: {
+                        confirm: {
+                            label: 'Si',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result)
+                            location.href = '@Url.Action("Index", "Procedimiento")';
+                        else
+                            return false;
+                    }
+                });
+            }
+
+            function LoadGraficoArea(month_data)
+            {
+                $("#morris-area-chart").html("");
+                var grafico = Morris.Line({
+                    element: 'morris-graf-chart',
+                    data: month_data,
+                    xkey: 'PeriodoGra',
+                    ykeys: ['CantSugerenciaGra', 'CantReclamoGra'],
+                    labels: ['Sugerencias', 'Reclamos'],
+                    smooth: false
+                });
+            }
 
         </script>
         <script type="text/javascript">
-        var message = '@message';
-        if (message)
-            bootbox.alert(message);
+            var message = '@message';
+            if (message)
+                bootbox.alert(message);
         </script>
-
+        <script type="text/javascript">
+            var modelo = @Html.Raw(Json.Encode(Model))
+            setTimeout(LoadGraficoArea(modelo.EvaluacionProGrafico), 1000);
+        </script>
     </section>
 }

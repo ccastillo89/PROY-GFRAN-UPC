@@ -4,12 +4,14 @@ using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using UPC.SISGFRAN.BL.Repositorios;
 using UPC.SISGFRAN.EL.Inherited;
 using UPC.SISGFRAN.EL.NonInherited;
 using UPC.SISGFRAN.Web.Helper;
+using UPC.SISGFRAN.Web.Helper.Mail;
 
 namespace UPC.SISGFRAN.Web.Controllers
 {
@@ -209,6 +211,49 @@ namespace UPC.SISGFRAN.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult EnviarCorreo(string id, string correo, string periodo, string resp, string fecha)
+        {
+            try
+            {
+                int idEval = Convert.ToInt32(id);
+                evaluacionBL = new EvaluacionProcedimientoBL();
+                ParametroEL oEstado = new ParametroEL(){ 
+                    Codigo = 2 //Notificado
+                };
+
+                EvaluacionProcedimientoEL oActualiza = new EvaluacionProcedimientoEL()
+                {
+                    Id = idEval,
+                    UsuarioId = SesionUsuario.Usuario.Id,
+                    Estado = oEstado
+                };
+
+                EvaluacionProcedimientoEL oEvaluacionEL = evaluacionBL.ActualizarEstado(oActualiza);
+
+                // Configurar envio de correo
+                string subject = string.Format("{0}-{1}: {2}", "[Pardos Chicken]", ConfigurationManager.AppSettings.Get("AsuntoMailEvalPro"), periodo);
+                string mailFrom = ConfigurationManager.AppSettings.Get("MailEmisor");
+                string passwordMailEmisor = ConfigurationManager.AppSettings.Get("PasswordMailEmisor");
+                StringBuilder buffer = new StringBuilder();
+                buffer.Append("Estimado <b>{0}</b> <br /><br />");
+                buffer.Append(" Es grato saludarlo e informarle que la dirección central de Pardos Chicken ha realizado la evaluación del desempeño de los procdimientos de su local, publicándose los resultados en la intranet. Favor de acceder al sistema para visualizar sus resultados y recomendaciones/observaciones. <br /><br />");
+                buffer.Append(" Periodo:" + periodo + " <br/>");
+                buffer.Append(" Fecha evaluación:" + fecha + "<br/><br/>");
+                buffer.Append("<br/><br/>");
+                buffer.Append(" Saludos cordiales. <br/><br/>");
+                buffer.Append("<i> Nota: Por favor no responda este correo. <i>");
+
+                MailHelper.SendMail(mailFrom, passwordMailEmisor, correo, subject, string.Format(buffer.ToString(), resp), true, System.Net.Mail.MailPriority.Normal);
+
+                return Json(new { status = true, message = "Se notificó al responsable correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         #region "Metodos"
 
         protected override void Dispose(bool disposing)
@@ -216,6 +261,34 @@ namespace UPC.SISGFRAN.Web.Controllers
             base.Dispose(disposing);
         }
 
+        public JsonResult Grabar(string id, string coment)
+        {
+            try
+            {
+                EvaluacionProcedimientoBL oEvalProcBL = new EvaluacionProcedimientoBL();
+                EvaluacionProcedimientoEL oEvalProActualizado = null;
+
+                EvaluacionProcedimientoEL oEvalProEL = new EvaluacionProcedimientoEL()
+                {
+                    Id =Convert.ToInt32(id),
+                    Comentario = coment,
+                    UsuarioId = SesionUsuario.Usuario.Id
+                };
+
+                oEvalProActualizado = oEvalProcBL.ActualizarComentario(oEvalProEL);
+
+                if (oEvalProActualizado.CodeMessage != 0)
+                {
+                    return Json(new { status = false, message = oEvalProActualizado.MessageErr }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { status = true, message = "Se actualizó el comentario correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
         public JsonResult ListaPeriodo()
         {

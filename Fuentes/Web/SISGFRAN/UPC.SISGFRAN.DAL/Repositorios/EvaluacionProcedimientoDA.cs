@@ -62,6 +62,8 @@ namespace UPC.SISGFRAN.DAL.Repositorios
 
                     item.CantReclamos = Funciones.CheckInt(dr["Nro_reclamos"]);
                     item.CantSugerencia = Funciones.CheckInt(dr["Nro_sugerencias"]);
+                    item.FechaEvaluacion = Funciones.CheckStr(dr["FechaEvaluacion"]);
+                    item.Comentario = Funciones.CheckStr(dr["Comentario"]);
 
                     ParametroEL oEstado = new ParametroEL()
                     {
@@ -186,6 +188,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     oEvaluacion.CantReclamos = Funciones.CheckInt(dr["Nro_reclamos"]);
                     oEvaluacion.CantSugerencia = Funciones.CheckInt(dr["Nro_sugerencias"]);
                     oEvaluacion.FechaEvaluacion = Funciones.CheckStr(dr["FechaEvaluacion"]);
+                    oEvaluacion.Comentario = Funciones.CheckStr(dr["Comentario"]);
 
                     ParametroEL oEstado = new ParametroEL()
                     {
@@ -259,7 +262,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
         {
             DAABRequest.Parameter[] arrParam = {
                 new DAABRequest.Parameter("@idEvaProc", DbType.Int32,ParameterDirection.Input),
-                new DAABRequest.Parameter("@idUsuario", DbType.Int32, ParameterDirection.Input),
+                new DAABRequest.Parameter("@usuarioId", DbType.Int32, ParameterDirection.Input),
                 new DAABRequest.Parameter("@estado", DbType.Int32, ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
@@ -304,7 +307,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
         {
             DAABRequest.Parameter[] arrParam = {
                 new DAABRequest.Parameter("@idEvaProc", DbType.Int32,ParameterDirection.Input),
-                new DAABRequest.Parameter("@idUsuario", DbType.Int32, ParameterDirection.Input),
+                new DAABRequest.Parameter("@usuarioId", DbType.Int32, ParameterDirection.Input),
                 new DAABRequest.Parameter("@comentario", DbType.String, 250, ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)

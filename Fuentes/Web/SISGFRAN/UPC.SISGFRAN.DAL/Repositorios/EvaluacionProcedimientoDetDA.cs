@@ -49,7 +49,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     item.Id = Funciones.CheckInt(dr["Id"]);
                     item.CantidadReclamos = Funciones.CheckInt(dr["CantidadReclamo"]);
                     item.CantidadSugerencia = Funciones.CheckInt(dr["CantidadSugerencia"]);
-                    item.Calificacion = Funciones.CheckInt(dr["Calificacion"]);
+                    item.Calificacion = Funciones.CheckDecimal(dr["Calificacion"]);
 
                     lstEvaluacionDet.Add(item);
                 }

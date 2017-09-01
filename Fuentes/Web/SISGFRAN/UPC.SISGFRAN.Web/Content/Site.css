@@ -493,3 +493,8 @@ div.desc {
 .legend .legendGreen { background-color: #239604; border-radius: 0.5em}
 .legend .legendYellow { background-color: #eacb00; border-radius: 0.5em}
 .legend .legendRed { background-color: #e40c0c; border-radius: 0.5em}
+
+
+.text-center-col {
+    text-align: center;
+}
