@@ -65,14 +65,3 @@ C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SI
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.csprojResolveAssemblyReference.cache
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.dll
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.BL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.BL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.DAL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.EL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\DAAB.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.DAL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\UPC.SISGFRAN.EL.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\bin\Debug\DAAB.pdb
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.csprojResolveAssemblyReference.cache
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.dll
-C:\Repositorio\Proyecto_GFRANUPC\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.BL\obj\Debug\UPC.SISGFRAN.BL.pdb

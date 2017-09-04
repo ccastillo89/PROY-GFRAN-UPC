@@ -27,7 +27,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
             objRequest.CommandType = CommandType.StoredProcedure;
-            objRequest.Command = "USPS_SugerenciaEvaluada";
+            objRequest.Command = "GFR.USPS_SugerenciaEvaluada";
             objRequest.Parameters.AddRange(arrParam);
 
             List<SugerenciaEL> lstSugerencias = new List<SugerenciaEL>();

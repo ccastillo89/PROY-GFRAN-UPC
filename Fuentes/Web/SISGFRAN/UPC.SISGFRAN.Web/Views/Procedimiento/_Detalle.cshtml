@@ -19,8 +19,16 @@
                     columns: grid.Columns(
                         grid.Column("Procedimiento.Nombre", "Procedimiento"),
                         grid.Column("Procedimiento.Version", "Última versión", style: "text-center-col"),
-                        grid.Column("CantidadReclamos", "# reclamos", style: "text-center-col"),
-                        grid.Column("CantidadSugerencia", "# Sugerencias", style: "text-center-col"),
+                        grid.Column(header: "# Reclamos", style: "text-center-col",
+                            format: @<text>
+                                @Html.Raw("<a data-modal='' href='/Procedimiento/Reclamo/" + item.Id + "' id='" + item.Id + "' title='Nro de reclamos'>" + item.CantidadReclamos + "</a>")
+                            </text>
+                        ),
+                        grid.Column(header: "# Sugerencias", style: "text-center-col",
+                            format: @<text>
+                                @Html.Raw("<a data-modal='' href='/Procedimiento/Sugerencia/" + item.Id + "' id='" + item.Id + "' title='Nro de sugerencia'>" + item.CantidadSugerencia + "</a>")
+                            </text>
+                        ),
                         grid.Column(header: "Calificación", format: @<text><img src="@item.Semaforo" id="adimg" /> @item.Calificacion </text>, style: "text-center-col")
             ));
     }

@@ -26,7 +26,7 @@ namespace UPC.SISGFRAN.Web.Controllers
             var records = new EvaluacionProcedimientoEL();
 
             ParametroEL oEstado = new ParametroEL() { Codigo = -1};
-            LocalEL oLocal = new LocalEL() { Id = -1 };
+            LocalEL oLocal = new LocalEL() { Id = -1 , Usuario = SesionUsuario.Usuario};
             EvaluacionProcedimientoEL oConsulta = new EvaluacionProcedimientoEL() {
                 Id = -1,
                 Periodo = "",
@@ -66,8 +66,19 @@ namespace UPC.SISGFRAN.Web.Controllers
                 int.TryParse(franquicia, NumberStyles.Integer, NumberFormatInfo.CurrentInfo, out franquiciaId);
                 int.TryParse(estado, NumberStyles.Integer, NumberFormatInfo.CurrentInfo, out estadoId);
 
+                int usuarioId = 0;
+                if (SesionUsuario.Usuario.Perfil.Id == 1)
+                {
+                    usuarioId = -1;
+                }
+                else
+                {
+                    usuarioId = SesionUsuario.Usuario.Id;
+                }
+
+                UsuarioEL oUsuario = new UsuarioEL() { Id = usuarioId };
                 ParametroEL oEstado = new ParametroEL() { Codigo = estadoId };
-                LocalEL oLocal = new LocalEL() { Id = franquiciaId };
+                LocalEL oLocal = new LocalEL() { Id = franquiciaId, Usuario = oUsuario };
                 EvaluacionProcedimientoEL oConsulta = new EvaluacionProcedimientoEL()
                 {
                     Id = -1,
@@ -155,7 +166,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 if (evaluacionRegistrada.Id > 0)
                 {
                     TempData["msg"] = "Procesado exitosamente";
-                    return RedirectToAction("Reporte", "Procedimiento", new { @id = evaluacionRegistrada.Id });
+                    return Json(new { status = true, page = "/Procedimiento/Reporte/" + evaluacionRegistrada.Id.ToString(), JsonRequestBehavior.AllowGet });
                 }
 
                 return Json(new { status = false, message = evaluacionRegistrada.MessageErr, JsonRequestBehavior.AllowGet });
@@ -254,6 +265,101 @@ namespace UPC.SISGFRAN.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Reclamo(string id = null, int page = 1, int pageSize = 10, string sort = "Id", string sortdir = "DESC")
+        {
+            ReporteEvaluacionEL reporteEL = null;
+            ReclamoBL oReclamoBL = new ReclamoBL();
+            ListaPaginada<ReclamoEL> listaReclamos = new ListaPaginada<ReclamoEL>();
+            List<ReclamoEL> listaContent = null;
+
+            try
+            {
+                int iEvaluacion = 0;
+                int.TryParse(id, out iEvaluacion);
+
+                listaContent = oReclamoBL.GetReclamosEvaluados(iEvaluacion);
+
+                listaReclamos.Content = listaContent
+                                        .OrderBy(sort + " " + sortdir)
+                                        .Skip((page - 1) * pageSize)
+                                        .Take(pageSize)
+                                        .ToList();;
+
+                // Count
+                listaReclamos.TotalRecords = listaContent.Count();
+                listaReclamos.CurrentPage = page;
+                listaReclamos.PageSize = pageSize;
+
+                //Nombre de procedimiento
+                string procedimiento = listaContent.FirstOrDefault().Procedimiento.Nombre;
+
+                reporteEL = new ReporteEvaluacionEL()
+                {
+                    Reclamos = listaReclamos,
+                    Procedimiento = procedimiento.ToUpper()
+                };
+
+                return PartialView("_Reclamo", reporteEL);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                oReclamoBL = null;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Sugerencia(string id = null, int page = 1, int pageSize = 10, string sort = "Id", string sortdir = "DESC")
+        {
+            ReporteEvaluacionEL reporteEL = null;
+            SugerenciaBL oSugerenciaBL = new SugerenciaBL();
+            ListaPaginada<SugerenciaEL> listaSugerencia = new ListaPaginada<SugerenciaEL>();
+            List<SugerenciaEL> listaContent = null;
+
+            try
+            {
+                int iEvaluacion = 0;
+                int.TryParse(id, out iEvaluacion);
+
+                listaContent = oSugerenciaBL.GetSugerenciaEvaluada(iEvaluacion);
+
+                listaSugerencia.Content = listaContent
+                                        .OrderBy(sort + " " + sortdir)
+                                        .Skip((page - 1) * pageSize)
+                                        .Take(pageSize)
+                                        .ToList(); ;
+
+                // Count
+                listaSugerencia.TotalRecords = listaContent.Count();
+                listaSugerencia.CurrentPage = page;
+                listaSugerencia.PageSize = pageSize;
+
+                //Nombre de procedimiento
+                string procedimiento = listaContent.FirstOrDefault().Procedimiento.Nombre;
+
+                reporteEL = new ReporteEvaluacionEL()
+                {
+                    Sugerencias = listaSugerencia,
+                    Procedimiento = procedimiento.ToUpper()
+                };
+
+                return PartialView("_Sugerencia", reporteEL);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                oSugerenciaBL = null;
+            }
+        }
+
+
         #region "Metodos"
 
         protected override void Dispose(bool disposing)
@@ -316,10 +422,22 @@ namespace UPC.SISGFRAN.Web.Controllers
         public JsonResult ListaFranquicia()
         {
             LocalBL oLocal = new LocalBL();
+            int usuarioId = 0;
+
+            if (SesionUsuario.Usuario.Perfil.Id != 1)
+            {
+                usuarioId = SesionUsuario.Usuario.Id;
+            }
+            else
+	        {
+                usuarioId = -1;
+	        }
+
             FranquiciaEL oFranquicia = new FranquiciaEL()
             {
                 Id = -1,
-                Nombre = string.Empty
+                Nombre = string.Empty,
+                UsuarioCreacion = usuarioId
             };
 
             return Json(oLocal.GetLocalesXFranquicias(oFranquicia).ToList(), JsonRequestBehavior.AllowGet);

@@ -22,6 +22,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                 new DAABRequest.Parameter("@idFranquicia", DbType.Int32,ParameterDirection.Input),
                 new DAABRequest.Parameter("@periodo", DbType.String, 6,ParameterDirection.Input),
                 new DAABRequest.Parameter("@condicion", DbType.Int32,ParameterDirection.Input),
+                new DAABRequest.Parameter("@idUsuario", DbType.Int32,ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
             };
@@ -30,6 +31,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             arrParam[1].Value = evalProc.Local.Id;
             arrParam[2].Value = evalProc.Periodo;
             arrParam[3].Value = evalProc.Estado.Codigo;
+            arrParam[4].Value = evalProc.Local.Usuario.Id;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
@@ -147,14 +149,16 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                 new DAABRequest.Parameter("@idFranquicia", DbType.Int32,ParameterDirection.Input),
                 new DAABRequest.Parameter("@periodo", DbType.String, 6,ParameterDirection.Input),
                 new DAABRequest.Parameter("@condicion", DbType.Int32,ParameterDirection.Input),
+                new DAABRequest.Parameter("@idUsuario", DbType.Int32,ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
             };
 
             arrParam[0].Value = evalProcId;
-            arrParam[1].Value = -1;
+            arrParam[1].Value = Constantes.Filtros.Todos;
             arrParam[2].Value = "-1";
-            arrParam[3].Value = -1;
+            arrParam[3].Value = Constantes.Filtros.Todos;
+            arrParam[4].Value = Constantes.Filtros.Todos;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();

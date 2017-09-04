@@ -20,12 +20,14 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             DAABRequest.Parameter[] arrParam = {
                 new DAABRequest.Parameter("@idFranquicia", DbType.Int32 ,ParameterDirection.Input),
                 new DAABRequest.Parameter("@nombre", DbType.String, 250 ,ParameterDirection.Input),
+                new DAABRequest.Parameter("@idUsuario", DbType.Int32 ,ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
             };
 
             arrParam[0].Value = franquicia.Id;
             arrParam[1].Value = franquicia.Nombre;
+            arrParam[2].Value = franquicia.UsuarioCreacion;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();

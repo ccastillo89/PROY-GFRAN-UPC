@@ -1,5 +1,6 @@
-﻿
+﻿@using UPC.SISGFRAN.Web.Helper;
 @{
+    var usuario = SesionUsuario.Usuario;
     ViewBag.Title = "Evaluacion de Procedimiento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -43,14 +44,16 @@
                         </span>
                     </a>
                 </span>
-
-                <span class="input-group-btn" style="padding-left:5px;">
-                    <a data-modal="" class="btn btn-primary spaceBoton" href='/Procedimiento/Evaluar' id='btnProcedimiento' title='Evaluar Procedimiento'>
-                        <span class='glyphicon glyphicon-cog'>
-                            Evaluar
-                        </span>
-                    </a>
-                </span>
+                @if (usuario.Perfil.Id == 1) 
+                {
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <a data-modal="" class="btn btn-primary spaceBoton" href='/Procedimiento/Evaluar' id='btnProcedimiento' title='Evaluar Procedimiento'>
+                            <span class='glyphicon glyphicon-cog'>
+                                Evaluar
+                            </span>
+                        </a>
+                    </span>
+                }
             </div>
         </fieldset>
     </div>

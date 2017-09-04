@@ -5,7 +5,7 @@
     <h3 class="modal-title">Evaluacion de Procedimientos</h3>
 </div>
 
-@using (Ajax.BeginForm("Evaluar", "Procedimiento", new AjaxOptions { HttpMethod = "POST"}))
+@using (Html.BeginForm("Evaluar", "Procedimiento", FormMethod.Post))
 {
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
@@ -52,7 +52,7 @@
             $('#cboPeriodoModal').append('<option value="0">--SELECCIONE--</option>');
             $.each(data, function (i, row) {
                 var $option = $('<option>');
-                $option.val(row.Id);
+                $option.val(row.Nombre);
                 $option.html(row.Nombre);
                 $('#cboPeriodoModal').append($option);
             })

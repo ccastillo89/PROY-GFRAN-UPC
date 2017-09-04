@@ -19,14 +19,16 @@ function bindForm(dialog) {
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
-                if (!result.status) {
-                    bootbox.alert({
-                        message: result.message,
-                        size: 'small'
-                    });
-                } else {
+                if (result.status != undefined) {
+                    if (!result.status) {
+                        bootbox.alert({
+                            message: result.message,
+                            size: 'small'
+                        });
+                    }
+                }
+                else {
                     $('#myModal').modal('hide');
-                    location.href = result.page;
                 }
             }
         });

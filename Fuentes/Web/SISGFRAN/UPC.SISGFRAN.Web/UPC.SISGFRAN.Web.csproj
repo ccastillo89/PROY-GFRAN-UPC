@@ -276,6 +276,7 @@
     <Content Include="Scripts\jquery.flexslider-min.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
     <Content Include="Scripts\jsEvalProc\Procedimiento.js" />
+    <Content Include="Scripts\jsEvalProc\Reporte.js" />
     <Content Include="Scripts\JsLogin\Login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
@@ -318,6 +319,8 @@
     <Content Include="Views\Procedimiento\_Evaluar.cshtml" />
     <Content Include="Views\Procedimiento\Reporte.cshtml" />
     <Content Include="Views\Procedimiento\_Detalle.cshtml" />
+    <Content Include="Views\Procedimiento\_Reclamo.cshtml" />
+    <Content Include="Views\Procedimiento\_Sugerencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">
