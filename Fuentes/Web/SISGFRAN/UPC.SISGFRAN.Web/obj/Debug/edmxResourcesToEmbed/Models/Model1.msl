@@ -11,6 +11,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Distrito">
+      <EntityTypeMapping TypeName="PARDOSDBModel.Distrito">
+        <MappingFragment StoreEntitySet="Distrito">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+          <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+          <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+          <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Entrevista">
       <EntityTypeMapping TypeName="PARDOSDBModel.Entrevista">
         <MappingFragment StoreEntitySet="Entrevista">
@@ -37,6 +49,24 @@
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
           <ScalarProperty Name="ContraseniaAnt" ColumnName="ContraseniaAnt" />
           <ScalarProperty Name="ContraseniaAct" ColumnName="ContraseniaAct" />
+          <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+          <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+          <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+          <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Local">
+      <EntityTypeMapping TypeName="PARDOSDBModel.Local">
+        <MappingFragment StoreEntitySet="Local">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="FechaApertura" ColumnName="FechaApertura" />
+          <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+          <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+          <ScalarProperty Name="Longitud" ColumnName="Longitud" />
           <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
           <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
           <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
@@ -178,6 +208,21 @@
           <ScalarProperty Name="ReferenciaComercial" ColumnName="ReferenciaComercial" />
           <ScalarProperty Name="ReferenciaBancaria" ColumnName="ReferenciaBancaria" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+          <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+          <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+          <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sugerencia">
+      <EntityTypeMapping TypeName="PARDOSDBModel.Sugerencia">
+        <MappingFragment StoreEntitySet="Sugerencia">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="Prioridad" ColumnName="Prioridad" />
           <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
           <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
           <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />

@@ -24,11 +24,10 @@
       <Value Profile="(Default)">.</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Peru123.</Value>
+      <Value Profile="(Default)">RDCH2016.</Value>
     </Setting>
     <Setting Name="databaseName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">PARDOSDB
-                </Value>
+      <Value Profile="(Default)">BDPARDOS</Value>
     </Setting>
   </Settings>
 </SettingsFile>

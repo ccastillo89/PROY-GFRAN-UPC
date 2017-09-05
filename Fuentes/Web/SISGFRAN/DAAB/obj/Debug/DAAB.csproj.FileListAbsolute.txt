@@ -49,3 +49,7 @@ C:\Proyecto_TP3\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
 C:\Proyecto_TP3\SISGFRAN\DAAB\obj\Debug\DAAB.csprojResolveAssemblyReference.cache
 C:\Proyecto_TP3\SISGFRAN\DAAB\obj\Debug\DAAB.dll
 C:\Proyecto_TP3\SISGFRAN\DAAB\obj\Debug\DAAB.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\bin\Debug\DAAB.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\DAAB\obj\Debug\DAAB.pdb

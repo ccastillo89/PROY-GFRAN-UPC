@@ -27,3 +27,8 @@ C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.EL\bin\Debug\UPC.SISGFRAN.EL.pdb
 C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.csprojResolveAssemblyReference.cache
 C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.dll
 C:\Proyecto_TP3\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.EL\obj\Debug\UPC.SISGFRAN.EL.csprojResolveAssemblyReference.cache

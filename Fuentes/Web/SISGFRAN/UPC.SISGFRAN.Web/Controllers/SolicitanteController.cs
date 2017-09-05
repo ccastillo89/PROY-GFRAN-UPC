@@ -229,7 +229,6 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         public ReporteCrediticio asignarClasifiacione(String capitalMensual, String numeroEntidades, String sumaDeuda, ReporteCrediticio reporte)
         {
-            String categoriaAsignada = "";
 
             Double capitalMensualV = 0.00;
             capitalMensualV = Double.Parse(capitalMensual);

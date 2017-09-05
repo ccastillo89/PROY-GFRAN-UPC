@@ -1,0 +1,133 @@
+﻿@model UPC.SISGFRAN.Web.Helper.EvaluacionSugerenciaHelper
+
+@{
+    ViewBag.Title = "Evaluar sugerencia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+
+    var grid = new WebGrid(
+        source: Model.DetalleEvaluacionsugerencia,
+        rowsPerPage: 4, canPage: true, canSort: false);
+}
+
+
+@using (Html.BeginForm("Regresar", "Sugerencia"))
+{
+
+    <div class="container2">
+        <div class="margenPanelRigth">
+            <fieldset>
+                <legend><center>Resultado Evaluación de Sugerencias</center></legend>
+                <div class="form-group row OcultarDiv">
+                    <input type="hidden" value="" id="hddDNI" name="hddDNI">
+                    <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="gridEvaluarSolicitante">
+                                    <table>
+                                        <tr style="height: 15px;">
+                                            <td><label class="control-label ">Distrito:</label></td>
+                                            <td> </td>
+                                            <td style="width: 50px;"></td>
+                                            <td> </td>
+                                            <td><label class="control-label ">Local:</label></td>
+                                            <td> </td>
+                                        </tr>
+   
+                                        <tr style="height: 15px;">
+                                            <td><input type="text" size="50" disabled="disabled" name="nombre_distrito" value="@Html.DisplayTextFor(model => model.nombre_distrito)" id="FechaInicio" /></td>
+                                            <td></td>
+                                            <td style="width: 50px;"></td>
+                                            <td></td>
+                                            <td><input type="text" size="50" disabled="disabled" name="nombre_local" value="@Html.DisplayTextFor(model => model.nombre_local)" id="FechaFin" /></td>
+                                            <td></td>
+                                        </tr>
+                                        
+                                    </table>
+                                    <br />
+                                    
+                                    <table>
+                                        <tr style="height: 15px;">
+                                            <td><label class="control-label ">Fecha Inicio:</label></td>
+                                            <td> </td>
+                                            <td style="width: 50px;"></td>
+                                            <td> </td>
+                                            <td><label class="control-label">Fecha Fin:</label></td>
+                                            <td> </td>
+                                        </tr>
+
+                                        <tr style="height: 15px;">
+                                            <td><input type="text" size="50" disabled="disabled" name="FechaInicio" value="@Html.DisplayTextFor(model => model.fecha_inicio)" id="FechaInicio" /></td>
+                                            <td></td>
+                                            <td style="width: 50px;"></td>
+                                            <td></td>
+                                            <td><input type="text" size="50" disabled="disabled" name="FechaFin" value="@Html.DisplayTextFor(model => model.fecha_fin)" id="FechaFin" /></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </table>
+
+                                    <br />
+                                    <table width="100%">
+                                        <tr style="height: 50px;">
+                                            <td >
+                                                <label class="control-label"> Detalle de evaluación:</label>
+</td>
+                                        </tr>
+                                        <tr>
+                                            <td> 
+                                                <textarea class="form-control" rows="5" id="comment">@Html.DisplayTextFor(model => model.descripcion_evaluacion)</textarea>
+                                           </td>
+                                        
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div id="gridSolicitud">
+                    @grid.GetHtml(
+                                             tableStyle: "webgrid",
+                                             headerStyle: "webgrid-header",
+                                             footerStyle: "webgrid-footer",
+                                             alternatingRowStyle: "webgrid-alternating-row",
+                                             selectedRowStyle: "webgrid-selected-row",
+                                             rowStyle: "webgrid-row-style",
+                                    columns: grid.Columns(
+                                           grid.Column("codigo_sugerencia", "Código de sugerencia", style: "col-md-1"),
+                                                    grid.Column("fecha_sugerencia", "Fecha de ingreso de sugerencia", style: "col-md-1"),
+                                                    grid.Column("administrador_sugerencia", "Administrador de local", style: "col-md-1"),
+                                                    grid.Column("detalle_sugerencia", "Palabras clave en detalle de sugerencia", style: "col-md-1" ),
+                                                    grid.Column("prioridad_sugerencia", "Prioridad de Sugerencia", style: "col-md-1"),
+                                                    grid.Column("enviar_sugerencia", "Enviar Sugerencia", style: "col-md-1")                  
+                                                      )
+                                    )
+                                    
+                </div>
+                <br />
+
+                <br />
+                <br /><br /><br /><p></p>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="form-group row col-md-6">
+                                <span class="input-group-btn" style="padding-left:5px;">
+                                    <center><button id="btnEvaluar" class="btn btn-success" type="submit">Regresar</button></center>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+}

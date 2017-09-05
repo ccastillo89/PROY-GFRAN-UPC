@@ -49,6 +49,7 @@
     <Compile Include="Repositorios\PerfilBL.cs" />
     <Compile Include="Repositorios\SolicitanteBL.cs" />
     <Compile Include="Repositorios\SolicitudBL.cs" />
+    <Compile Include="Repositorios\SugerenciaBL.cs" />
     <Compile Include="Repositorios\UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>

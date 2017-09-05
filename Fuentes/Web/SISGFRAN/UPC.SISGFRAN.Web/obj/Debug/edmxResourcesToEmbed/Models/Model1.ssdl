@@ -9,6 +9,17 @@
     <Property Name="Descripcion" Type="varchar" MaxLength="50" />
     <Property Name="Estado" Type="int" />
   </EntityType>
+  <EntityType Name="Distrito">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
   <EntityType Name="Entrevista">
     <Key>
       <PropertyRef Name="Id" />
@@ -36,6 +47,23 @@
     <Property Name="ContraseniaAnt" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="ContraseniaAct" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="AuditoriaUC" Type="int" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Local">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FechaApertura" Type="datetime" />
+    <Property Name="Responsable" Type="varchar" MaxLength="50" />
+    <Property Name="DistritoId" Type="int" />
+    <Property Name="Direccion" Type="varchar" MaxLength="100" />
+    <Property Name="Latitud" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Longitud" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
     <Property Name="AuditoriaUM" Type="int" />
     <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
     <Property Name="AuditoriaFM" Type="datetime" />
@@ -194,6 +222,20 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
     <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
     <Property Name="AuditoriaFM" Type="datetime" />
   </EntityType>
+  <EntityType Name="Sugerencia">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LocalId" Type="int" Nullable="false" />
+    <Property Name="Comentario" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="FechaIngreso" Type="datetime" />
+    <Property Name="Prioridad" Type="varchar" MaxLength="20" />
+    <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="int" />
+    <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+    <Property Name="AuditoriaFM" Type="datetime" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -241,6 +283,18 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
     <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
     <Property Name="AuditoriaFM" Type="datetime" />
   </EntityType>
+  <Association Name="FK_Distrito_Local">
+    <End Role="Distrito" Type="Self.Distrito" Multiplicity="0..1" />
+    <End Role="Local" Type="Self.Local" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Distrito">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Local">
+        <PropertyRef Name="DistritoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Entrevista_Solicitud">
     <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
     <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
@@ -250,6 +304,18 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
       </Principal>
       <Dependent Role="Entrevista">
         <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Local_Sugerencia">
+    <End Role="Local" Type="Self.Local" Multiplicity="1" />
+    <End Role="Sugerencia" Type="Self.Sugerencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sugerencia">
+        <PropertyRef Name="LocalId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -279,14 +345,17 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
   </Association>
   <EntityContainer Name="PARDOSDBModelStoreContainer">
     <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Entrevista" EntityType="Self.Entrevista" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Local" EntityType="Self.Local" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Opcion" EntityType="Self.Opcion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Solicitante" EntityType="Self.Solicitante" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -302,9 +371,17 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
 [OpcionPerfil].[AuditoriaFM] AS [AuditoriaFM]
 FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_Distrito_Local" Association="Self.FK_Distrito_Local">
+      <End Role="Distrito" EntitySet="Distrito" />
+      <End Role="Local" EntitySet="Local" />
+    </AssociationSet>
     <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
       <End Role="Solicitud" EntitySet="Solicitud" />
       <End Role="Entrevista" EntitySet="Entrevista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Local_Sugerencia" Association="Self.FK_Local_Sugerencia">
+      <End Role="Local" EntitySet="Local" />
+      <End Role="Sugerencia" EntitySet="Sugerencia" />
     </AssociationSet>
     <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
       <End Role="Solicitud" EntitySet="Solicitud" />

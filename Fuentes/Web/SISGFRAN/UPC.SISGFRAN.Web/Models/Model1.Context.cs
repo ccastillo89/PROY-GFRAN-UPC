@@ -26,14 +26,17 @@ namespace UPC.SISGFRAN.Web.Models
         }
     
         public DbSet<Aplicacion> Aplicacion { get; set; }
+        public DbSet<Distrito> Distrito { get; set; }
         public DbSet<Entrevista> Entrevista { get; set; }
         public DbSet<HistorialContrasenia> HistorialContrasenia { get; set; }
+        public DbSet<Local> Local { get; set; }
         public DbSet<Opcion> Opcion { get; set; }
         public DbSet<Parametro> Parametro { get; set; }
         public DbSet<Perfil> Perfil { get; set; }
         public DbSet<ReporteEvaluacion> ReporteEvaluacion { get; set; }
         public DbSet<Solicitante> Solicitante { get; set; }
         public DbSet<Solicitud> Solicitud { get; set; }
+        public DbSet<Sugerencia> Sugerencia { get; set; }
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Ubigeo> Ubigeo { get; set; }
         public DbSet<Usuario> Usuario { get; set; }

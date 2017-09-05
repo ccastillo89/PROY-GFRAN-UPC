@@ -9,6 +9,18 @@
     <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Estado" Type="Int32" />
   </EntityType>
+  <EntityType Name="Distrito">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Local" Relationship="Self.FK_Distrito_Local" FromRole="Distrito" ToRole="Local" />
+  </EntityType>
   <EntityType Name="Entrevista">
     <Key>
       <PropertyRef Name="Id" />
@@ -40,6 +52,25 @@
     <Property Name="AuditoriaUM" Type="Int32" />
     <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Local">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaApertura" Type="DateTime" Precision="3" />
+    <Property Name="Responsable" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DistritoId" Type="Int32" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Latitud" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Longitud" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Distrito" Relationship="Self.FK_Distrito_Local" FromRole="Local" ToRole="Distrito" />
+    <NavigationProperty Name="Sugerencia" Relationship="Self.FK_Local_Sugerencia" FromRole="Local" ToRole="Sugerencia" />
   </EntityType>
   <EntityType Name="Opcion">
     <Key>
@@ -181,6 +212,21 @@
     <NavigationProperty Name="ReporteEvaluacion" Relationship="Self.FK_ReporteEvaluacion_Solicitud" FromRole="Solicitud" ToRole="ReporteEvaluacion" />
     <NavigationProperty Name="Solicitante" Relationship="Self.FK_Solicitante_Solicitud" FromRole="Solicitud" ToRole="Solicitante" />
   </EntityType>
+  <EntityType Name="Sugerencia">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LocalId" Type="Int32" Nullable="false" />
+    <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+    <Property Name="Prioridad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+    <Property Name="AuditoriaUM" Type="Int32" />
+    <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Local" Relationship="Self.FK_Local_Sugerencia" FromRole="Sugerencia" ToRole="Local" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -245,6 +291,18 @@
     <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
   </EntityType>
+  <Association Name="FK_Distrito_Local">
+    <End Role="Distrito" Type="Self.Distrito" Multiplicity="0..1" />
+    <End Role="Local" Type="Self.Local" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Distrito">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Local">
+        <PropertyRef Name="DistritoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Entrevista_Solicitud">
     <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
     <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
@@ -254,6 +312,18 @@
       </Principal>
       <Dependent Role="Entrevista">
         <PropertyRef Name="SolicitudId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Local_Sugerencia">
+    <End Role="Local" Type="Self.Local" Multiplicity="1" />
+    <End Role="Sugerencia" Type="Self.Sugerencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sugerencia">
+        <PropertyRef Name="LocalId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -283,21 +353,32 @@
   </Association>
   <EntityContainer Name="PARDOSDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" />
+    <EntitySet Name="Distrito" EntityType="Self.Distrito" />
     <EntitySet Name="Entrevista" EntityType="Self.Entrevista" />
     <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" />
+    <EntitySet Name="Local" EntityType="Self.Local" />
     <EntitySet Name="Opcion" EntityType="Self.Opcion" />
     <EntitySet Name="Parametro" EntityType="Self.Parametro" />
     <EntitySet Name="Perfil" EntityType="Self.Perfil" />
     <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" />
     <EntitySet Name="Solicitante" EntityType="Self.Solicitante" />
     <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+    <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" />
     <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" />
+    <AssociationSet Name="FK_Distrito_Local" Association="Self.FK_Distrito_Local">
+      <End Role="Distrito" EntitySet="Distrito" />
+      <End Role="Local" EntitySet="Local" />
+    </AssociationSet>
     <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
       <End Role="Solicitud" EntitySet="Solicitud" />
       <End Role="Entrevista" EntitySet="Entrevista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Local_Sugerencia" Association="Self.FK_Local_Sugerencia">
+      <End Role="Local" EntitySet="Local" />
+      <End Role="Sugerencia" EntitySet="Sugerencia" />
     </AssociationSet>
     <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
       <End Role="Solicitud" EntitySet="Solicitud" />

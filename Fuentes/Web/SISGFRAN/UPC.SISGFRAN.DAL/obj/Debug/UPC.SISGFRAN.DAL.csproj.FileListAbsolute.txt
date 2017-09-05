@@ -68,3 +68,23 @@ C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SI
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.csprojResolveAssemblyReference.cache
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.dll
 C:\Users\Gabriel\Desktop\UPC\Taller de Proyectos 3\Fuentes\FINAL\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll.config
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.csprojResolveAssemblyReference.cache
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.dll
+C:\RepositorioGIt\PROY-GFRAN-UPC\Fuentes\Web\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.pdb
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll.config
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.dll
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.DAL.pdb
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.dll
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.dll
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\DAAB.pdb
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\bin\Debug\UPC.SISGFRAN.EL.pdb
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.csprojResolveAssemblyReference.cache
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.dll
+C:\Proyecto_TP3\version\SISGFRAN\UPC.SISGFRAN.DAL\obj\Debug\UPC.SISGFRAN.DAL.pdb

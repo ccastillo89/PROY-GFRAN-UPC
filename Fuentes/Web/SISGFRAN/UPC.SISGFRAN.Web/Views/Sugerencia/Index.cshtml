@@ -1,0 +1,230 @@
+﻿@model UPC.SISGFRAN.Web.Helper.SugerenciaHelper
+
+@{
+    ViewBag.Title = "Evaluar sugerencia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Paneles -->
+@using (Html.BeginForm("EvaluarSugerencia", "Sugerencia"))
+{
+    <div class="container2">
+        <div class="margenPanelRigth">
+            <fieldset>
+                <legend><center>Evaluación de Sugerencia</center></legend>
+                <div class="form-group row OcultarDiv">
+                    <input type="hidden" value="" id="hddCodSugerencia" name="hddCodSugerencia">
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            @Html.ValidationMessage("validacion", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="datosConsulta">
+                                <table>
+                                    <tr style="height: 50px;">
+                                        <td style="width:15%"></td>
+                                        <td style="width:15%"><label class="control-label col-md-4">Distrito: </label></td>
+                                        <td style="width:15%"></td>
+                                        <td style="width:15%"><label class="control-label col-md-4">Local: </label></td>
+                                        <td style="width:15%"></td>
+                                    </tr>
+                                    <tr style="height: 50px;">
+                                        <td></td>
+                                        <td>
+                                            <div class="col-md-4 width-dash-sh">
+                                                <div class="col-md-8">
+                                                    <select class="form-control selectpicker" name="cboDistrito" id="cboDistrito" style="width:280px"></select>
+                                                </div>
+                                            </div>                                  
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="col-md-4 width-dash-sh">
+                                                <div class="col-md-8">
+                                                    <select class="form-control selectpicker" name="cboLocal" id="cboLocal" style="width:280px"></select>
+                                                </div>
+                                            </div>   
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br><br><br>
+                                <br>
+                                <table>
+                                    <tr style="height: 50px;">
+                                        <td style="width:8%"></td>
+                                        <td style="width:15%" colspan="3"><label class="control-label col-md-4">Fecha de búsqueda:</label></td>
+                                        <td style="width:15%"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="height: 50px;">
+                                        <td style="width:15%"></td>
+                                        <td style="width:15%"><label class="control-label col-md-4">Inicio: </label></td>
+                                        <td style="width:15%"></td>
+                                        <td style="width:15%"><label class="control-label col-md-4">Fin: </label></td>
+                                        <td style="width:15%"></td>
+                                    </tr>
+                                    <tr style="height: 50px;">
+                                        <td></td>
+                                        <td>
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker1'>
+                                                        <input type='text' class="form-control" id="dtpInicio" name="dtpInicio" style="width:250px" value="@Html.DisplayTextFor(model => model.fecha_inicio)" onkeypress="return false;" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker2'>
+                                                        <input type='text' class="form-control" id="dtpFin" name="dtpFin" style="width:250px" value="@Html.DisplayTextFor(model => model.fecha_fin)" onkeypress="return false;" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>    
+                        </div>
+                    </div>
+                    <br><br><br><br><br>
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <center><button id="btnEvaluar" class="btn btn-success" type="submit">Evaluar</button></center>
+                    </span>
+                </div>
+            </div>
+            <br />
+        </fieldset>
+    </div>
+</div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+    $(function () {
+        var bindDatePicker = function () {
+            $(".date").datetimepicker({
+                format: 'YYYY-MM-DD',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            }).find('input:first').on("blur", function () {
+                var date = parseDate($(this).val());
+
+                if (!isValidDate(date)) {
+                    date = moment().format('');
+                }
+
+                $(this).val(date);
+            });
+        }
+
+        var isValidDate = function (value, format) {
+            format = format || false;
+            if (format) {
+                value = parseDate(value);
+            }
+
+            var timestamp = Date.parse(value);
+
+            return isNaN(timestamp) == false;
+        }
+
+        var parseDate = function (value) {
+            var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+            if (m)
+                value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+            return value;
+        }
+
+        bindDatePicker();
+    });
+
+    $(document).ready(function () {
+        CargarDistrito();
+        CargarLocal();
+    });
+
+    function CargarDistrito() {
+        $.get('@Url.Action("ListaDistritos", "Sugerencia")')
+        .done(function (data) {
+            $('#cboDistrito').empty();
+            $('#cboDistrito').append('<option value="0">--TODOS--</option>');
+            $.each(data, function (i, row) {
+                var $option = $('<option>');
+                $option.val(row.Id);
+                $option.html(row.Nombre);
+                $('#cboDistrito').append($option);
+            })
+        })
+        .fail(function (jqXHR, textStatus, error) {
+            console.log("Post error: " + error);
+        });
+    }
+
+    function CargarLocal() {
+        $.get('@Url.Action("ListaLocales", "Sugerencia")')
+            .done(function (data) {
+                $('#cboLocal').empty();
+                $('#cboLocal').append('<option value="0">--TODOS--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Id);
+                    $option.html(row.Nombre);
+                    $('#cboLocal').append($option);
+                })
+            })
+            .fail(function (jqXHR, textStatus, error) {
+                console.log("Post error: " + error);
+            });
+        }
+
+    $('#cboDistrito').on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var distritoId = this.value;
+            CargarLocalXDistrito(distritoId);
+        });
+
+    function CargarLocalXDistrito(distrito) {
+            $.get('@Url.Action("ListaLocalesXDistrito", "Sugerencia")', { distrito: distrito })
+            .done(function (data) {
+                $('#cboLocal').empty();
+                $('#cboLocal').append('<option value="0">--TODOS--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Id);
+                    $option.html(row.Nombre);
+                    $('#cboLocal').append($option);
+                });
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
+        }
+
+    </script>
+
+}

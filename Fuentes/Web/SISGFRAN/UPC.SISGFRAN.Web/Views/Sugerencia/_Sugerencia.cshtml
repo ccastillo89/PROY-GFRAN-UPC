@@ -1,0 +1,36 @@
+﻿@model UPC.SISGFRAN.EL.Inherited.SugerenciaEL
+
+<div>
+    @{
+        var grid = new WebGrid(
+                    canPage: true,
+                    rowsPerPage: Model.ListaSugerencias.PageSize,
+                    canSort: false,
+                    ajaxUpdateContainerId: "gridSugerencia");
+        grid.Bind(Model.ListaSugerencias.Content, rowCount: Model.ListaSugerencias.TotalRecords, autoSortAndPage: false);
+        grid.Pager(WebGridPagerModes.All,
+                    firstText: "<<", lastText: ">>",
+                    previousText: "<",
+                    nextText: ">",
+                    numericLinksCount: 15);
+                    @grid.GetHtml(htmlAttributes: new { id = "gridSugerencia1" },
+            tableStyle: "webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            fillEmptyRows: false,
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+                 grid.Column("Sugerencia.Id", "Cód. de sugerencia", style: "col-md-1"),
+                 grid.Column("Sugerencia.FechaIngreso", "Fecha de Ingreso", style: "col-md-1"),
+                 grid.Column("Sugerencia.Local.Nombre", "Local", style: "col-md-1"),
+                 grid.Column("Sugerencia.Local.Responsable", "Administrador de local", style: "col-md-1"),
+                 grid.Column("Sugerencia.Comentario", "Detalle de Sugerencia", style: "col-md-1"),
+                 grid.Column("Sugerencia.Prioridad", "Prioridad Sugerencia", style: "col-md-1"),
+                 grid.Column("Solicitante.Prioridad", "Enviar Sugerencia", style: "col-md-1")
+      ));
+    }
+
+</div>
