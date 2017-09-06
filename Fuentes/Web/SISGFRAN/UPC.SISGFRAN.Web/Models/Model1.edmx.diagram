@@ -4,28 +4,49 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f45c71ed7d2344d196d124f1dede53c9" Name="Diagram1">
-        <EntityTypeShape EntityType="PARDOSDBModel.Aplicacion" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Distrito" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Entrevista" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.HistorialContrasenia" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Local" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Opcion" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Parametro" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Perfil" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.ReporteEvaluacion" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Solicitante" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Solicitud" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Sugerencia" Width="1.5" PointX="10.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Ubigeo" Width="1.5" PointX="11.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.Usuario" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARDOSDBModel.OpcionPerfil" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="PARDOSDBModel.FK_Distrito_Local" ManuallyRouted="false" />
+      <Diagram DiagramId="4051bd751af643a9897dce2f367a079d" Name="Diagram1">
+        <EntityTypeShape EntityType="PARDOSDBModel.Aplicacion" Width="1.5" PointX="3.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Entrevista" Width="1.5" PointX="17" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.HistorialContrasenia" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Opcion" Width="1.5" PointX="3.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Parametro" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Perfil" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.ReporteEvaluacion" Width="1.5" PointX="17" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Solicitante" Width="1.5" PointX="17" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Solicitud" Width="1.5" PointX="14.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Ubigeo" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.Usuario" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_reclamo" Width="1.5" PointX="10.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_criteriosAceptacion" Width="1.5" PointX="12.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_distrito" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_evaluacionProcedimiento" Width="1.5" PointX="10.5" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_evaluacionProcedimientoDetalle" Width="1.5" PointX="12.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_franquicia" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_local" Width="1.5" PointX="8.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_procedimiento" Width="1.5" PointX="10.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_sugerencia" Width="1.5" PointX="13.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.tb_empleado" Width="1.5" PointX="11.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PARDOSDBModel.OpcionPerfil" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <AssociationConnector Association="PARDOSDBModel.FK_Opcion_Aplicacion" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_OpcionPerfil_Aplicacion" ManuallyRouted="false" />
         <AssociationConnector Association="PARDOSDBModel.FK_Entrevista_Solicitud" ManuallyRouted="false" />
-        <AssociationConnector Association="PARDOSDBModel.FK_Local_Sugerencia" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_HistorialContrasenia_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_OpcionPerfil_Opcion" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_OpcionPerfil_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_Usuario_Perfil" ManuallyRouted="false" />
         <AssociationConnector Association="PARDOSDBModel.FK_ReporteEvaluacion_Solicitud" ManuallyRouted="false" />
         <AssociationConnector Association="PARDOSDBModel.FK_Solicitante_Solicitud" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_local_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_reclamo_tb_local" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_criteriosAceptacion_tb_procedimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_local_Distrito" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_evaluacionProcedimiento_tb_local" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_local_tb_franquicia" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_sugerencia_tb_local" ManuallyRouted="false" />
+        <AssociationConnector Association="PARDOSDBModel.FK_tb_sugerencia_tb_empleado" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

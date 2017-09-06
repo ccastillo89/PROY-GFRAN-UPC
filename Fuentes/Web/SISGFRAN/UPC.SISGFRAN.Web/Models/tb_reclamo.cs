@@ -12,27 +12,20 @@ namespace UPC.SISGFRAN.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Local
+    public partial class tb_reclamo
     {
-        public Local()
-        {
-            this.Sugerencia = new HashSet<Sugerencia>();
-        }
-    
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<System.DateTime> FechaApertura { get; set; }
-        public string Responsable { get; set; }
-        public Nullable<int> DistritoId { get; set; }
-        public string Direccion { get; set; }
-        public string Latitud { get; set; }
-        public string Longitud { get; set; }
+        public string Descripcion { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public int LocalId { get; set; }
+        public Nullable<int> EvaluacionProcDetalleId { get; set; }
+        public Nullable<int> Estado { get; set; }
         public int AuditoriaUC { get; set; }
         public Nullable<int> AuditoriaUM { get; set; }
         public System.DateTime AuditoriaFC { get; set; }
         public Nullable<System.DateTime> AuditoriaFM { get; set; }
+        public int procedimientoId { get; set; }
     
-        public virtual Distrito Distrito { get; set; }
-        public virtual ICollection<Sugerencia> Sugerencia { get; set; }
+        public virtual tb_local tb_local { get; set; }
     }
 }

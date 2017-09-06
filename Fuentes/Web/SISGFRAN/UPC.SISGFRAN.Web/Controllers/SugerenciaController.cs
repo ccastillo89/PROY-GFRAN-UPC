@@ -53,8 +53,8 @@ namespace UPC.SISGFRAN.Web.Controllers
             SugerenciaEL records = new SugerenciaEL();
             ListaPaginada<SugerenciaEL> listaContentSugerencia = new ListaPaginada<SugerenciaEL>();
 
-            Distrito distrito = db.Distrito.Find(int.Parse(cboDistrito));
-            Local local = db.Local.Find(int.Parse(cboLocal));
+            tb_distrito distrito = db.tb_distrito.Find(int.Parse(cboDistrito));
+            tb_local local = db.tb_local.Find(int.Parse(cboLocal));
             
             List<SugerenciaEL> listaSugerencias = sugerenciaBL.GetSugerencias(cboDistrito, cboLocal, thisDate1.ToString("MMMM dd, yyyy"), 
                 thisDate2.ToString("MMMM dd, yyyy"));
@@ -71,7 +71,7 @@ namespace UPC.SISGFRAN.Web.Controllers
             if (cboLocal.Equals("0"))
                 evaluacion.nombre_local = "TODOS";
             else
-            evaluacion.nombre_local = local.Nombre;
+            evaluacion.nombre_local = local.nombre;
 
             evaluacion.fecha_inicio = thisDate1.ToString("MMMM dd, yyyy");
             evaluacion.fecha_fin = thisDate2.ToString("MMMM dd, yyyy");
@@ -114,7 +114,7 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         public JsonResult ListaDistritos()
         {
-            var distritos = (db.Distrito.OrderBy(a => a.Nombre) 
+            var distritos = (db.tb_distrito.OrderBy(a => a.Nombre) 
                              .Select (c => new { Id = c.Id , Nombre = c.Nombre })).ToList();
 
             return Json(distritos, JsonRequestBehavior.AllowGet);
@@ -122,8 +122,8 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         public JsonResult ListaLocales()
         {
-            var locales = (db.Local.OrderBy(a => a.Nombre)
-                             .Select(c => new { Id = c.Id, Nombre = c.Nombre })).ToList();
+            var locales = (db.tb_local.OrderBy(a => a.nombre)
+                             .Select(c => new { Id = c.id, Nombre = c.nombre })).ToList();
 
             return Json(locales, JsonRequestBehavior.AllowGet);
         }
@@ -131,8 +131,8 @@ namespace UPC.SISGFRAN.Web.Controllers
         public JsonResult ListaLocalesXDistrito(String distrito)
         {
             int distritoId = Int32.Parse(distrito);
-            var locales = (db.Local.OrderBy(a => a.Nombre)
-                             .Select(c => new { Id = c.Id, Nombre = c.Nombre })).Where(x => x.Id == distritoId).ToList();
+            var locales = (db.tb_local.OrderBy(a => a.nombre)
+                             .Select(c => new { Id = c.id, Nombre = c.nombre })).Where(x => x.Id == distritoId).ToList();
 
             return Json(locales, JsonRequestBehavior.AllowGet);
         }

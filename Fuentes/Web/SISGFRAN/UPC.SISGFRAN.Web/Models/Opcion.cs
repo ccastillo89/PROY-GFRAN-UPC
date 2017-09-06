@@ -14,6 +14,11 @@ namespace UPC.SISGFRAN.Web.Models
     
     public partial class Opcion
     {
+        public Opcion()
+        {
+            this.OpcionPerfil = new HashSet<OpcionPerfil>();
+        }
+    
         public int Id { get; set; }
         public int AplicacionId { get; set; }
         public Nullable<int> PadreId { get; set; }
@@ -30,5 +35,8 @@ namespace UPC.SISGFRAN.Web.Models
         public Nullable<int> AuditoriaUM { get; set; }
         public System.DateTime AuditoriaFC { get; set; }
         public Nullable<System.DateTime> AuditoriaFM { get; set; }
+    
+        public virtual Aplicacion Aplicacion { get; set; }
+        public virtual ICollection<OpcionPerfil> OpcionPerfil { get; set; }
     }
 }

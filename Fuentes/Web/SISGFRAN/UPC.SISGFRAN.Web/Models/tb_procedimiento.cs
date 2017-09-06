@@ -12,20 +12,25 @@ namespace UPC.SISGFRAN.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Distrito
+    public partial class tb_procedimiento
     {
-        public Distrito()
+        public tb_procedimiento()
         {
-            this.Local = new HashSet<Local>();
+            this.tb_criteriosAceptacion = new HashSet<tb_criteriosAceptacion>();
+            this.tb_evaluacionProcedimientoDetalle = new HashSet<tb_evaluacionProcedimientoDetalle>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
+        public string Version { get; set; }
+        public Nullable<decimal> Peso { get; set; }
+        public Nullable<int> Estado { get; set; }
         public int AuditoriaUC { get; set; }
         public Nullable<int> AuditoriaUM { get; set; }
         public System.DateTime AuditoriaFC { get; set; }
         public Nullable<System.DateTime> AuditoriaFM { get; set; }
     
-        public virtual ICollection<Local> Local { get; set; }
+        public virtual ICollection<tb_criteriosAceptacion> tb_criteriosAceptacion { get; set; }
+        public virtual ICollection<tb_evaluacionProcedimientoDetalle> tb_evaluacionProcedimientoDetalle { get; set; }
     }
 }

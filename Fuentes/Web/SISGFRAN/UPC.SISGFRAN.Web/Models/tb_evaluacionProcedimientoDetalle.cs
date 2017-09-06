@@ -12,18 +12,20 @@ namespace UPC.SISGFRAN.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HistorialContrasenia
+    public partial class tb_evaluacionProcedimientoDetalle
     {
         public int Id { get; set; }
-        public int UsuarioId { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string ContraseniaAnt { get; set; }
-        public string ContraseniaAct { get; set; }
-        public Nullable<int> AuditoriaUC { get; set; }
+        public Nullable<int> EvaluacionProcedimientoId { get; set; }
+        public Nullable<int> CantidadReclamo { get; set; }
+        public Nullable<int> CantidadSugerencia { get; set; }
+        public Nullable<decimal> Calificacion { get; set; }
+        public int ProcedimientoId { get; set; }
+        public int AuditoriaUC { get; set; }
         public Nullable<int> AuditoriaUM { get; set; }
         public System.DateTime AuditoriaFC { get; set; }
         public Nullable<System.DateTime> AuditoriaFM { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
+        public virtual tb_evaluacionProcedimiento tb_evaluacionProcedimiento { get; set; }
+        public virtual tb_procedimiento tb_procedimiento { get; set; }
     }
 }

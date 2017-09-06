@@ -14,6 +14,12 @@ namespace UPC.SISGFRAN.Web.Models
     
     public partial class Usuario
     {
+        public Usuario()
+        {
+            this.HistorialContrasenia = new HashSet<HistorialContrasenia>();
+            this.tb_local = new HashSet<tb_local>();
+        }
+    
         public int Id { get; set; }
         public int PerfilId { get; set; }
         public string CtaUsuario { get; set; }
@@ -31,5 +37,9 @@ namespace UPC.SISGFRAN.Web.Models
         public Nullable<int> AuditoriaUM { get; set; }
         public System.DateTime AuditoriaFC { get; set; }
         public Nullable<System.DateTime> AuditoriaFM { get; set; }
+    
+        public virtual ICollection<HistorialContrasenia> HistorialContrasenia { get; set; }
+        public virtual Perfil Perfil { get; set; }
+        public virtual ICollection<tb_local> tb_local { get; set; }
     }
 }

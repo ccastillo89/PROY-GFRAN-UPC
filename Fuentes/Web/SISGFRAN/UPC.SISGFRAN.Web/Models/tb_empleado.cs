@@ -12,20 +12,22 @@ namespace UPC.SISGFRAN.Web.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Aplicacion
+    public partial class tb_empleado
     {
-        public Aplicacion()
+        public tb_empleado()
         {
-            this.Opcion = new HashSet<Opcion>();
-            this.OpcionPerfil = new HashSet<OpcionPerfil>();
+            this.tb_sugerencia = new HashSet<tb_sugerencia>();
         }
     
         public int Id { get; set; }
-        public int CodTipoAplicacion { get; set; }
-        public string Descripcion { get; set; }
-        public Nullable<int> Estado { get; set; }
+        public string Nombres { get; set; }
+        public string ApePaterno { get; set; }
+        public string ApeMaterno { get; set; }
+        public int AuditoriaUC { get; set; }
+        public Nullable<int> AuditoriaUM { get; set; }
+        public System.DateTime AuditoriaFC { get; set; }
+        public Nullable<System.DateTime> AuditoriaFM { get; set; }
     
-        public virtual ICollection<Opcion> Opcion { get; set; }
-        public virtual ICollection<OpcionPerfil> OpcionPerfil { get; set; }
+        public virtual ICollection<tb_sugerencia> tb_sugerencia { get; set; }
     }
 }

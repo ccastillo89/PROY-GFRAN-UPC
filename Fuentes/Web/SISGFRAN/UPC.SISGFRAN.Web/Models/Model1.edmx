@@ -14,17 +14,6 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
           <Property Name="Estado" Type="int" />
         </EntityType>
-        <EntityType Name="Distrito">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
-          <Property Name="AuditoriaUM" Type="int" />
-          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
-          <Property Name="AuditoriaFM" Type="datetime" />
-        </EntityType>
         <EntityType Name="Entrevista">
           <Key>
             <PropertyRef Name="Id" />
@@ -52,23 +41,6 @@
           <Property Name="ContraseniaAnt" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ContraseniaAct" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AuditoriaUC" Type="int" />
-          <Property Name="AuditoriaUM" Type="int" />
-          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
-          <Property Name="AuditoriaFM" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Local">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="FechaApertura" Type="datetime" />
-          <Property Name="Responsable" Type="varchar" MaxLength="50" />
-          <Property Name="DistritoId" Type="int" />
-          <Property Name="Direccion" Type="varchar" MaxLength="100" />
-          <Property Name="Latitud" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Longitud" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
           <Property Name="AuditoriaUM" Type="int" />
           <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
           <Property Name="AuditoriaFM" Type="datetime" />
@@ -227,20 +199,6 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
           <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
           <Property Name="AuditoriaFM" Type="datetime" />
         </EntityType>
-        <EntityType Name="Sugerencia">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LocalId" Type="int" Nullable="false" />
-          <Property Name="Comentario" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="FechaIngreso" Type="datetime" />
-          <Property Name="Prioridad" Type="varchar" MaxLength="20" />
-          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
-          <Property Name="AuditoriaUM" Type="int" />
-          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
-          <Property Name="AuditoriaFM" Type="datetime" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -288,18 +246,156 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
           <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
           <Property Name="AuditoriaFM" Type="datetime" />
         </EntityType>
-        <Association Name="FK_Distrito_Local">
-          <End Role="Distrito" Type="Self.Distrito" Multiplicity="0..1" />
-          <End Role="Local" Type="Self.Local" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Distrito">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Local">
-              <PropertyRef Name="DistritoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="tb_reclamo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="LocalId" Type="int" Nullable="false" />
+          <Property Name="EvaluacionProcDetalleId" Type="int" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+          <Property Name="procedimientoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_criteriosAceptacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcedimientoId" Type="int" Nullable="false" />
+          <Property Name="Objetivo" Type="varchar" MaxLength="250" />
+          <Property Name="CodTipo" Type="int" />
+          <Property Name="ValorMinimo" Type="numeric" Precision="7" Scale="2" />
+          <Property Name="ValorMaximo" Type="numeric" Precision="7" Scale="2" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_distrito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_evaluacionProcedimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Periodo" Type="varchar" MaxLength="6" />
+          <Property Name="LocalId" Type="int" />
+          <Property Name="Comentario" Type="varchar" MaxLength="250" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_evaluacionProcedimientoDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EvaluacionProcedimientoId" Type="int" />
+          <Property Name="CantidadReclamo" Type="int" />
+          <Property Name="CantidadSugerencia" Type="int" />
+          <Property Name="Calificacion" Type="numeric" Precision="5" Scale="2" />
+          <Property Name="ProcedimientoId" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_franquicia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" />
+          <Property Name="QuotaObjetivo" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_local">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="franquiciaId" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fechaApertura" Type="datetime" Nullable="false" />
+          <Property Name="localId" Type="int" Nullable="false" />
+          <Property Name="responsable" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usuarioId" Type="int" Nullable="false" />
+          <Property Name="distritoId" Type="int" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="latitud" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="longitud" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="auditoriaUC" Type="int" Nullable="false" />
+          <Property Name="auditoriaUM" Type="int" />
+          <Property Name="auditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="auditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_procedimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Version" Type="varchar" MaxLength="10" />
+          <Property Name="Peso" Type="numeric" Precision="3" Scale="2" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_sugerencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="prioridad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="comentario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="localId" Type="int" Nullable="false" />
+          <Property Name="empleadoId" Type="int" Nullable="false" />
+          <Property Name="evaluacionProcDetalleId" Type="int" />
+          <Property Name="procedimientoId" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="auditoriaUC" Type="int" Nullable="false" />
+          <Property Name="auditoriaUM" Type="int" />
+          <Property Name="auditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="auditoriaFM" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_empleado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" />
+          <Property Name="ApePaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApeMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="AuditoriaUC" Type="int" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="int" />
+          <Property Name="AuditoriaFC" Type="datetime" Nullable="false" />
+          <Property Name="AuditoriaFM" Type="datetime" />
+        </EntityType>
         <Association Name="FK_Entrevista_Solicitud">
           <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
           <End Role="Entrevista" Type="Self.Entrevista" Multiplicity="*" />
@@ -312,15 +408,63 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Local_Sugerencia">
-          <End Role="Local" Type="Self.Local" Multiplicity="1" />
-          <End Role="Sugerencia" Type="Self.Sugerencia" Multiplicity="*" />
+        <Association Name="FK_HistorialContrasenia_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="HistorialContrasenia" Type="Self.HistorialContrasenia" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Local">
+            <Principal Role="Usuario">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Sugerencia">
-              <PropertyRef Name="LocalId" />
+            <Dependent Role="HistorialContrasenia">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Opcion_Aplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1" />
+          <End Role="Opcion" Type="Self.Opcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Opcion">
+              <PropertyRef Name="AplicacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpcionPerfil_Aplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1" />
+          <End Role="OpcionPerfil" Type="Self.OpcionPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpcionPerfil">
+              <PropertyRef Name="AplicacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpcionPerfil_Opcion">
+          <End Role="Opcion" Type="Self.Opcion" Multiplicity="1" />
+          <End Role="OpcionPerfil" Type="Self.OpcionPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opcion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpcionPerfil">
+              <PropertyRef Name="OpcionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpcionPerfil_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="OpcionPerfil" Type="Self.OpcionPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpcionPerfil">
+              <PropertyRef Name="PerfilId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -348,22 +492,161 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tb_criteriosAceptacion_tb_procedimiento">
+          <End Role="tb_procedimiento" Type="Self.tb_procedimiento" Multiplicity="1" />
+          <End Role="tb_criteriosAceptacion" Type="Self.tb_criteriosAceptacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_procedimiento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_criteriosAceptacion">
+              <PropertyRef Name="ProcedimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_evaluacionProcedimiento_tb_local">
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="0..1" />
+          <End Role="tb_evaluacionProcedimiento" Type="Self.tb_evaluacionProcedimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_evaluacionProcedimiento">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento">
+          <End Role="tb_evaluacionProcedimiento" Type="Self.tb_evaluacionProcedimiento" Multiplicity="0..1" />
+          <End Role="tb_evaluacionProcedimientoDetalle" Type="Self.tb_evaluacionProcedimientoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_evaluacionProcedimiento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_evaluacionProcedimientoDetalle">
+              <PropertyRef Name="EvaluacionProcedimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento">
+          <End Role="tb_procedimiento" Type="Self.tb_procedimiento" Multiplicity="1" />
+          <End Role="tb_evaluacionProcedimientoDetalle" Type="Self.tb_evaluacionProcedimientoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_procedimiento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_evaluacionProcedimientoDetalle">
+              <PropertyRef Name="ProcedimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_local_Distrito">
+          <End Role="tb_distrito" Type="Self.tb_distrito" Multiplicity="1" />
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_distrito">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_local">
+              <PropertyRef Name="distritoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_local_tb_franquicia">
+          <End Role="tb_franquicia" Type="Self.tb_franquicia" Multiplicity="1" />
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_franquicia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_local">
+              <PropertyRef Name="franquiciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_local_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_local">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_reclamo_tb_local">
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="1" />
+          <End Role="tb_reclamo" Type="Self.tb_reclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_reclamo">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_sugerencia_tb_empleado">
+          <End Role="tb_empleado" Type="Self.tb_empleado" Multiplicity="1" />
+          <End Role="tb_sugerencia" Type="Self.tb_sugerencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_empleado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_sugerencia">
+              <PropertyRef Name="empleadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_sugerencia_tb_local">
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="1" />
+          <End Role="tb_sugerencia" Type="Self.tb_sugerencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_sugerencia">
+              <PropertyRef Name="localId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PerfilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PARDOSDBModelStoreContainer">
           <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entrevista" EntityType="Self.Entrevista" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Local" EntityType="Self.Local" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Opcion" EntityType="Self.Opcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Solicitante" EntityType="Self.Solicitante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_reclamo" EntityType="Self.tb_reclamo" Schema="GAC" store:Type="Tables" />
+          <EntitySet Name="tb_criteriosAceptacion" EntityType="Self.tb_criteriosAceptacion" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_distrito" EntityType="Self.tb_distrito" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_evaluacionProcedimiento" EntityType="Self.tb_evaluacionProcedimiento" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_evaluacionProcedimientoDetalle" EntityType="Self.tb_evaluacionProcedimientoDetalle" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_franquicia" EntityType="Self.tb_franquicia" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_local" EntityType="Self.tb_local" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_procedimiento" EntityType="Self.tb_procedimiento" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_sugerencia" EntityType="Self.tb_sugerencia" Schema="GFR" store:Type="Tables" />
+          <EntitySet Name="tb_empleado" EntityType="Self.tb_empleado" Schema="GRH" store:Type="Tables" />
           <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [OpcionPerfil].[AplicacionId] AS [AplicacionId], 
@@ -376,17 +659,29 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
 [OpcionPerfil].[AuditoriaFM] AS [AuditoriaFM]
 FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Distrito_Local" Association="Self.FK_Distrito_Local">
-            <End Role="Distrito" EntitySet="Distrito" />
-            <End Role="Local" EntitySet="Local" />
-          </AssociationSet>
           <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
             <End Role="Entrevista" EntitySet="Entrevista" />
           </AssociationSet>
-          <AssociationSet Name="FK_Local_Sugerencia" Association="Self.FK_Local_Sugerencia">
-            <End Role="Local" EntitySet="Local" />
-            <End Role="Sugerencia" EntitySet="Sugerencia" />
+          <AssociationSet Name="FK_HistorialContrasenia_Usuario" Association="Self.FK_HistorialContrasenia_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="HistorialContrasenia" EntitySet="HistorialContrasenia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Opcion_Aplicacion" Association="Self.FK_Opcion_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Opcion" EntitySet="Opcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionPerfil_Aplicacion" Association="Self.FK_OpcionPerfil_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="OpcionPerfil" EntitySet="OpcionPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionPerfil_Opcion" Association="Self.FK_OpcionPerfil_Opcion">
+            <End Role="Opcion" EntitySet="Opcion" />
+            <End Role="OpcionPerfil" EntitySet="OpcionPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionPerfil_Perfil" Association="Self.FK_OpcionPerfil_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="OpcionPerfil" EntitySet="OpcionPerfil" />
           </AssociationSet>
           <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
@@ -395,6 +690,50 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <AssociationSet Name="FK_Solicitante_Solicitud" Association="Self.FK_Solicitante_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
             <End Role="Solicitante" EntitySet="Solicitante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_criteriosAceptacion_tb_procedimiento" Association="Self.FK_tb_criteriosAceptacion_tb_procedimiento">
+            <End Role="tb_procedimiento" EntitySet="tb_procedimiento" />
+            <End Role="tb_criteriosAceptacion" EntitySet="tb_criteriosAceptacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_evaluacionProcedimiento_tb_local" Association="Self.FK_tb_evaluacionProcedimiento_tb_local">
+            <End Role="tb_local" EntitySet="tb_local" />
+            <End Role="tb_evaluacionProcedimiento" EntitySet="tb_evaluacionProcedimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento" Association="Self.FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento">
+            <End Role="tb_evaluacionProcedimiento" EntitySet="tb_evaluacionProcedimiento" />
+            <End Role="tb_evaluacionProcedimientoDetalle" EntitySet="tb_evaluacionProcedimientoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento" Association="Self.FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento">
+            <End Role="tb_procedimiento" EntitySet="tb_procedimiento" />
+            <End Role="tb_evaluacionProcedimientoDetalle" EntitySet="tb_evaluacionProcedimientoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_local_Distrito" Association="Self.FK_tb_local_Distrito">
+            <End Role="tb_distrito" EntitySet="tb_distrito" />
+            <End Role="tb_local" EntitySet="tb_local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_local_tb_franquicia" Association="Self.FK_tb_local_tb_franquicia">
+            <End Role="tb_franquicia" EntitySet="tb_franquicia" />
+            <End Role="tb_local" EntitySet="tb_local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_local_Usuario" Association="Self.FK_tb_local_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="tb_local" EntitySet="tb_local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_reclamo_tb_local" Association="Self.FK_tb_reclamo_tb_local">
+            <End Role="tb_local" EntitySet="tb_local" />
+            <End Role="tb_reclamo" EntitySet="tb_reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_sugerencia_tb_empleado" Association="Self.FK_tb_sugerencia_tb_empleado">
+            <End Role="tb_empleado" EntitySet="tb_empleado" />
+            <End Role="tb_sugerencia" EntitySet="tb_sugerencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_sugerencia_tb_local" Association="Self.FK_tb_sugerencia_tb_local">
+            <End Role="tb_local" EntitySet="tb_local" />
+            <End Role="tb_sugerencia" EntitySet="tb_sugerencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Perfil" Association="Self.FK_Usuario_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -410,18 +749,8 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <Property Name="CodTipoAplicacion" Type="Int32" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Distrito">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
-          <Property Name="AuditoriaUM" Type="Int32" />
-          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Local" Relationship="Self.FK_Distrito_Local" FromRole="Distrito" ToRole="Local" />
+          <NavigationProperty Name="Opcion" Relationship="Self.FK_Opcion_Aplicacion" FromRole="Aplicacion" ToRole="Opcion" />
+          <NavigationProperty Name="OpcionPerfil" Relationship="Self.FK_OpcionPerfil_Aplicacion" FromRole="Aplicacion" ToRole="OpcionPerfil" />
         </EntityType>
         <EntityType Name="Entrevista">
           <Key>
@@ -454,25 +783,7 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <Property Name="AuditoriaUM" Type="Int32" />
           <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Local">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaApertura" Type="DateTime" Precision="3" />
-          <Property Name="Responsable" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DistritoId" Type="Int32" />
-          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Latitud" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Longitud" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
-          <Property Name="AuditoriaUM" Type="Int32" />
-          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Distrito" Relationship="Self.FK_Distrito_Local" FromRole="Local" ToRole="Distrito" />
-          <NavigationProperty Name="Sugerencia" Relationship="Self.FK_Local_Sugerencia" FromRole="Local" ToRole="Sugerencia" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_HistorialContrasenia_Usuario" FromRole="HistorialContrasenia" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Opcion">
           <Key>
@@ -494,6 +805,8 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <Property Name="AuditoriaUM" Type="Int32" />
           <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Aplicacion" Relationship="Self.FK_Opcion_Aplicacion" FromRole="Opcion" ToRole="Aplicacion" />
+          <NavigationProperty Name="OpcionPerfil" Relationship="Self.FK_OpcionPerfil_Opcion" FromRole="Opcion" ToRole="OpcionPerfil" />
         </EntityType>
         <EntityType Name="Parametro">
           <Key>
@@ -526,6 +839,8 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <Property Name="AuditoriaUM" Type="Int32" />
           <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="OpcionPerfil" Relationship="Self.FK_OpcionPerfil_Perfil" FromRole="Perfil" ToRole="OpcionPerfil" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Perfil" FromRole="Perfil" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="ReporteEvaluacion">
           <Key>
@@ -614,21 +929,6 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <NavigationProperty Name="ReporteEvaluacion" Relationship="Self.FK_ReporteEvaluacion_Solicitud" FromRole="Solicitud" ToRole="ReporteEvaluacion" />
           <NavigationProperty Name="Solicitante" Relationship="Self.FK_Solicitante_Solicitud" FromRole="Solicitud" ToRole="Solicitante" />
         </EntityType>
-        <EntityType Name="Sugerencia">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LocalId" Type="Int32" Nullable="false" />
-          <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
-          <Property Name="Prioridad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
-          <Property Name="AuditoriaUM" Type="Int32" />
-          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Local" Relationship="Self.FK_Local_Sugerencia" FromRole="Sugerencia" ToRole="Local" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -675,6 +975,178 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <Property Name="AuditoriaUM" Type="Int32" />
           <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="HistorialContrasenia" Relationship="Self.FK_HistorialContrasenia_Usuario" FromRole="Usuario" ToRole="HistorialContrasenia" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK_Usuario_Perfil" FromRole="Usuario" ToRole="Perfil" />
+          <NavigationProperty Name="tb_local" Relationship="Self.FK_tb_local_Usuario" FromRole="Usuario" ToRole="tb_local" />
+        </EntityType>
+        <EntityType Name="tb_reclamo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="LocalId" Type="Int32" Nullable="false" />
+          <Property Name="EvaluacionProcDetalleId" Type="Int32" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <Property Name="procedimientoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tb_local" Relationship="Self.FK_tb_reclamo_tb_local" FromRole="tb_reclamo" ToRole="tb_local" />
+        </EntityType>
+        <EntityType Name="tb_criteriosAceptacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcedimientoId" Type="Int32" Nullable="false" />
+          <Property Name="Objetivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CodTipo" Type="Int32" />
+          <Property Name="ValorMinimo" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="ValorMaximo" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_procedimiento" Relationship="Self.FK_tb_criteriosAceptacion_tb_procedimiento" FromRole="tb_criteriosAceptacion" ToRole="tb_procedimiento" />
+        </EntityType>
+        <EntityType Name="tb_distrito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_local" Relationship="Self.FK_tb_local_Distrito" FromRole="tb_distrito" ToRole="tb_local" />
+        </EntityType>
+        <EntityType Name="tb_evaluacionProcedimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Periodo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="LocalId" Type="Int32" />
+          <Property Name="Comentario" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_local" Relationship="Self.FK_tb_evaluacionProcedimiento_tb_local" FromRole="tb_evaluacionProcedimiento" ToRole="tb_local" />
+          <NavigationProperty Name="tb_evaluacionProcedimientoDetalle" Relationship="Self.FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento" FromRole="tb_evaluacionProcedimiento" ToRole="tb_evaluacionProcedimientoDetalle" />
+        </EntityType>
+        <EntityType Name="tb_evaluacionProcedimientoDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EvaluacionProcedimientoId" Type="Int32" />
+          <Property Name="CantidadReclamo" Type="Int32" />
+          <Property Name="CantidadSugerencia" Type="Int32" />
+          <Property Name="Calificacion" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="ProcedimientoId" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_evaluacionProcedimiento" Relationship="Self.FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento" FromRole="tb_evaluacionProcedimientoDetalle" ToRole="tb_evaluacionProcedimiento" />
+          <NavigationProperty Name="tb_procedimiento" Relationship="Self.FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento" FromRole="tb_evaluacionProcedimientoDetalle" ToRole="tb_procedimiento" />
+        </EntityType>
+        <EntityType Name="tb_franquicia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="QuotaObjetivo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_local" Relationship="Self.FK_tb_local_tb_franquicia" FromRole="tb_franquicia" ToRole="tb_local" />
+        </EntityType>
+        <EntityType Name="tb_local">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="franquiciaId" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaApertura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="localId" Type="Int32" Nullable="false" />
+          <Property Name="responsable" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuarioId" Type="Int32" Nullable="false" />
+          <Property Name="distritoId" Type="Int32" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="auditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="auditoriaUM" Type="Int32" />
+          <Property Name="auditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="auditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_tb_local_Usuario" FromRole="tb_local" ToRole="Usuario" />
+          <NavigationProperty Name="tb_reclamo" Relationship="Self.FK_tb_reclamo_tb_local" FromRole="tb_local" ToRole="tb_reclamo" />
+          <NavigationProperty Name="tb_distrito" Relationship="Self.FK_tb_local_Distrito" FromRole="tb_local" ToRole="tb_distrito" />
+          <NavigationProperty Name="tb_evaluacionProcedimiento" Relationship="Self.FK_tb_evaluacionProcedimiento_tb_local" FromRole="tb_local" ToRole="tb_evaluacionProcedimiento" />
+          <NavigationProperty Name="tb_franquicia" Relationship="Self.FK_tb_local_tb_franquicia" FromRole="tb_local" ToRole="tb_franquicia" />
+          <NavigationProperty Name="tb_sugerencia" Relationship="Self.FK_tb_sugerencia_tb_local" FromRole="tb_local" ToRole="tb_sugerencia" />
+        </EntityType>
+        <EntityType Name="tb_procedimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Version" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Peso" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_criteriosAceptacion" Relationship="Self.FK_tb_criteriosAceptacion_tb_procedimiento" FromRole="tb_procedimiento" ToRole="tb_criteriosAceptacion" />
+          <NavigationProperty Name="tb_evaluacionProcedimientoDetalle" Relationship="Self.FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento" FromRole="tb_procedimiento" ToRole="tb_evaluacionProcedimientoDetalle" />
+        </EntityType>
+        <EntityType Name="tb_sugerencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="prioridad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comentario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="localId" Type="Int32" Nullable="false" />
+          <Property Name="empleadoId" Type="Int32" Nullable="false" />
+          <Property Name="evaluacionProcDetalleId" Type="Int32" />
+          <Property Name="procedimientoId" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="auditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="auditoriaUM" Type="Int32" />
+          <Property Name="auditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="auditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_local" Relationship="Self.FK_tb_sugerencia_tb_local" FromRole="tb_sugerencia" ToRole="tb_local" />
+          <NavigationProperty Name="tb_empleado" Relationship="Self.FK_tb_sugerencia_tb_empleado" FromRole="tb_sugerencia" ToRole="tb_empleado" />
+        </EntityType>
+        <EntityType Name="tb_empleado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApePaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApeMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AuditoriaUC" Type="Int32" Nullable="false" />
+          <Property Name="AuditoriaUM" Type="Int32" />
+          <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_sugerencia" Relationship="Self.FK_tb_sugerencia_tb_empleado" FromRole="tb_empleado" ToRole="tb_sugerencia" />
         </EntityType>
         <EntityType Name="OpcionPerfil">
           <Key>
@@ -692,16 +1164,31 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <Property Name="AuditoriaUM" Type="Int32" />
           <Property Name="AuditoriaFC" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuditoriaFM" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Aplicacion" Relationship="Self.FK_OpcionPerfil_Aplicacion" FromRole="OpcionPerfil" ToRole="Aplicacion" />
+          <NavigationProperty Name="Opcion" Relationship="Self.FK_OpcionPerfil_Opcion" FromRole="OpcionPerfil" ToRole="Opcion" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK_OpcionPerfil_Perfil" FromRole="OpcionPerfil" ToRole="Perfil" />
         </EntityType>
-        <Association Name="FK_Distrito_Local">
-          <End Role="Distrito" Type="Self.Distrito" Multiplicity="0..1" />
-          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+        <Association Name="FK_Opcion_Aplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1" />
+          <End Role="Opcion" Type="Self.Opcion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Distrito">
+            <Principal Role="Aplicacion">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Local">
-              <PropertyRef Name="DistritoId" />
+            <Dependent Role="Opcion">
+              <PropertyRef Name="AplicacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpcionPerfil_Aplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1" />
+          <End Role="OpcionPerfil" Type="Self.OpcionPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpcionPerfil">
+              <PropertyRef Name="AplicacionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -717,15 +1204,51 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Local_Sugerencia">
-          <End Role="Local" Type="Self.Local" Multiplicity="1" />
-          <End Role="Sugerencia" Type="Self.Sugerencia" Multiplicity="*" />
+        <Association Name="FK_HistorialContrasenia_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="HistorialContrasenia" Type="Self.HistorialContrasenia" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Local">
+            <Principal Role="Usuario">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Sugerencia">
-              <PropertyRef Name="LocalId" />
+            <Dependent Role="HistorialContrasenia">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpcionPerfil_Opcion">
+          <End Role="Opcion" Type="Self.Opcion" Multiplicity="1" />
+          <End Role="OpcionPerfil" Type="Self.OpcionPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opcion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpcionPerfil">
+              <PropertyRef Name="OpcionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpcionPerfil_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="OpcionPerfil" Type="Self.OpcionPerfil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpcionPerfil">
+              <PropertyRef Name="PerfilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PerfilId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -753,34 +1276,177 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tb_local_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_local">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_reclamo_tb_local">
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="1" />
+          <End Role="tb_reclamo" Type="Self.tb_reclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_reclamo">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_criteriosAceptacion_tb_procedimiento">
+          <End Role="tb_procedimiento" Type="Self.tb_procedimiento" Multiplicity="1" />
+          <End Role="tb_criteriosAceptacion" Type="Self.tb_criteriosAceptacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_procedimiento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_criteriosAceptacion">
+              <PropertyRef Name="ProcedimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_local_Distrito">
+          <End Role="tb_distrito" Type="Self.tb_distrito" Multiplicity="1" />
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_distrito">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_local">
+              <PropertyRef Name="distritoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_evaluacionProcedimiento_tb_local">
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="0..1" />
+          <End Role="tb_evaluacionProcedimiento" Type="Self.tb_evaluacionProcedimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_evaluacionProcedimiento">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento">
+          <End Role="tb_evaluacionProcedimiento" Type="Self.tb_evaluacionProcedimiento" Multiplicity="0..1" />
+          <End Role="tb_evaluacionProcedimientoDetalle" Type="Self.tb_evaluacionProcedimientoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_evaluacionProcedimiento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_evaluacionProcedimientoDetalle">
+              <PropertyRef Name="EvaluacionProcedimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento">
+          <End Role="tb_procedimiento" Type="Self.tb_procedimiento" Multiplicity="1" />
+          <End Role="tb_evaluacionProcedimientoDetalle" Type="Self.tb_evaluacionProcedimientoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_procedimiento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_evaluacionProcedimientoDetalle">
+              <PropertyRef Name="ProcedimientoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_local_tb_franquicia">
+          <End Role="tb_franquicia" Type="Self.tb_franquicia" Multiplicity="1" />
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_franquicia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_local">
+              <PropertyRef Name="franquiciaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_sugerencia_tb_local">
+          <End Role="tb_local" Type="Self.tb_local" Multiplicity="1" />
+          <End Role="tb_sugerencia" Type="Self.tb_sugerencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_local">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_sugerencia">
+              <PropertyRef Name="localId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_sugerencia_tb_empleado">
+          <End Role="tb_empleado" Type="Self.tb_empleado" Multiplicity="1" />
+          <End Role="tb_sugerencia" Type="Self.tb_sugerencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_empleado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_sugerencia">
+              <PropertyRef Name="empleadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PARDOSDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" />
-          <EntitySet Name="Distrito" EntityType="Self.Distrito" />
           <EntitySet Name="Entrevista" EntityType="Self.Entrevista" />
           <EntitySet Name="HistorialContrasenia" EntityType="Self.HistorialContrasenia" />
-          <EntitySet Name="Local" EntityType="Self.Local" />
           <EntitySet Name="Opcion" EntityType="Self.Opcion" />
           <EntitySet Name="Parametro" EntityType="Self.Parametro" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" />
           <EntitySet Name="ReporteEvaluacion" EntityType="Self.ReporteEvaluacion" />
           <EntitySet Name="Solicitante" EntityType="Self.Solicitante" />
           <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
-          <EntitySet Name="Sugerencia" EntityType="Self.Sugerencia" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Ubigeo" EntityType="Self.Ubigeo" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="tb_reclamo" EntityType="Self.tb_reclamo" />
+          <EntitySet Name="tb_criteriosAceptacion" EntityType="Self.tb_criteriosAceptacion" />
+          <EntitySet Name="tb_distrito" EntityType="Self.tb_distrito" />
+          <EntitySet Name="tb_evaluacionProcedimiento" EntityType="Self.tb_evaluacionProcedimiento" />
+          <EntitySet Name="tb_evaluacionProcedimientoDetalle" EntityType="Self.tb_evaluacionProcedimientoDetalle" />
+          <EntitySet Name="tb_franquicia" EntityType="Self.tb_franquicia" />
+          <EntitySet Name="tb_local" EntityType="Self.tb_local" />
+          <EntitySet Name="tb_procedimiento" EntityType="Self.tb_procedimiento" />
+          <EntitySet Name="tb_sugerencia" EntityType="Self.tb_sugerencia" />
+          <EntitySet Name="tb_empleado" EntityType="Self.tb_empleado" />
           <EntitySet Name="OpcionPerfil" EntityType="Self.OpcionPerfil" />
-          <AssociationSet Name="FK_Distrito_Local" Association="Self.FK_Distrito_Local">
-            <End Role="Distrito" EntitySet="Distrito" />
-            <End Role="Local" EntitySet="Local" />
+          <AssociationSet Name="FK_Opcion_Aplicacion" Association="Self.FK_Opcion_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Opcion" EntitySet="Opcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionPerfil_Aplicacion" Association="Self.FK_OpcionPerfil_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="OpcionPerfil" EntitySet="OpcionPerfil" />
           </AssociationSet>
           <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
             <End Role="Entrevista" EntitySet="Entrevista" />
           </AssociationSet>
-          <AssociationSet Name="FK_Local_Sugerencia" Association="Self.FK_Local_Sugerencia">
-            <End Role="Local" EntitySet="Local" />
-            <End Role="Sugerencia" EntitySet="Sugerencia" />
+          <AssociationSet Name="FK_HistorialContrasenia_Usuario" Association="Self.FK_HistorialContrasenia_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="HistorialContrasenia" EntitySet="HistorialContrasenia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionPerfil_Opcion" Association="Self.FK_OpcionPerfil_Opcion">
+            <End Role="Opcion" EntitySet="Opcion" />
+            <End Role="OpcionPerfil" EntitySet="OpcionPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpcionPerfil_Perfil" Association="Self.FK_OpcionPerfil_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="OpcionPerfil" EntitySet="OpcionPerfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Perfil" Association="Self.FK_Usuario_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <AssociationSet Name="FK_ReporteEvaluacion_Solicitud" Association="Self.FK_ReporteEvaluacion_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
@@ -789,6 +1455,46 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           <AssociationSet Name="FK_Solicitante_Solicitud" Association="Self.FK_Solicitante_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
             <End Role="Solicitante" EntitySet="Solicitante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_local_Usuario" Association="Self.FK_tb_local_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="tb_local" EntitySet="tb_local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_reclamo_tb_local" Association="Self.FK_tb_reclamo_tb_local">
+            <End Role="tb_local" EntitySet="tb_local" />
+            <End Role="tb_reclamo" EntitySet="tb_reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_criteriosAceptacion_tb_procedimiento" Association="Self.FK_tb_criteriosAceptacion_tb_procedimiento">
+            <End Role="tb_procedimiento" EntitySet="tb_procedimiento" />
+            <End Role="tb_criteriosAceptacion" EntitySet="tb_criteriosAceptacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_local_Distrito" Association="Self.FK_tb_local_Distrito">
+            <End Role="tb_distrito" EntitySet="tb_distrito" />
+            <End Role="tb_local" EntitySet="tb_local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_evaluacionProcedimiento_tb_local" Association="Self.FK_tb_evaluacionProcedimiento_tb_local">
+            <End Role="tb_local" EntitySet="tb_local" />
+            <End Role="tb_evaluacionProcedimiento" EntitySet="tb_evaluacionProcedimiento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento" Association="Self.FK_tb_evaluacionProcedimientoDetalle_tb_evaluacionProcedimiento">
+            <End Role="tb_evaluacionProcedimiento" EntitySet="tb_evaluacionProcedimiento" />
+            <End Role="tb_evaluacionProcedimientoDetalle" EntitySet="tb_evaluacionProcedimientoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento" Association="Self.FK_tb_evaluacionProcedimientoDetalle_tb_procedimiento">
+            <End Role="tb_procedimiento" EntitySet="tb_procedimiento" />
+            <End Role="tb_evaluacionProcedimientoDetalle" EntitySet="tb_evaluacionProcedimientoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_local_tb_franquicia" Association="Self.FK_tb_local_tb_franquicia">
+            <End Role="tb_franquicia" EntitySet="tb_franquicia" />
+            <End Role="tb_local" EntitySet="tb_local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_sugerencia_tb_local" Association="Self.FK_tb_sugerencia_tb_local">
+            <End Role="tb_local" EntitySet="tb_local" />
+            <End Role="tb_sugerencia" EntitySet="tb_sugerencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_sugerencia_tb_empleado" Association="Self.FK_tb_sugerencia_tb_empleado">
+            <End Role="tb_empleado" EntitySet="tb_empleado" />
+            <End Role="tb_sugerencia" EntitySet="tb_sugerencia" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -804,18 +1510,6 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
                 <ScalarProperty Name="CodTipoAplicacion" ColumnName="CodTipoAplicacion" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Distrito">
-            <EntityTypeMapping TypeName="PARDOSDBModel.Distrito">
-              <MappingFragment StoreEntitySet="Distrito">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
-                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
-                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
-                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -845,24 +1539,6 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="ContraseniaAnt" ColumnName="ContraseniaAnt" />
                 <ScalarProperty Name="ContraseniaAct" ColumnName="ContraseniaAct" />
-                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
-                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
-                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
-                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Local">
-            <EntityTypeMapping TypeName="PARDOSDBModel.Local">
-              <MappingFragment StoreEntitySet="Local">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="FechaApertura" ColumnName="FechaApertura" />
-                <ScalarProperty Name="Responsable" ColumnName="Responsable" />
-                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
-                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
                 <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
                 <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
                 <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
@@ -1011,21 +1687,6 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sugerencia">
-            <EntityTypeMapping TypeName="PARDOSDBModel.Sugerencia">
-              <MappingFragment StoreEntitySet="Sugerencia">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
-                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
-                <ScalarProperty Name="Prioridad" ColumnName="Prioridad" />
-                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
-                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
-                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
-                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="PARDOSDBModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1069,6 +1730,166 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
                 <ScalarProperty Name="CambiarContrasenia" ColumnName="CambiarContrasenia" />
                 <ScalarProperty Name="FechaVencimientoCta" ColumnName="FechaVencimientoCta" />
                 <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_reclamo">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_reclamo">
+              <MappingFragment StoreEntitySet="tb_reclamo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+                <ScalarProperty Name="EvaluacionProcDetalleId" ColumnName="EvaluacionProcDetalleId" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+                <ScalarProperty Name="procedimientoId" ColumnName="procedimientoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_criteriosAceptacion">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_criteriosAceptacion">
+              <MappingFragment StoreEntitySet="tb_criteriosAceptacion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcedimientoId" ColumnName="ProcedimientoId" />
+                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+                <ScalarProperty Name="CodTipo" ColumnName="CodTipo" />
+                <ScalarProperty Name="ValorMinimo" ColumnName="ValorMinimo" />
+                <ScalarProperty Name="ValorMaximo" ColumnName="ValorMaximo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_distrito">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_distrito">
+              <MappingFragment StoreEntitySet="tb_distrito">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_evaluacionProcedimiento">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_evaluacionProcedimiento">
+              <MappingFragment StoreEntitySet="tb_evaluacionProcedimiento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_evaluacionProcedimientoDetalle">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_evaluacionProcedimientoDetalle">
+              <MappingFragment StoreEntitySet="tb_evaluacionProcedimientoDetalle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EvaluacionProcedimientoId" ColumnName="EvaluacionProcedimientoId" />
+                <ScalarProperty Name="CantidadReclamo" ColumnName="CantidadReclamo" />
+                <ScalarProperty Name="CantidadSugerencia" ColumnName="CantidadSugerencia" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="ProcedimientoId" ColumnName="ProcedimientoId" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_franquicia">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_franquicia">
+              <MappingFragment StoreEntitySet="tb_franquicia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="QuotaObjetivo" ColumnName="QuotaObjetivo" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_local">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_local">
+              <MappingFragment StoreEntitySet="tb_local">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="franquiciaId" ColumnName="franquiciaId" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaApertura" ColumnName="fechaApertura" />
+                <ScalarProperty Name="localId" ColumnName="localId" />
+                <ScalarProperty Name="responsable" ColumnName="responsable" />
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="distritoId" ColumnName="distritoId" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="auditoriaUC" ColumnName="auditoriaUC" />
+                <ScalarProperty Name="auditoriaUM" ColumnName="auditoriaUM" />
+                <ScalarProperty Name="auditoriaFC" ColumnName="auditoriaFC" />
+                <ScalarProperty Name="auditoriaFM" ColumnName="auditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_procedimiento">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_procedimiento">
+              <MappingFragment StoreEntitySet="tb_procedimiento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
+                <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
+                <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
+                <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_sugerencia">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_sugerencia">
+              <MappingFragment StoreEntitySet="tb_sugerencia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
+                <ScalarProperty Name="prioridad" ColumnName="prioridad" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="localId" ColumnName="localId" />
+                <ScalarProperty Name="empleadoId" ColumnName="empleadoId" />
+                <ScalarProperty Name="evaluacionProcDetalleId" ColumnName="evaluacionProcDetalleId" />
+                <ScalarProperty Name="procedimientoId" ColumnName="procedimientoId" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="auditoriaUC" ColumnName="auditoriaUC" />
+                <ScalarProperty Name="auditoriaUM" ColumnName="auditoriaUM" />
+                <ScalarProperty Name="auditoriaFC" ColumnName="auditoriaFC" />
+                <ScalarProperty Name="auditoriaFM" ColumnName="auditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_empleado">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_empleado">
+              <MappingFragment StoreEntitySet="tb_empleado">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApePaterno" ColumnName="ApePaterno" />
+                <ScalarProperty Name="ApeMaterno" ColumnName="ApeMaterno" />
                 <ScalarProperty Name="AuditoriaUC" ColumnName="AuditoriaUC" />
                 <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
                 <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />

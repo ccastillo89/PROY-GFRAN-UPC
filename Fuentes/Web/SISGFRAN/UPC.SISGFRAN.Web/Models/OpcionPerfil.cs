@@ -22,5 +22,9 @@ namespace UPC.SISGFRAN.Web.Models
         public Nullable<int> AuditoriaUM { get; set; }
         public System.DateTime AuditoriaFC { get; set; }
         public Nullable<System.DateTime> AuditoriaFM { get; set; }
+    
+        public virtual Aplicacion Aplicacion { get; set; }
+        public virtual Opcion Opcion { get; set; }
+        public virtual Perfil Perfil { get; set; }
     }
 }
