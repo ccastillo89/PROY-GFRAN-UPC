@@ -16,14 +16,14 @@ namespace UPC.SISGFRAN.EL.Inherited
         public DateTime FechaIngreso { get; set; }
         public string Prioridad { get; set; }
         public ListaPaginada<SugerenciaEL> ListaSugerencias { get; set; }
-
-    }
-}
-        public int Id { get; set; }
         public string Descripcion { get; set; }
         public DateTime Fecha { get; set; }
         public EvaluacionProcedimientoDetEL EvalProcDet { get; set; }
-        public LocalEL Local { get; set; }
         public EmpleadoEL Empleado { get; set; }
         public ProcedimientoEL Procedimiento { get; set; }
         public ParametroEL Estado { get; set; }
+
+    }
+}
+
+

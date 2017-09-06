@@ -57,7 +57,6 @@
     <Compile Include="Inherited\DistritoEL.cs" />
     <Compile Include="Inherited\EntrevistaEL.cs" />
     <Compile Include="Inherited\EmpleadoEL.cs" />
-    <Compile Include="Inherited\EntrevistaEL.cs" />
     <Compile Include="Inherited\EvaluacionProcedimientoDetEL.cs" />
     <Compile Include="Inherited\EvaluacionProcedimientoEL.cs" />
     <Compile Include="Inherited\FranquiciaEL.cs" />

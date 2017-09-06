@@ -72,8 +72,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             }
             return lstSugerencia;
         }
-    }
-}
+
         public List<SugerenciaEL> GetSugerenciaEvaluada(int evalProcDetId)
         {
             DAABRequest.Parameter[] arrParam = {
@@ -110,7 +109,8 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     };
                     item.Procedimiento = oProcedimiento;
 
-                    EmpleadoEL oEmpleado = new EmpleadoEL() {
+                    EmpleadoEL oEmpleado = new EmpleadoEL()
+                    {
                         NombreCompleto = Funciones.CheckStr(dr["Empleado"])
                     };
 
@@ -132,3 +132,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             }
             return lstSugerencias;
         }
+    
+    }
+}
+       

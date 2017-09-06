@@ -14,9 +14,12 @@ namespace UPC.SISGFRAN.BL.Repositorios
         {
             return new SugerenciaDA().GetSugerencia(cboDistrito, cboLocal, dtpInicio, dtpFin);
         }
-    }
-}
+
         public List<SugerenciaEL> GetSugerenciaEvaluada(int evalProcDetId)
         {
             return new SugerenciaDA().GetSugerenciaEvaluada(evalProcDetId);
         }
+
+    }
+}
+
