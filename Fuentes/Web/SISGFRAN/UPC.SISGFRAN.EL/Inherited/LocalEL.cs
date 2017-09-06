@@ -20,3 +20,10 @@ namespace UPC.SISGFRAN.EL.Inherited
 
     }
 }
+        public int Id { get; set; }
+        public FranquiciaEL Franquicia { get; set; }
+        public string Nombre { get; set; }
+        public string FechaApertura { get; set; }
+        public string Responsable { get; set; }
+        public UsuarioEL Usuario { get; set; }
+        public string FranquiciaLocal { get; set; }

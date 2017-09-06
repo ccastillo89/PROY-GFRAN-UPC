@@ -19,3 +19,11 @@ namespace UPC.SISGFRAN.EL.Inherited
 
     }
 }
+        public int Id { get; set; }
+        public string Descripcion { get; set; }
+        public DateTime Fecha { get; set; }
+        public EvaluacionProcedimientoDetEL EvalProcDet { get; set; }
+        public LocalEL Local { get; set; }
+        public EmpleadoEL Empleado { get; set; }
+        public ProcedimientoEL Procedimiento { get; set; }
+        public ParametroEL Estado { get; set; }

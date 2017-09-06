@@ -1,0 +1,36 @@
+﻿@model UPC.SISGFRAN.EL.Inherited.ReporteEvaluacionEL
+
+<div>
+    @{
+        var grid = new WebGrid(
+                    canPage: false,
+                    canSort: false,
+                    ajaxUpdateContainerId: "gridDetalle");
+        grid.Bind(Model.EvaluacionDetalle, autoSortAndPage: false);
+        @grid.GetHtml(htmlAttributes: new { id = "gridDetalle1" },
+                    tableStyle: "webgrid",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    selectedRowStyle: "webgrid-selected-row",
+                    rowStyle: "webgrid-row-style",
+                    fillEmptyRows: false,
+                    mode: WebGridPagerModes.All,
+                    columns: grid.Columns(
+                        grid.Column("Procedimiento.Nombre", "Procedimiento"),
+                        grid.Column("Procedimiento.Version", "Última versión", style: "text-center-col"),
+                        grid.Column(header: "# Reclamos", style: "text-center-col",
+                            format: @<text>
+                                @Html.Raw("<a data-modal='' href='/Procedimiento/Reclamo/" + item.Id + "' id='" + item.Id + "' title='Nro de reclamos'>" + item.CantidadReclamos + "</a>")
+                            </text>
+                        ),
+                        grid.Column(header: "# Sugerencias", style: "text-center-col",
+                            format: @<text>
+                                @Html.Raw("<a data-modal='' href='/Procedimiento/Sugerencia/" + item.Id + "' id='" + item.Id + "' title='Nro de sugerencia'>" + item.CantidadSugerencia + "</a>")
+                            </text>
+                        ),
+                        grid.Column(header: "Calificación", format: @<text><img src="@item.Semaforo" id="adimg" /> @item.Calificacion </text>, style: "text-center-col")
+            ));
+    }
+
+</div>

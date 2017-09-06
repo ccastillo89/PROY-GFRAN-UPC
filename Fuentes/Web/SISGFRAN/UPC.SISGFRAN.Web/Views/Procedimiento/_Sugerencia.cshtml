@@ -1,0 +1,71 @@
+﻿@model UPC.SISGFRAN.EL.Inherited.ReporteEvaluacionEL
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Sugerencias</h3>
+</div>
+
+<div class="modal-body">
+
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group row">
+        <div class="col-lg-11">
+            <label class="control-label">Procedimiento: </label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-lg-11">
+            @Html.TextBoxFor(m => m.Procedimiento, new { @class = "form-control", @disabled = "disabled", @style = "width:475px; max-width:550px;" })
+        </div>
+    </div>
+    <div class="row col-lg-11" style="height:25px;">
+    </div>
+    <div class="form-group row">
+        <div class="col-lg-11">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <i class="fa fa-table" aria-hidden="true"></i> Listado de sugerencias evaluados
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <div id="gridSugerencias">
+                                @{
+                                    var grid = new WebGrid(
+                                                canPage: true,
+                                                rowsPerPage: Model.Sugerencias.PageSize,
+                                                canSort: false,
+                                                ajaxUpdateContainerId: "gridSugerencias");
+                                    grid.Bind(Model.Sugerencias.Content, rowCount: Model.Sugerencias.TotalRecords, autoSortAndPage: false);
+                                    grid.Pager(WebGridPagerModes.All,
+                                                firstText: "<<", lastText: ">>",
+                                                previousText: "<",
+                                                nextText: ">",
+                                                numericLinksCount: 15);
+                                                @grid.GetHtml(htmlAttributes: new { id = "gridSugerencias1" },
+                                            tableStyle: "webgrid",
+                                            headerStyle: "webgrid-header",
+                                            footerStyle: "webgrid-footer",
+                                            alternatingRowStyle: "webgrid-alternating-row",
+                                            selectedRowStyle: "webgrid-selected-row",
+                                            rowStyle: "webgrid-row-style",
+                                            fillEmptyRows: false,
+                                            mode: WebGridPagerModes.All,
+                                            columns: grid.Columns(
+                                                    grid.Column("Descripcion", "Descripción"),
+                                                    grid.Column("Empleado.NombreCompleto", "Empleado"),
+                                                    grid.Column("Fecha", "Fecha", format: @<text>@String.Format("{0:dd/MM/yyyy}", item.Fecha) </text>)
+                                                  ));
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+</div>

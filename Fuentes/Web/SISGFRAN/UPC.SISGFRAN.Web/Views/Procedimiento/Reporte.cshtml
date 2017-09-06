@@ -1,0 +1,300 @@
+﻿@using UPC.SISGFRAN.Web.Helper;
+@model  UPC.SISGFRAN.EL.Inherited.ReporteEvaluacionEL
+@{
+    var usuario = SesionUsuario.Usuario;
+    ViewBag.Title = "Reporte De evaluación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var message = TempData["msg"] ?? string.Empty;
+}
+
+<div class="container2">
+    <div class="row col-lg-11">
+        <h3 class="page-header">Reporte de evaluación de procedimientos</h3>
+    </div>
+
+    <div class="row col-lg-11">
+        @Html.HiddenFor(m => m.Id, new { @id = "hddId"})
+        @Html.HiddenFor(m => m.EvaluacionPro.Local.Usuario.Email, new { @id = "hddEmail" })
+        <div class="col-md-5">
+            <label class="control-label col-md-4">Franquicia: </label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.EvaluacionPro.Local.Nombre, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <label class="control-label col-md-4">Responsable: </label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.EvaluacionPro.Local.Responsable, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+    <div class="row col-lg-11" style="height:5px;"></div>
+    <div class="row col-lg-11">
+        <div class="col-md-5">
+            <label class="control-label col-md-4">Periodo: </label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.EvaluacionPro.Periodo, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <label class="control-label col-md-4">Fecha de Evaluación: </label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.EvaluacionPro.FechaEvaluacion, new { @class = "form-control", @disabled = "disabled" })
+            </div>
+        </div>
+
+    </div>
+    <div class="row col-lg-11" style="height:5px;"></div>
+    <div class="row col-lg-11">
+
+    <div class="col-md-10">
+        <label class="control-label col-md-2">Comentarios: </label>
+        <div class="col-md-10">
+            @if (usuario.Perfil.Id == 1)
+            {
+                @Html.TextAreaFor(m => m.EvaluacionPro.Comentario, new { @class = "form-control", @rows = 4 , @cols = 10})
+            }
+            else
+            {
+                @Html.TextAreaFor(m => m.EvaluacionPro.Comentario, new { @class = "form-control", @rows = 4, @cols = 10, @disabled = "disabled" })
+            }
+        </div>
+    </div>
+
+    @if (usuario.Perfil.Id == 1)
+    {
+        <div class="col-md-1 margenBoton">
+            <span class="input-group-btn">
+                <a class="btn btn-primary" href='#' onclick="Grabar();" id='btnGrabar' title='Grabar'>
+                    <span class='glyphicon glyphicon-save'>
+                        Grabar
+                    </span>
+                </a>
+            </span>
+        </div>
+    }
+
+    </div>
+    <div class="row col-lg-11" style="height:15px;"></div>
+    <div class="row col-lg-11">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-table" aria-hidden="true"></i> Procedimientos afectados
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div style="float: right; width: 50%;">
+                        <label class="control-label col-md-5">Leyenda de calificación: </label>
+                        <ul class="legend">
+                            <li><span class="legendGreen"></span> De 0 a < 3</li>
+                            <li><span class="legendYellow"></span> De 3 a 7</li>
+                            <li><span class="legendRed"></span> De > 7 a 10</li>
+                        </ul>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="gridDetalle">
+                            @Html.Partial("_Detalle")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa fa-area-chart fa-fw"></i> Análisis de reclamos/sugerencias del Local
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div id="morris-graf-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row col-lg-11">
+        <div class="row" style="float:right; width:28%">
+            <div class="form-group row col-md-3">
+                
+                <input type="hidden" value="0" id="hddNotifico" name="hddNotifico">
+                @if (usuario.Perfil.Id == 1)
+                {
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <a class="btn btn-primary" href='#' onclick="Enviar();" id='btnEnviar' title='Enviar notificación'>
+                            <span class='glyphicon glyphicon-tasks'>
+                                Enviar Notificación
+                            </span>
+                        </a>
+                    </span>
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <a class="btn btn-danger" href='#' onclick="Cancelar();" id='btnCancelar' title='Cancelar'>
+                            <span class='glyphicon glyphicon-cancel'>
+                                Regresar
+                            </span>
+                        </a>
+                    </span>
+                }
+                else
+                {
+                    <span class="input-group-btn" style="padding-left:70%;">
+                        <a class="btn btn-danger" href='#' onclick="Cancelar();" id='btnCancelar' title='Cancelar'>
+                            <span class='glyphicon glyphicon-cancel'>
+                                Regresar
+                            </span>
+                        </a>
+                    </span>
+                }
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog" style="width:550px">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jsEvalProc/Reporte.js")
+
+    <section class="scripts">
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+            
+            });
+
+            function Grabar() {
+                var comentario = $("#EvaluacionPro_Comentario").val();
+                var IdEval = $("#hddId").val();
+
+                var formData = { id: IdEval, coment: comentario };
+
+                $.ajax({
+                    url: "/Procedimiento/Grabar",
+                    type: "POST",
+                    data: formData,
+                    success: function (data) {
+                        bootbox.alert({
+                            message: data.message,
+                            size: 'small'
+                        });
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        bootbox.alert('error', textStatus, 'Error');
+                    }
+                });
+            }
+            
+            function Enviar()
+            {
+                var notif = $("#hddNotifico").val();
+
+                if (notif == "1")
+                {
+                    bootbox.alert({
+                        message: "Notificación ya enviada",
+                        size: 'small'
+                    });
+                    return false;
+                }   
+
+                var idEval = $("#hddId").val();
+                var periodo = $("#EvaluacionPro_Periodo").val();
+                var fechaEval = $("#EvaluacionPro_FechaEvaluacion").val();
+                var mail = $("#hddEmail").val();
+                var respons = $("#EvaluacionPro_Local_Responsable").val();
+
+                $.ajax({
+                    url: "/Procedimiento/EnviarCorreo",
+                    type: "GET",
+                    data: { id: idEval, correo: mail, periodo: periodo, resp: respons, fecha: fechaEval },
+                    dataType: "html",
+                    traditional: true,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var datos = jQuery.parseJSON(data);
+                        if (datos.status == true) {
+                            bootbox.alert({
+                                message: datos.message,
+                                size: 'small'
+                            });
+                            $("#hddNotifico").val("1");
+                        } else {
+                            bootbox.alert({
+                                message: datos.message,
+                                size: 'small'
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        bootbox.alert('error', textStatus, 'Error');
+                    }
+                });
+            }
+
+            function Cancelar()
+            {
+                bootbox.confirm({
+                    message: "¿Está seguro que desea regresar?",
+                    buttons: {
+                        confirm: {
+                            label: 'Si',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result)
+                            location.href = '@Url.Action("Index", "Procedimiento")';
+                    }
+                });
+            }
+
+            function LoadGraficoArea(month_data)
+            {
+                $("#morris-area-chart").html("");
+                var grafico = Morris.Line({
+                    element: 'morris-graf-chart',
+                    data: month_data,
+                    xkey: 'PeriodoGra',
+                    ykeys: ['CantSugerenciaGra', 'CantReclamoGra'],
+                    labels: ['Sugerencias', 'Reclamos'],
+                    smooth: false
+                });
+            }
+
+        </script>
+        <script type="text/javascript">
+            var message = '@message';
+            if (message)
+                bootbox.alert({
+                    message: message,
+                    size: 'small'
+                });
+        </script>
+        <script type="text/javascript">
+            var modelo = @Html.Raw(Json.Encode(Model))
+            setTimeout(LoadGraficoArea(modelo.EvaluacionProGrafico), 1000);
+        </script>
+    </section>
+}

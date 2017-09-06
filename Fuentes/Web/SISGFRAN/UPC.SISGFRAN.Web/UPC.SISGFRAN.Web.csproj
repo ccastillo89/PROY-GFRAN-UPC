@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProcedimientoController.cs" />
     <Compile Include="Controllers\SolicitanteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\SugerenciaController.cs" />
@@ -227,6 +228,9 @@
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\BajoRiesgo.png" />
     <Content Include="Content\Images\bg-module.jpg" />
+    <Content Include="Content\Images\Circle_Green.png" />
+    <Content Include="Content\Images\Circle_Red.png" />
+    <Content Include="Content\Images\Circle_Yellow.png" />
     <Content Include="Content\Images\FondoInicio.jpg" />
     <Content Include="Content\Images\horizontal.png" />
     <Content Include="Content\Images\imagen1.jpg" />
@@ -240,6 +244,8 @@
     <Content Include="Content\js\jquery.flexslider-min.js" />
     <Content Include="Content\js\jquery.flexslider.js" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\morris.css" />
+    <Content Include="Content\morris.min.css" />
     <Content Include="Content\WebGridPardos.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -282,12 +288,18 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.flexslider-min.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
+    <Content Include="Scripts\jsEvalProc\Procedimiento.js" />
+    <Content Include="Scripts\jsEvalProc\Reporte.js" />
     <Content Include="Scripts\JsLogin\Login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\morris.js" />
+    <Content Include="Scripts\morris.min.js" />
+    <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Scripts\raphael.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -318,6 +330,13 @@
     <Content Include="Views\Sugerencia\EvaluarSugerencia.cshtml" />
     <Content Include="Views\Sugerencia\Index.cshtml" />
     <Content Include="Views\Sugerencia\_Sugerencia.cshtml" />
+    <Content Include="Views\Procedimiento\Index.cshtml" />
+    <Content Include="Views\Procedimiento\_Procedimientos.cshtml" />
+    <Content Include="Views\Procedimiento\_Evaluar.cshtml" />
+    <Content Include="Views\Procedimiento\Reporte.cshtml" />
+    <Content Include="Views\Procedimiento\_Detalle.cshtml" />
+    <Content Include="Views\Procedimiento\_Reclamo.cshtml" />
+    <Content Include="Views\Procedimiento\_Sugerencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

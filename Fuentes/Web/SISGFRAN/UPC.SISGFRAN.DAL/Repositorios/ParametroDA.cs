@@ -41,7 +41,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     ParametroEL item = new ParametroEL();
 
                     item.Codigo = Funciones.CheckInt(dr["Codigo"]);
-                    item.Descripcion = Funciones.CheckStr(dr["Nombre"]);
+                    item.Nombre = Funciones.CheckStr(dr["Nombre"]);
                     item.Valor = Funciones.CheckStr(dr["Valor"]);
                     item.CodigoGrupo = Funciones.CheckInt(dr["CodigoGrupo"]);
                     item.Grupo = Funciones.CheckStr(dr["Grupo"]);

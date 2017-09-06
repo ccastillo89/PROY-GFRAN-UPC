@@ -1,0 +1,194 @@
+﻿@using UPC.SISGFRAN.Web.Helper;
+@{
+    var usuario = SesionUsuario.Usuario;
+    ViewBag.Title = "Evaluacion de Procedimiento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var message = TempData["msg"] ?? string.Empty;
+}
+
+
+<div class="container2">
+    <div class="row col-lg-11">
+        <h3 class="page-header">Evaluación de procedimientos</h3>
+    </div>
+
+    <div class="row col-lg-11">
+        <fieldset>
+            <div class="col-md-3">
+                <label class="control-label col-md-4">Periodo:</label>
+                <div class="col-md-8">
+                    <select class="form-control selectpicker" name="cboPeriodo" id="cboPeriodo" style="width:155px"></select>
+                </div>
+            </div>
+            <div class="col-md-3 width-filter-cc">
+                <label class="control-label col-md-4 ">Franquicia:</label>
+                <div class="col-md-8">
+                    <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:155px"></select>
+                </div>
+            </div>
+            <div class="col-md-3" style="padding:0px;">
+                <label class=" control-label col-md-4">
+                Condición:</label>
+                <div class="col-md-8">
+                    <select class="form-control selectpicker" name="cboCondicion" id="cboCondicion" style="width:130px"></select>
+                </div>
+            </div>
+            <div class="form-group row col-md-1">
+                <span class="input-group-btn" style="padding-left:5px;">
+                    <a class="btn btn-primary" href='#' onclick="Buscar();" id='btnBuscar' title='Buscar'>
+                        <span class='glyphicon glyphicon-search'>
+                            Buscar
+                        </span>
+                    </a>
+                </span>
+                @if (usuario.Perfil.Id == 1) 
+                {
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <a data-modal="" class="btn btn-primary spaceBoton" href='/Procedimiento/Evaluar' id='btnProcedimiento' title='Evaluar Procedimiento'>
+                            <span class='glyphicon glyphicon-cog'>
+                                Evaluar
+                            </span>
+                        </a>
+                    </span>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <div class="row col-lg-11" style="height:25px;">
+    </div>
+    <div class="row col-lg-11">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-table" aria-hidden="true"></i> Listado de evaluaciones
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div id="gridProcedimiento">
+                            @Html.Partial("_Procedimientos")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog" style="width:450px">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jsEvalProc/Procedimiento.js")
+
+    <section class="scripts">
+
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+            CargarPeriodo();
+            CargarFranquicia();
+            CargarCondicion();
+        });
+
+        function CargarPeriodo() {
+            $.get('@Url.Action("ListaPeriodo", "Procedimiento")')
+            .done(function (data) {
+                $('#cboPeriodo').empty();
+                $('#cboPeriodo').append('<option value="-1">--TODOS--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Nombre);
+                    $option.html(row.Nombre);
+                    $('#cboPeriodo').append($option);
+                })
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
+        }
+
+        function CargarFranquicia() {
+            $.get('@Url.Action("ListaFranquicia", "Procedimiento")')
+            .done(function (data) {
+                $('#cboFranquicia').empty();
+                $('#cboFranquicia').append('<option value="-1">--TODOS--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Id);
+                    $option.html(row.FranquiciaLocal);
+                    $('#cboFranquicia').append($option);
+                })
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
+        }
+
+        function CargarCondicion() {
+            $.get('@Url.Action("ListaCondicion", "Procedimiento")')
+            .done(function (data) {
+                $('#cboCondicion').empty();
+                $('#cboCondicion').append('<option value="-1">--TODOS--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Codigo);
+                    $option.html(row.Nombre);
+                    $('#cboCondicion').append($option);
+                })
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
+        }
+
+        function Buscar()
+        {
+            var periodo = $('select[name=cboPeriodo]').val();
+            var franquiciaId = $('select[name=cboFranquicia]').val();
+            var estadoId = $('select[name=cboCondicion]').val();
+
+            $.ajax({
+                url: "/Procedimiento/Buscar",
+                type: "GET",
+                data: { periodo: periodo, franquicia: franquiciaId, estado: estadoId },
+                dataType: "html",
+                traditional: true,
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.status == undefined) {
+                        $("#gridProcedimiento").html(data);
+                    } else {
+                        if (data.status == false) {
+                            bootbox.alert({
+                                message: data.message,
+                                size: 'small'
+                            });
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    bootbox.alert('error', textStatus, 'Error');
+                }
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+    var message = '@message';
+    if (message)
+        bootbox.alert(message);
+    </script>
+
+</section>
+}

@@ -1,0 +1,39 @@
+﻿@model UPC.SISGFRAN.EL.Inherited.EvaluacionProcedimientoEL
+
+<div>
+    @{
+        var grid = new WebGrid(
+                    canPage: true,
+                    rowsPerPage: Model.Lista.PageSize,
+                    canSort: false,
+                    ajaxUpdateContainerId: "gridProcedimiento");
+        grid.Bind(Model.Lista.Content, rowCount: Model.Lista.TotalRecords, autoSortAndPage: false);
+        grid.Pager(WebGridPagerModes.All,
+                    firstText: "<<", lastText: ">>",
+                    previousText: "<",
+                    nextText: ">",
+                    numericLinksCount: 15);
+                    @grid.GetHtml(htmlAttributes: new { id = "gridProcedimiento1" },
+            tableStyle: "webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            fillEmptyRows: false,
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+                grid.Column("Periodo", "Periodo"),
+                grid.Column("Local.Nombre", "Franquicia"),
+                grid.Column("Local.Responsable", "Responsable"),
+                grid.Column("CantReclamos", "# Reclamos"),
+                grid.Column("CantSugerencia", "# Sugerencias"),
+                grid.Column("Estado.Nombre", "Condición"),
+                grid.Column(header: "Acción", canSort: false, style: "action", 
+                format: @<text>
+                @Html.Raw("<a href='/Procedimiento/Reporte/" + item.Id + "' id='" + item.Id + "' title='Ver Reporte'> <span class='glyphicon glyphicon-list-alt'> </span> Ver reporte</a>")
+                </text>)
+));
+    }
+
+</div>

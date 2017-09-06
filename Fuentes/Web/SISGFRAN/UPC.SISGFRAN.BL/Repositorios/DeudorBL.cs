@@ -8,7 +8,6 @@ using System.Web.Script.Serialization;
 using System.Net;
 using System.IO;
 using UPC.SISGFRAN.EL.Comunes;
-using System.Web.Script.Serialization;
 
 namespace UPC.SISGFRAN.BL.Repositorios
 {

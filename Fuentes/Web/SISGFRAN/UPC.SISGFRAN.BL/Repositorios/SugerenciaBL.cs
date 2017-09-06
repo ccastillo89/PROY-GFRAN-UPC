@@ -16,3 +16,7 @@ namespace UPC.SISGFRAN.BL.Repositorios
         }
     }
 }
+        public List<SugerenciaEL> GetSugerenciaEvaluada(int evalProcDetId)
+        {
+            return new SugerenciaDA().GetSugerenciaEvaluada(evalProcDetId);
+        }
