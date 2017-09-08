@@ -10,6 +10,20 @@ namespace UPC.SISGFRAN.BL.Repositorios
 {
     public class EvaluacionProcedimientoBL
     {
+        private static EvaluacionProcedimientoBL instance = null;
+
+        protected EvaluacionProcedimientoBL() { }
+
+        public static EvaluacionProcedimientoBL Instance
+        { 
+            get
+            {
+                if (instance == null)
+                    instance = new EvaluacionProcedimientoBL();
+
+                return instance;
+            }     
+        }
 
         public List<EvaluacionProcedimientoEL> GetEvaluacionProc(EvaluacionProcedimientoEL evalProc)
         {

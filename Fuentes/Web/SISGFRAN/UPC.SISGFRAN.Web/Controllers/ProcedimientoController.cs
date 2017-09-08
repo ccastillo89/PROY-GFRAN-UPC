@@ -17,8 +17,6 @@ namespace UPC.SISGFRAN.Web.Controllers
 {
     public class ProcedimientoController : Controller
     {
-        private EvaluacionProcedimientoBL evaluacionBL;
-
         //
         // GET: /Procedimiento/
         public ActionResult Index(int page = 1, int pageSize = 10, string sort = "Id", string sortdir = "DESC")
@@ -34,8 +32,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 Estado = oEstado
             };
 
-            evaluacionBL = new EvaluacionProcedimientoBL();
-            List<EvaluacionProcedimientoEL> listaEvaluaciones = evaluacionBL.GetEvaluacionProc(oConsulta);
+            List<EvaluacionProcedimientoEL> listaEvaluaciones = EvaluacionProcedimientoBL.Instance.GetEvaluacionProc(oConsulta);
             ListaPaginada<EvaluacionProcedimientoEL> listaContentEval = new ListaPaginada<EvaluacionProcedimientoEL>();
 
             listaContentEval.Content = listaEvaluaciones
@@ -87,8 +84,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                     Estado = oEstado
                 };
 
-                evaluacionBL = new EvaluacionProcedimientoBL();
-                List<EvaluacionProcedimientoEL> listaEvaluaciones = evaluacionBL.GetEvaluacionProc(oConsulta);
+                List<EvaluacionProcedimientoEL> listaEvaluaciones = EvaluacionProcedimientoBL.Instance.GetEvaluacionProc(oConsulta);
                 ListaPaginada<EvaluacionProcedimientoEL> listaContentEval = new ListaPaginada<EvaluacionProcedimientoEL>();
 
                 listaContentEval.Content = listaEvaluaciones
@@ -149,7 +145,6 @@ namespace UPC.SISGFRAN.Web.Controllers
                 int.TryParse(cboProcedimiento, out iProcedimiento);
 
                 EvaluacionProcedimientoEL evaluacionRegistrada = null;
-                EvaluacionProcedimientoBL oEvalProcBL = new EvaluacionProcedimientoBL();
 
                 LocalEL oLocal = new LocalEL()
                 {
@@ -161,7 +156,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 evaluacion.ProcedimientoId = iProcedimiento;
                 evaluacion.UsuarioCreacion = SesionUsuario.Usuario.Id;
 
-                evaluacionRegistrada = oEvalProcBL.RegistrarEvaluacionProc(evaluacion);
+                evaluacionRegistrada = EvaluacionProcedimientoBL.Instance.RegistrarEvaluacionProc(evaluacion);
 
                 if (evaluacionRegistrada.Id > 0)
                 {
@@ -186,9 +181,6 @@ namespace UPC.SISGFRAN.Web.Controllers
 
             ReporteEvaluacionEL reporteEvaluacionEL = null;
 
-            EvaluacionProcedimientoBL oEvalProceBL = new EvaluacionProcedimientoBL();
-            EvaluacionProcedimientoDetBL oEvalProceDetBL = new EvaluacionProcedimientoDetBL();
-
             try
             {
                 if (id == null || string.IsNullOrEmpty(id))
@@ -199,9 +191,9 @@ namespace UPC.SISGFRAN.Web.Controllers
                 int iEvaluacion = 0;
                 int.TryParse(id, out iEvaluacion);
 
-                oEvalProcEL = oEvalProceBL.GetEvaluacionProcById(iEvaluacion);
-                listaDetalle = oEvalProceDetBL.GetEvaluacionProcDet(iEvaluacion);
-                listaGrafico = oEvalProceBL.GetEvaluacionProcGrafico(iEvaluacion);
+                oEvalProcEL = EvaluacionProcedimientoBL.Instance.GetEvaluacionProcById(iEvaluacion);
+                listaDetalle = EvaluacionProcedimientoDetBL.Instance.GetEvaluacionProcDet(iEvaluacion);
+                listaGrafico = EvaluacionProcedimientoBL.Instance.GetEvaluacionProcGrafico(iEvaluacion);
 
                 reporteEvaluacionEL = new ReporteEvaluacionEL() {
                     EvaluacionPro = oEvalProcEL,
@@ -215,11 +207,6 @@ namespace UPC.SISGFRAN.Web.Controllers
             {
                 return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
             }
-            finally 
-            {
-                oEvalProceBL = null;
-                oEvalProceDetBL = null;
-            }
         }
 
         [HttpGet]
@@ -228,7 +215,6 @@ namespace UPC.SISGFRAN.Web.Controllers
             try
             {
                 int idEval = Convert.ToInt32(id);
-                evaluacionBL = new EvaluacionProcedimientoBL();
                 ParametroEL oEstado = new ParametroEL(){ 
                     Codigo = 2 //Notificado
                 };
@@ -240,7 +226,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                     Estado = oEstado
                 };
 
-                EvaluacionProcedimientoEL oEvaluacionEL = evaluacionBL.ActualizarEstado(oActualiza);
+                EvaluacionProcedimientoEL oEvaluacionEL = EvaluacionProcedimientoBL.Instance.ActualizarEstado(oActualiza);
 
                 // Configurar envio de correo
                 string subject = string.Format("{0}-{1}: {2}", "[Pardos Chicken]", ConfigurationManager.AppSettings.Get("AsuntoMailEvalPro"), periodo);
@@ -248,7 +234,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 string passwordMailEmisor = ConfigurationManager.AppSettings.Get("PasswordMailEmisor");
                 StringBuilder buffer = new StringBuilder();
                 buffer.Append("Estimado <b>{0}</b> <br /><br />");
-                buffer.Append(" Es grato saludarlo e informarle que la dirección central de Pardos Chicken ha realizado la evaluación del desempeño de los procdimientos de su local, publicándose los resultados en la intranet. Favor de acceder al sistema para visualizar sus resultados y recomendaciones/observaciones. <br /><br />");
+                buffer.Append(" Es grato saludarlo e informarle que la dirección central de Pardos Chicken ha realizado la evaluación del desempeño de los procedimientos de su local, publicándose los resultados en la intranet. Favor de acceder al sistema para visualizar sus resultados y recomendaciones/observaciones. <br /><br />");
                 buffer.Append(" Periodo:" + periodo + " <br/>");
                 buffer.Append(" Fecha evaluación:" + fecha + "<br/><br/>");
                 buffer.Append("<br/><br/>");
@@ -371,7 +357,6 @@ namespace UPC.SISGFRAN.Web.Controllers
         {
             try
             {
-                EvaluacionProcedimientoBL oEvalProcBL = new EvaluacionProcedimientoBL();
                 EvaluacionProcedimientoEL oEvalProActualizado = null;
 
                 EvaluacionProcedimientoEL oEvalProEL = new EvaluacionProcedimientoEL()
@@ -381,7 +366,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                     UsuarioId = SesionUsuario.Usuario.Id
                 };
 
-                oEvalProActualizado = oEvalProcBL.ActualizarComentario(oEvalProEL);
+                oEvalProActualizado = EvaluacionProcedimientoBL.Instance.ActualizarComentario(oEvalProEL);
 
                 if (oEvalProActualizado.CodeMessage != 0)
                 {
