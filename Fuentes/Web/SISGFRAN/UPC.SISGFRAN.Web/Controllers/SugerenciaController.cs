@@ -32,9 +32,10 @@ namespace UPC.SISGFRAN.Web.Controllers
             int mes = 0;
             int dia = 0;
 
-            if (dtpInicio == "" || dtpFin == "")
+            if (dtpInicio == null || dtpFin == null || dtpInicio == "" || dtpFin == "" )
             {
                 ModelState.AddModelError("validacion", "Se debe ingresar la fecha de busqueda.");
+                return View("~/views/Sugerencia/Index.cshtml");
             }
 
             //yyyy-mm-dd
@@ -53,15 +54,19 @@ namespace UPC.SISGFRAN.Web.Controllers
             SugerenciaEL records = new SugerenciaEL();
             ListaPaginada<SugerenciaEL> listaContentSugerencia = new ListaPaginada<SugerenciaEL>();
 
+           
+
+
             tb_distrito distrito = db.tb_distrito.Find(int.Parse(cboDistrito));
             tb_local local = db.tb_local.Find(int.Parse(cboLocal));
-            
-            List<SugerenciaEL> listaSugerencias = sugerenciaBL.GetSugerencias(cboDistrito, cboLocal, thisDate1.ToString("MMMM dd, yyyy"), 
-                thisDate2.ToString("MMMM dd, yyyy"));
+
+            List<SugerenciaEL> listaSugerencias = sugerenciaBL.GetSugerencias(cboDistrito, cboLocal, dtpInicio,
+                dtpFin);
 
             if (listaSugerencias.Count == 0)
             {
                 ModelState.AddModelError("validacion", "No hay sugerencias por evaluar.");
+                return View("~/views/Sugerencia/Index.cshtml");
             }
 
             if(cboDistrito.Equals("0") )
@@ -78,6 +83,23 @@ namespace UPC.SISGFRAN.Web.Controllers
             evaluacion.descripcion_evaluacion = "Se ha evaluado las solicitudes ingresadas en las fechas: " + thisDate1.ToString("MMMM dd, yyyy") + " a " + thisDate2.ToString("MMMM dd, yyyy"); 
             List<DetalleEvaluacionsugerencia> detalleEvaluacionLista = new List<DetalleEvaluacionsugerencia>();
 
+            List<tb_sugerencia_parametro> sugerencia_parametros = new List<tb_sugerencia_parametro>();
+
+            var parametrosParametros = from c in db.tb_sugerencia_parametro select c;
+
+            tb_sugerencia_parametro parametros = new tb_sugerencia_parametro();
+
+            foreach (tb_sugerencia_parametro solicitudd in parametrosParametros)
+            {
+                sugerencia_parametros.Add(solicitudd);
+            }
+
+
+            int total_prioridad_alta = 0;
+            int total_prioridad_baja = 0;
+            int total_prioridad_media = 0;
+            int total_sugerencias = 0;
+
             foreach (SugerenciaEL sugerencia in listaSugerencias) {
 
                 DetalleEvaluacionsugerencia detalleSugerencia = new DetalleEvaluacionsugerencia();
@@ -87,16 +109,99 @@ namespace UPC.SISGFRAN.Web.Controllers
                 detalleSugerencia.fecha_sugerencia = Convert.ToString(sugerencia.FechaIngreso);
                 detalleSugerencia.prioridad_sugerencia = sugerencia.Prioridad;
                 detalleSugerencia.enviar_sugerencia = "N";
-                detalleSugerencia.detalle_sugerencia = sugerencia.Comentario;
-
+                detalleSugerencia = evaluarPrioridad(sugerencia.Comentario, sugerencia_parametros, detalleSugerencia,evaluacion);
+                detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia;
+                detalleSugerencia.prioridad_sugerencia = detalleSugerencia.prioridad_sugerencia;
+                if (detalleSugerencia.prioridad_sugerencia.Equals("ALTA"))
+                {
+                    total_prioridad_alta += 1;
+                }
+                else if (detalleSugerencia.prioridad_sugerencia.Equals("MEDIA"))
+                {
+                    total_prioridad_media += 1;
+                }
+                else if (detalleSugerencia.prioridad_sugerencia.Equals("BAJA"))
+                {
+                    total_prioridad_baja += 1;
+                } 
                 detalleEvaluacionLista.Add(detalleSugerencia);
                 /**/
 
             }
 
+            total_sugerencias = total_prioridad_alta + total_prioridad_media + total_prioridad_baja;
+            evaluacion.descripcion_evaluacion = evaluacion.descripcion_evaluacion + ". " +
+                                                "Se han evaluado " + total_sugerencias + " solicitudes. De las cuales " + total_prioridad_alta + " son de prioridad alta, " + total_prioridad_media + " son de prioridad media y " + total_prioridad_baja + " son de prioridad baja.";
+
+
             evaluacion.DetalleEvaluacionsugerencia = detalleEvaluacionLista;
+
+            
+            
+            /*ACTUALIZAR ESTADO DE SUGERENCIA*/
+            foreach (SugerenciaEL sugerencia in listaSugerencias)
+            {
+                tb_sugerencia sugerencias = db.tb_sugerencia.Find(sugerencia.Id);
+                sugerencias.estado = 2; // Estado dos es REVISADO
+                db.Entry(sugerencias).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+            }
+            /*ACTUALIZAR ESTADO DE SUGERENCIA*/
+
             return View(evaluacion);
         }
+
+        [HttpGet]
+        public ActionResult DetalleSugerencia()
+        {
+            EvaluacionSugerenciaHelper oEvalSug = new EvaluacionSugerenciaHelper();
+            try
+            {
+                return PartialView("_DetalleSugerencia", oEvalSug);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+        public DetalleEvaluacionsugerencia evaluarPrioridad(String descripcion, List<tb_sugerencia_parametro> sugerencia_parametros, DetalleEvaluacionsugerencia detalleSugerencia, EvaluacionSugerenciaHelper evaluacion)
+        {
+          
+            foreach (tb_sugerencia_parametro solicitudd in sugerencia_parametros)
+            {
+                int VAR = 0;
+                VAR = descripcion.ToUpper().IndexOf(solicitudd.descripcion.ToUpper());
+                string A = solicitudd.descripcion;
+                if (VAR != -1)
+                {
+                    if (solicitudd.nivel_prioridad.Equals("ALTA"))
+                    {
+                       
+                        detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia + " "+ A + " ";
+                        detalleSugerencia.prioridad_sugerencia = solicitudd.nivel_prioridad;
+                        detalleSugerencia.prioridadSugerencia = 1;
+                    }
+                    else
+                    {
+                        
+                        detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia + " " + A + " "; 
+                        detalleSugerencia.prioridad_sugerencia = solicitudd.nivel_prioridad; }
+                }
+            }
+
+
+            if (detalleSugerencia.detalle_sugerencia == null  )
+            {
+                
+                detalleSugerencia.detalle_sugerencia = "No se encontró palabras clave.";
+                detalleSugerencia.prioridad_sugerencia = "BAJA";
+            }
+            
+            return detalleSugerencia;
+        } 
 
         public ActionResult Regresar()
         {
