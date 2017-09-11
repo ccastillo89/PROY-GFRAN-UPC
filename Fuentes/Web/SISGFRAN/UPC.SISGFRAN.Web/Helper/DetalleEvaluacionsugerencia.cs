@@ -21,5 +21,9 @@ namespace UPC.SISGFRAN.Web.Helper
         public int prioridadSugerencia { get; set; }
 
         public string descripcion_sugerencia { get; set; }
+
+        public string correo_electronico { get; set; }
+
+        public string descripcion_local { get; set; }
     }
 }

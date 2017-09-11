@@ -13,6 +13,9 @@ using System.Web.Script.Services;
 using UPC.SISGFRAN.EL.NonInherited;
 using UPC.SISGFRAN.BL.Repositorios;
 using UPC.SISGFRAN.Web.Helper;
+using System.Configuration;
+using System.Text;
+using UPC.SISGFRAN.Web.Helper.Mail;
 
 namespace UPC.SISGFRAN.Web.Controllers
 {
@@ -115,6 +118,12 @@ namespace UPC.SISGFRAN.Web.Controllers
 
                 detalleSugerencia.descripcion_sugerencia = sugerencia.Descripcion;
 
+                tb_local locals = db.tb_local.Find(sugerencia.Local.Id);
+                detalleSugerencia.correo_electronico = locals.email;
+
+                detalleSugerencia.descripcion_local = locals.tb_distrito.Nombre + " - " + locals.direccion;
+
+
                 if (detalleSugerencia.prioridad_sugerencia.Equals("ALTA"))
                 {
                     total_prioridad_alta += 1;
@@ -140,11 +149,24 @@ namespace UPC.SISGFRAN.Web.Controllers
             evaluacion.DetalleEvaluacionsugerencia = detalleEvaluacionLista;
 
             
-            
+             
             /*ACTUALIZAR ESTADO DE SUGERENCIA*/
-          /*  foreach (SugerenciaEL sugerencia in listaSugerencias)
+           /* foreach (DetalleEvaluacionsugerencia sugerencia in detalleEvaluacionLista)
             {
                 tb_sugerencia sugerencias = db.tb_sugerencia.Find(sugerencia.Id);
+                if (sugerencia.prioridad_sugerencia.Equals("ALTA"))
+                {
+                    sugerencias.prioridad = "1";
+                }
+                else if (sugerencia.prioridad_sugerencia.Equals("MEDIA"))
+                {
+                    sugerencias.prioridad = "2";
+                }
+                else if (sugerencia.prioridad_sugerencia.Equals("BAJA"))
+                {
+                    sugerencias.prioridad = "3";
+                } 
+                
                 sugerencias.estado = 2; // Estado dos es REVISADO
                 db.Entry(sugerencias).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
@@ -239,6 +261,83 @@ namespace UPC.SISGFRAN.Web.Controllers
 
             return Json(locales, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult DetalleCorreo(String idSugerencia )
+        {
+            CorreoHelper correoHelper = new CorreoHelper();
+            try
+            {
+                /*tb_sugerencia sugerencia = db.tb_sugerencia.Find(11);
+                segurenciaHelper.idSugerencia = sugerencia.id;
+                segurenciaHelper.detalleSugerencia = sugerencia.descripcion;
+                segurenciaHelper.fechaIngreso = sugerencia.fechaIngreso.ToString();*/
+                return PartialView("_Correo", correoHelper);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult EnviarCorreo(string id, string msj, string resp)
+        {
+            try
+            {
+                if (msj.Equals(""))
+                {
+                    msj = "El usuario no ingresó ningún comentario.";
+                }
+                int idEval = Convert.ToInt32(id);
+
+                tb_sugerencia sugerencia = db.tb_sugerencia.Find(idEval);
+                
+                String prioridad = "BAJA";
+
+                if (sugerencia.prioridad.Equals ("1"))
+                {
+                    prioridad = "ALTA";
+                }
+                else if (sugerencia.prioridad.Equals("2"))
+                {
+                    prioridad = "MEDIA";
+                }
+                else if (sugerencia.prioridad.Equals("3"))
+                {
+                    prioridad = "BAJA";
+                } 
+                // Configurar envio de correo
+                string subject = string.Format("{0}-{1}: {2}", "[Pardos Chicken]", "Evaluación de Sugerencias", "");
+                string mailFrom = ConfigurationManager.AppSettings.Get("MailEmisor");
+                string passwordMailEmisor = ConfigurationManager.AppSettings.Get("PasswordMailEmisor");
+                StringBuilder buffer = new StringBuilder();
+                
+                buffer.Append("Estimado <b>{0}</b> <br /><br />");
+                buffer.Append(" Es grato saludarlo e informarle que la dirección central de Pardos Chicken ha realizado la evaluación de las solicitudes ingresadas en su local.<br /><br />");
+                buffer.Append(" Código de Sugerencia Evaluada: "+ sugerencia.id + "<br/>");
+                buffer.Append(" Prioridad de sugerencia: " + prioridad + "<br/>");
+                buffer.Append(" Fecha de ingreso de sugerencia: " + sugerencia.fechaIngreso + "<br/>");
+                buffer.Append(" Local: " + sugerencia.tb_local.tb_distrito.Nombre + " - " + sugerencia.tb_local .direccion+ "<br/>");
+                buffer.Append(" <br/>");
+                buffer.Append(" Mensaje de director de franquicia: " + msj + "<br/>");
+                buffer.Append(" <br/>");
+                buffer.Append(" Descripción de la sugerencia: " + sugerencia.descripcion + "<br/>");
+                buffer.Append("<br/><br/>");
+                buffer.Append(" Saludos cordiales. <br/><br/>");
+                buffer.Append("<i> Nota: Por favor no responda este correo. <i>");
+               
+                MailHelper.SendMail(mailFrom, passwordMailEmisor, "lincolnjeampier@gmail.com", subject, string.Format(buffer.ToString(), resp), true, System.Net.Mail.MailPriority.Normal);
+                
+                return Json(new { status = true, message = "Se notificó al responsable correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         public JsonResult ListaLocalesXDistrito(String distrito)
         {
