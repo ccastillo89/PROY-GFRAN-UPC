@@ -109,9 +109,12 @@ namespace UPC.SISGFRAN.Web.Controllers
                 detalleSugerencia.fecha_sugerencia = Convert.ToString(sugerencia.FechaIngreso);
                 detalleSugerencia.prioridad_sugerencia = sugerencia.Prioridad;
                 detalleSugerencia.enviar_sugerencia = "N";
-                detalleSugerencia = evaluarPrioridad(sugerencia.Comentario, sugerencia_parametros, detalleSugerencia,evaluacion);
+                detalleSugerencia = evaluarPrioridad(sugerencia.Descripcion, sugerencia_parametros, detalleSugerencia,evaluacion);
                 detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia;
                 detalleSugerencia.prioridad_sugerencia = detalleSugerencia.prioridad_sugerencia;
+
+                detalleSugerencia.descripcion_sugerencia = sugerencia.Descripcion;
+
                 if (detalleSugerencia.prioridad_sugerencia.Equals("ALTA"))
                 {
                     total_prioridad_alta += 1;
@@ -139,25 +142,29 @@ namespace UPC.SISGFRAN.Web.Controllers
             
             
             /*ACTUALIZAR ESTADO DE SUGERENCIA*/
-            foreach (SugerenciaEL sugerencia in listaSugerencias)
+          /*  foreach (SugerenciaEL sugerencia in listaSugerencias)
             {
                 tb_sugerencia sugerencias = db.tb_sugerencia.Find(sugerencia.Id);
                 sugerencias.estado = 2; // Estado dos es REVISADO
                 db.Entry(sugerencias).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
-            }
+            }*/
             /*ACTUALIZAR ESTADO DE SUGERENCIA*/
 
             return View(evaluacion);
         }
 
         [HttpGet]
-        public ActionResult DetalleSugerencia()
+        public ActionResult DetalleSugerencia(String idSugerencia, EvaluacionSugerenciaHelper evaluacion)
         {
-            EvaluacionSugerenciaHelper oEvalSug = new EvaluacionSugerenciaHelper();
+            EvaluacionSugerenciaHelper segurenciaHelper = new EvaluacionSugerenciaHelper();
             try
             {
-                return PartialView("_DetalleSugerencia", oEvalSug);
+              /*tb_sugerencia sugerencia = db.tb_sugerencia.Find(11);
+              segurenciaHelper.idSugerencia = sugerencia.id;
+              segurenciaHelper.detalleSugerencia = sugerencia.descripcion;
+              segurenciaHelper.fechaIngreso = sugerencia.fechaIngreso.ToString();*/
+                return PartialView("_DetalleSugerencia", segurenciaHelper);
             }
             catch (Exception ex)
             {
@@ -236,10 +243,22 @@ namespace UPC.SISGFRAN.Web.Controllers
         public JsonResult ListaLocalesXDistrito(String distrito)
         {
             int distritoId = Int32.Parse(distrito);
+
+            if (distritoId == 0)
+            {
+                var locales = (db.tb_local.OrderBy(a => a.nombre)
+                             .Select(c => new { Id = c.id, Nombre = c.nombre, idDistrito = c.distritoId })).ToList();
+
+                return Json(locales, JsonRequestBehavior.AllowGet);
+            }
+            else { 
+
             var locales = (db.tb_local.OrderBy(a => a.nombre)
-                             .Select(c => new { Id = c.id, Nombre = c.nombre })).Where(x => x.Id == distritoId).ToList();
+                             .Select(c => new { Id = c.id, Nombre = c.nombre, idDistrito = c.distritoId })).Where(x => x.idDistrito == distritoId).ToList();
 
             return Json(locales, JsonRequestBehavior.AllowGet);
+
+            }
         }
     }
 }

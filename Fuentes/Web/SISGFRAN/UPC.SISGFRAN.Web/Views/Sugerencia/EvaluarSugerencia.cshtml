@@ -128,7 +128,7 @@
                                                     }, style: "col-md-1", canSort: true),
                                                     grid.Column("Ver detalle", format: (item) =>
                                                                 {
-                                                                    return Html.Raw(string.Format("<text><a data-modal=\"\" class=\"\"  href=\"/Sugerencia/DetalleSugerencia\"><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></a></text>", Url.Content("~/Content/Images/lupa.png")));
+                                                                    return Html.Raw(string.Format("<text><a class=\"\"  href=\"javascript:showPopUp('" + item.codigo_sugerencia + "','" + item.fecha_sugerencia + "','" + item.descripcion_sugerencia + "');\"><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></a></text>", Url.Content("~/Content/Images/lupa.png")));
                                                                 }, style: "col-md-1", canSort: true))
                                                     )
 
@@ -231,6 +231,21 @@
                 console.log('error');
             });
         }
+
+            function showPopUp(codigo,fecha,detalle) {
+               
+                $('#myModalContent').load('/Sugerencia/DetalleSugerencia', function () {
+                    $('#myModal').modal({
+                        keyboard: false,
+                        backdrop: 'static'
+                    }, 'show');
+                    $('#codigoSugerencia').val(codigo + " - " + fecha);
+                    $('#detalleSugerenciaPop').val(detalle);
+                    bindForm(this);
+                   
+                });
+
+            }
 
         
 
