@@ -1,0 +1,157 @@
+﻿@model UPC.SISGFRAN.Web.Helper.SugerenciaHelper
+
+@{
+    ViewBag.Title = "Auditar Venta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Paneles -->
+@using (Html.BeginForm("AuditarVenta", "AuditarVenta"))
+{
+    <div class="container2">
+        <div class="margenPanelRigth">
+            <fieldset>
+                <legend><center>Auditar Ventas</center></legend>
+                <div class="form-group row OcultarDiv">
+                    <input type="hidden" value="" id="hddCodSugerencia" name="hddCodSugerencia">
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            @Html.ValidationMessage("validacion", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="datosConsulta">
+                                    <br><br>
+                                    <table>
+                                        <tr style="height: 50px;">
+                                            <td style="width:15%"></td>
+                                            <td style="width:15%"><label>Nombre de Franquicia: </label></td>
+                                            <td style="width:15%">
+                                                <div class="col-md-4 width-dash-sh">
+                                                    <div class="col-md-8">
+                                                        <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:280px"></select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width:15%"></td>
+                                            <td style="width:15%">
+                                                <span class="input-group-btn" style="padding-left:5px;">
+                                                    <center><button id="btnAuditar" class="btn btn-success" type="submit">Auditar</button></center>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br><br>
+                                    <table>
+                                        <tr style="height: 50px;">
+                                            <td style="width:15%"></td>
+                                            <td style="width:15%"><label>Año: </label></td>
+                                            <td style="width:15%">                                                
+                                                <div class='col-sm-3'>
+                                                    <div class="form-group">
+                                                        <div class='input-group date' id='datetimepicker1'>
+                                                            <input type='text' class="form-control" id="dtpAño" name="dtpAño" style="width:250px" value="@Html.DisplayTextFor(model => model.fecha_inicio)" onkeypress="return false;" />
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div></td>
+                                            <td style="width:15%"></td>
+                                            <td style="width:15%">
+                                                <span class="input-group-btn" style="padding-left:5px;">
+                                                    <center><button id="btnCancelar" class="btn btn-success" type="submit">Cancelar</button></center>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </fieldset>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+    $(function () {
+        var bindDatePicker = function () {
+            $(".date").datetimepicker({
+                format: 'YYYY',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            }).find('input:first').on("blur", function () {
+                var date = parseDate($(this).val());
+
+                if (!isValidDate(date)) {
+                    date = moment().format('');
+                }
+
+                $(this).val(date);
+            });
+        }
+
+        var isValidDate = function (value, format) {
+            format = format || false;
+            if (format) {
+                value = parseDate(value);
+            }
+
+            var timestamp = Date.parse(value);
+
+            return isNaN(timestamp) == false;
+        }
+
+        var parseDate = function (value) {
+            var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+            if (m)
+                value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+            return value;
+        }
+
+        bindDatePicker();
+    });
+
+    $(document).ready(function () {
+        CargarFranquicia();
+    });
+
+    function CargarFranquicia() {
+        $.get('@Url.Action("ListaFranquicias", "AuditarVenta")')
+        .done(function (data) {
+            $('#cboFranquicia').empty();
+            $('#cboFranquicia').append('<option value="0">--SELECCIONAR--</option>');
+            $.each(data, function (i, row) {
+                var $option = $('<option>');
+                $option.val(row.Id);
+                $option.html(row.Nombre);
+                $('#cboFranquicia').append($option);
+            })
+        })
+        .fail(function (jqXHR, textStatus, error) {
+            console.log("Post error: " + error);
+        });
+    }
+
+    </script>
+
+}
