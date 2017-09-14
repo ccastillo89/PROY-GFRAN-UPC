@@ -10,9 +10,9 @@ namespace UPC.SISGFRAN.BL.Repositorios
 {
     public class SolicitanteBL
     {
-        public List<SolicitudEL> GetSolicitantes()
+        public List<SolicitudEL> GetSolicitantes(SolicitanteEL solicitante)
         {
-            return new SolicitanteDA().GetSolicitantes();
+            return new SolicitanteDA().GetSolicitantes(solicitante);
         }
 
         public SolicitudEL GetSolicitante(int id)

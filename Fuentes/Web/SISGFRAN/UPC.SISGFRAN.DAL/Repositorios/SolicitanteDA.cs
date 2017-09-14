@@ -42,12 +42,17 @@ namespace UPC.SISGFRAN.DAL.Repositorios
             }
 
         }
-        public List<SolicitudEL> GetSolicitantes()
+        public List<SolicitudEL> GetSolicitantes(SolicitanteEL sol)
         {
-            DAABRequest.Parameter[] arrParam = {            
+            DAABRequest.Parameter[] arrParam = {
+                new DAABRequest.Parameter("@desc", DbType.String, 200,ParameterDirection.Input),
+                new DAABRequest.Parameter("@estado", DbType.Int32,ParameterDirection.Input),
                 new DAABRequest.Parameter("@coderr", DbType.Int32,ParameterDirection.Output),
                 new DAABRequest.Parameter("@msgerr", DbType.String, 1000,ParameterDirection.Output)
-            };            
+            };
+
+            arrParam[0].Value = sol.Filtro;
+            arrParam[1].Value = sol.Estado;
 
             configPARDOSDB objPardosDb = new configPARDOSDB();
             DAABRequest objRequest = objPardosDb.CreaRequest();
@@ -89,6 +94,13 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     solicitante.FechaNacimiento = Funciones.CheckDate(dr["FechaNacimiento"]);
                     item.NumeroDocumento = Funciones.CheckStr(dr["NumeroDocumento"]);
                     item.FechaSolicitud = Funciones.CheckDate(dr["FechaSolicitud"]);
+
+                    ParametroEL estado = new ParametroEL()
+                    {
+                        Codigo = Funciones.CheckInt(dr["Estado"])
+                    };
+
+                    item.Estado = estado;
                                
                     item.Solicitante = solicitante;
                     lstSolicitudes.Add(item);

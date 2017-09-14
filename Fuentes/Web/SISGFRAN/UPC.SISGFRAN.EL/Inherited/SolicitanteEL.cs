@@ -54,5 +54,10 @@ namespace UPC.SISGFRAN.EL.Inherited
         
         //Aquí comienza la mariconada!!!
         public bool FueAprobado { get; set; }
+
+        #region "filtro"
+        public string Filtro { get; set; }
+        public int Estado { get; set; }
+        #endregion
     }
 }

@@ -12,36 +12,75 @@
 @using (Html.BeginForm("EvaluacionSolicitante", "Solicitante", FormMethod.Get))
             {
         <div class="container2">
-            <div class="margenPanelRigth">
+
+            <div class="row col-lg-11">
+                <h3 class="page-header">Explorador de Solicitantes de Franquicia</h3>
+            </div>
+
+            <div class="row col-lg-11">
                 <fieldset>
-                    <legend>Explorador de Solicitantes de Franquicia</legend>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-2">Solicitante:</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="txtDesc" id="txtDesc" placeholder="#documento o Nombres" value="@ViewBag.desc" />
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding:0px;">
+                        <label class=" control-label col-md-2">
+                            Estado:
+                        </label>
+                        <div class="col-md-8">
+                            <select class="form-control selectpicker" name="cboEstado" id="cboEstado" style="width:180px"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-1">
+                        <span class="input-group-btn" style="padding-left:5px;">
+                            <a class="btn btn-primary" href='#' onclick="Buscar();" id='btnBuscar' title='Buscar'>
+                                <span class='glyphicon glyphicon-search'>
+                                    Buscar
+                                </span>
+                            </a>
+                        </span>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="row col-lg-11" style="height:25px;">
+            </div>
+
+            <div class="row col-lg-12 margenPanelRigth">
+                <fieldset>
                     <div class="form-group row OcultarDiv">
                         <input type="hidden" value="" id="hddCodSolicitud" name="hddCodSolicitud">
                     </div>
-                    <table><tr><td>@Html.ValidationMessage("validacion", new { @class = "text-danger" })
-                        </td></tr></table>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-table"></i> Listado de solicitantes a evaluar</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div id="gridSolicitud">
-                                        @Html.Partial("_solicitud")
-                                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.ValidationMessage("validacion", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-table"></i> Listado de solicitantes a evaluar</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="gridSolicitud">
+                                    @Html.Partial("_solicitud")
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <div class="form-group row col-md-3">
-                            <span class="input-group-btn" style="padding-left:5px;">                                
-                                <button id="btnEvaluar" class="btn btn-success" type="submit">Evaluar Solicitante</button>
-                            </span>
-                        </div>
-                </fieldset>
-            </div>
+                </div>
+                <br />
+                <div class="form-group row col-md-3">
+                    <span class="input-group-btn" style="padding-left:5px;">
+                        <button id="btnEvaluar" class="btn btn-success" type="submit" disabled>Evaluar Solicitante </button>
+                    </span>
+                </div>
+            </fieldset>
+        </div>
         </div>
 }
 <div class="modal fade in" id="mReporteCrediticio">
@@ -124,7 +163,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnEvaluar" class="btn btn-success"  type="submit">Enviar a evaluación crediticia</button>
+                    <button id="btnEvaluarCredito" class="btn btn-success"  type="submit">Enviar a evaluación crediticia</button>
                 </div>
             }
         </div>
@@ -146,19 +185,30 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            
+            CargarEstado();
         });
 
-        function SolicitudSelected(radio,solicitud) {
-            if ($(radio).is(':checked')) {
-                var codDNI = $(radio).val();                
-                $("#hddCodSolicitud").val(solicitud);
-                $("#hddDNI").val(codDNI);
- 
-
+        function SolicitudSelected(radio, solicitud, estado) {
+            if (estado == -2)
+            {
+                $("#btnEvaluar").prop("disabled", false);
+                if ($(radio).is(':checked')) {
+                    var codDNI = $(radio).val();
+                    $("#hddCodSolicitud").val(solicitud);
+                    $("#hddDNI").val(codDNI);
+                } else {
+                    $("#hddCodSolicitud").val("");
+                    $("a#btnEvaluacionCrediticia").attr("href", "#");
+                }
             } else {
+                $(radio).prop('checked', false);
                 $("#hddCodSolicitud").val("");
-                $("a#btnEvaluacionCrediticia").attr("href", "#");
+                $("#btnEvaluar").prop("disabled", true);
+
+                bootbox.alert({
+                    message: "El solicitante ya fue evaluado.",
+                    size: 'small'
+                });
             }
         }
 
@@ -244,6 +294,56 @@
                             size: 'small'
                         });
                         return false;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    bootbox.alert('error', textStatus, 'Error');
+                }
+            });
+        }
+
+        function CargarEstado() {
+            $.get('@Url.Action("ListaEstados", "Solicitante")')
+            .done(function (data) {
+                $('#cboEstado').empty();
+                $('#cboEstado').append('<option value="-1">--TODOS--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Codigo);
+                    $option.html(row.Descripcion);
+                    $('#cboEstado').append($option);
+                })
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
+        }
+
+        function Buscar()
+        {
+            var desc = $('#txtDesc').val();
+            var estadoId = $('select[name=cboEstado]').val();
+            $("#btnEvaluar").prop("disabled", true);
+
+            $.ajax({
+                url: "/Solicitante/Buscar",
+                type: "GET",
+                data: { desc: desc, estado: estadoId },
+                dataType: "html",
+                traditional: true,
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.status == undefined) {
+                        $("#hddCodSolicitud").val("");
+                        $("#gridSolicitud").html(data);
+                    } else {
+                        if (data.status == false) {
+                            bootbox.alert({
+                                message: data.message,
+                                size: 'small'
+                            });
+                        }
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

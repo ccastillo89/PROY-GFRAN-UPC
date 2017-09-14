@@ -23,7 +23,7 @@
             fillEmptyRows: false,
             mode: WebGridPagerModes.All,
             columns: grid.Columns(
-                 grid.Column(format: @<text><input id="NumeroDocumento" class="chkRbSol" name="NumeroDocumento" type="radio" value="@item.NumeroDocumento" onclick="javascript: SolicitudSelected(this, '@item.NumSolicitud')" /></text>),
+                 grid.Column(format: @<text><input id="NumeroDocumento" class="chkRbSol" name="NumeroDocumento" type="radio" value="@item.NumeroDocumento" onclick="javascript: SolicitudSelected(this, '@item.NumSolicitud', '@item.Estado.Codigo')" /></text>),
                  grid.Column("Solicitante.NombreCompleto", "Solicitante", format: @<text><input type="hidden" id="id_@item.NumeroDocumento" value="@item.Solicitante.Id" /><span class="nom_@item.Id" id="nom_@item.NumeroDocumento">@item.Solicitante.NombreCompleto</span></text>),
                  grid.Column("Solicitante.TipoDocumento.Nombre", "Tipo Documento"),
                  grid.Column("NumeroDocumento", "Nro. Documento", format: @<text><span id="num_@item.NumeroDocumento">@item.NumeroDocumento</span></text>),

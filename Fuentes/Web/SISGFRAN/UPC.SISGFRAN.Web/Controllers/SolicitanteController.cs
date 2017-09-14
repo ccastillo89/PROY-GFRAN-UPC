@@ -22,13 +22,21 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         private PARDOSDBEntities db = new PARDOSDBEntities();
 
-        public ActionResult Index(int page = 1, int pageSize = 10, string sort = "FechaSolicitud", string sortdir = "asc")
+        public ActionResult Index(int page = 1, int pageSize = 10, string sort = "FechaSolicitud", string sortdir = "ASC")
         {
             SolicitudEL records = new SolicitudEL();
             ListaPaginada<SolicitudEL> listaContentSolicitante = new ListaPaginada<SolicitudEL>();
 
             string desc = string.Empty;
-            List<SolicitudEL> listSolicitantes = solicitanteBL.GetSolicitantes();
+            int iEstado = -1;
+
+            SolicitanteEL solicitante = new SolicitanteEL()
+            {
+                Filtro = desc,
+                Estado = iEstado
+            };
+
+            List<SolicitudEL> listSolicitantes = solicitanteBL.GetSolicitantes(solicitante);
 
             listaContentSolicitante.Content = listSolicitantes
                         .OrderBy(sort + " " + sortdir)
@@ -45,7 +53,44 @@ namespace UPC.SISGFRAN.Web.Controllers
             return View(records);
         }
 
+        public ActionResult Buscar(string desc = null, string estado = null, int page = 1, int pageSize = 10, string sort = "FechaSolicitud", string sortdir = "ASC")
+        {
+            try 
+	        {	        
+                SolicitudEL records = new SolicitudEL();
+                ListaPaginada<SolicitudEL> listaContentSolicitante = new ListaPaginada<SolicitudEL>();
 
+                @ViewBag.desc = desc;
+
+                int iEstado = -1;
+                int.TryParse(estado, out iEstado);
+
+                SolicitanteEL solicitante = new SolicitanteEL() { 
+                    Filtro = desc,
+                    Estado = iEstado
+                };
+
+                List<SolicitudEL> listSolicitantes = solicitanteBL.GetSolicitantes(solicitante);
+
+                listaContentSolicitante.Content = listSolicitantes
+                            .OrderBy(sort + " " + sortdir)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+                // Count
+                listaContentSolicitante.TotalRecords = listSolicitantes.Count();
+                listaContentSolicitante.CurrentPage = page;
+                listaContentSolicitante.PageSize = pageSize;
+
+                records.ListaSolicitudes = listaContentSolicitante;
+                return PartialView("_solicitud", records);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult EvaluacionSolicitante(String hddCodSolicitud, String hddDNI, SolicitudEL solicitudEL)
         {
@@ -56,7 +101,7 @@ namespace UPC.SISGFRAN.Web.Controllers
             DeudorEL deudor = deudorBL.ConsultaSBS(solicitudEL.NumeroDocumento);
             
             /*Validacion*/
-            if ( deudor.NumeroDocumento == null)
+            if (deudor.NumeroDocumento == null)
             {
                 if (deudor.CodeMessage.Equals(-1)){
                 ModelState.AddModelError("validacion", "No existe información para el número de documento de consulta. Se procede a rechazar al solicitante.");
@@ -84,7 +129,14 @@ namespace UPC.SISGFRAN.Web.Controllers
             ListaPaginada<SolicitudEL> listaContentSolicitante = new ListaPaginada<SolicitudEL>();
 
             string desc = string.Empty;
-            List<SolicitudEL> listSolicitantes = solicitanteBL.GetSolicitantes();
+            int iEstado = -1;
+
+            SolicitanteEL filtro = new SolicitanteEL()
+            {
+                Filtro = desc,
+                Estado = iEstado
+            };
+            List<SolicitudEL> listSolicitantes = solicitanteBL.GetSolicitantes(filtro);
 
             listaContentSolicitante.Content = listSolicitantes
                         .OrderBy(sort + " " + sortdir)
@@ -348,6 +400,34 @@ namespace UPC.SISGFRAN.Web.Controllers
                     break;
             }
             return resultado;
+        }
+
+        public JsonResult ListaEstados()
+        {
+            ParametroEL oParamP = new ParametroEL()
+            {
+                Codigo = -2,
+                Descripcion = "PENDIENTE"
+            };
+
+            ParametroEL oParam = new ParametroEL()
+            {
+                Codigo = 0,
+                Descripcion = "RECHAZADO"
+            };
+
+            ParametroEL oParam1 = new ParametroEL()
+            {
+                Codigo = 1,
+                Descripcion = "APROBADO"
+            };
+
+            List<ParametroEL> listaEstados = new List<ParametroEL>();
+            listaEstados.Insert(0, oParamP);
+            listaEstados.Insert(1, oParam);
+            listaEstados.Insert(2, oParam1);
+           
+            return Json(listaEstados.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         #endregion
