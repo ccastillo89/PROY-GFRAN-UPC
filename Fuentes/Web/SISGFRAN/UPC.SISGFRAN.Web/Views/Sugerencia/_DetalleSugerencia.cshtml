@@ -1,24 +1,36 @@
-﻿@model UPC.SISGFRAN.Web.Helper.EvaluacionSugerenciaHelper
+﻿
+@model UPC.SISGFRAN.Web.Helper.EvaluacionSugerenciaHelper
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 class="modal-title">Detalle de Sugerencia</h3>
 </div>
 
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    <div class="modal-body">
-        
-        <div class="form-group row">            
-            <div class="col-md-10">
-              
-                Estimados, el servicio de pedidos en el local La Molina tiene un gran defecto. Sucede que solo hay 4 mozos para atender los días lunes, martes y miércoles. Ello es un problema para nuestros comensales, ya que el tiempo de atención se prolonga demasiado. Le sugiero contratar más personal. Saludos.
-            </div>
+<div class="modal-body">
+
+    <div class="form-group row">
+        <div class="col-md-10" >
+            <table>
+                <tr>
+                    <td><label class="control-label"> Código de Sugerencia: </label></td>
+                    <td><input type="text" name="codigoSugerencia" id="codigoSugerencia" value="" size="80" readonly style="border:none"></td>
+                </tr>
+            </table>
+             
+</div>
+    </div>
+    <br />
+    <div class="form-group row">
+       
+        <div class="col-md-10">
+            <label class="control-label"> Descripción: </label> <textarea class="form-control" rows="5" id="detalleSugerenciaPop" name="detalleSugerenciaPop"></textarea>
         </div>
-        
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
     </div>
 
- 
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+</div>
+

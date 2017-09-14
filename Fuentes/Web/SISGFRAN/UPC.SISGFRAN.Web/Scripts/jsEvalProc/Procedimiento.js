@@ -1,6 +1,6 @@
 ﻿$(function () {
     $.ajaxSetup({ cache: false });
-    $("a[data-modal]").on("click", function (e) {
+    $("a[data-modal]").on("click", function (e) {        
         $('#myModalContent').load(this.href, function () {
             $('#myModal').modal({
                 keyboard: false,

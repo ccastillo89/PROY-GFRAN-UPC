@@ -1,0 +1,100 @@
+﻿@model UPC.SISGFRAN.Web.Helper.CorreoHelper
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title">Envío de correo electrónico</h3>
+</div>
+
+@using (Html.BeginForm("EnviarCorreo", "Sugerencia", FormMethod.Post))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+   <div class="modal-body">
+
+    <div class="form-group row">
+        <div class="col-md-10" >
+            <input type="hidden" id="codigoSugerencia" name="codigoSugerencia">
+            <input type="hidden" value="0" id="hddNotifico" name="hddNotifico">
+            <table>
+                <tr>
+                    <td><label class="control-label"> Correo electrónico: </label></td>
+                    <td><input type="text" name="correoElectronico" id="correoElectronico" value="@Html.DisplayTextFor(model => model.emailResponsable)" size="80" readonly style="border:none"></td>
+                </tr>
+                <tr>
+                    <td><label class="control-label"> Nombre del responsable local: </label></td>
+                    <td><input type="text" name="nombreResponsable" id="nombreResponsable" value="@Html.DisplayTextFor(model => model.NombreResponsable)" size="80" readonly style="border:none"></td>
+                </tr>
+                <tr>
+                    <td><label class="control-label"> Nombre del local: </label></td>
+                    <td><input type="text" name="nombreLocal" id="nombreLocal" value="@Html.DisplayTextFor(model => model.nombreLocal)" size="80" readonly style="border:none"></td>
+                </tr>
+            </table>
+             
+</div>
+    </div>
+    <br />
+    <div class="form-group row">
+       
+        <div class="col-md-10">
+            <label class="control-label"> Ingresar detalle de correo: </label> <textarea class="form-control" rows="5" id="detalleCorreo" name="detalleCorreo"></textarea>
+        </div>
+    </div>
+
+</div>
+    <div class="modal-footer">
+        
+        <a class="btn btn-primary" href='#' onclick="Enviar();" id='btnEnviar' title='Enviar notificación'>
+                Enviar Notificación
+        </a>
+
+        <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    function Enviar() {
+        var notif = $("#hddNotifico").val();
+
+        if (notif == "1") {
+            bootbox.alert({
+                message: "Notificación ya enviada",
+                size: 'small'
+            });
+            return false;
+        }
+
+        var idSugerencia = $("#codigoSugerencia").val();
+        var mensaje = $("#detalleCorreo").val();
+        $.ajax({
+            url: "/Sugerencia/EnviarCorreo",
+            type: "GET",
+            data: { id: idSugerencia, msj: mensaje },
+            dataType: "html",
+            traditional: true,
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var datos = jQuery.parseJSON(data);
+                if (datos.status == true) {
+                    bootbox.alert({
+                        message: datos.message,
+                        size: 'small'
+                    });
+                    $("#hddNotifico").val("1");
+                } else {
+                    bootbox.alert({
+                        message: datos.message,
+                        size: 'small'
+                    });
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                bootbox.alert('error', textStatus, 'Error');
+            }
+        });
+    }
+
+
+</script>

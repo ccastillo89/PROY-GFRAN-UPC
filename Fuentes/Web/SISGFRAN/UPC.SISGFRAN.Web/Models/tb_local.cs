@@ -36,6 +36,7 @@ namespace UPC.SISGFRAN.Web.Models
         public Nullable<int> auditoriaUM { get; set; }
         public System.DateTime auditoriaFC { get; set; }
         public Nullable<System.DateTime> auditoriaFM { get; set; }
+        public string email { get; set; }
     
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<tb_reclamo> tb_reclamo { get; set; }

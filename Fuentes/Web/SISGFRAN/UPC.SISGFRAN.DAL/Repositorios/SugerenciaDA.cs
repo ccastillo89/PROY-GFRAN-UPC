@@ -49,7 +49,7 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     oSugerencia.Comentario = Funciones.CheckStr(dr["Comentario"]);
                     oSugerencia.FechaIngreso = Funciones.CheckDate(dr["FechaIngreso"]);
                     oSugerencia.Prioridad = Funciones.CheckStr(dr["Prioridad"]);
-
+                    oSugerencia.Descripcion = Funciones.CheckStr(dr["Descripcion"]);
                     LocalEL olocal = new LocalEL();
                     olocal.Nombre = Funciones.CheckStr(dr["NombreLocal"]);
                     olocal.Responsable = Funciones.CheckStr(dr["Responsable"]);

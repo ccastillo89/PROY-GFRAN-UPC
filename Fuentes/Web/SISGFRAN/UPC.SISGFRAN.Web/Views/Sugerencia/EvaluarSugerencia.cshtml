@@ -118,17 +118,17 @@
                                                     {
                                                         if (item.prioridadSugerencia == 1)
                                                         {
-                                                            return Html.Raw(string.Format("<text><img height='25' width='25' src=\"{0}\" alt=\"Image\"/><img height='20' width='20' src=\"/Content/Images/alert.png\" alt=\"Image\"/></text>", Url.Content("~/Content/Images/mail.png")));
+                                                            return Html.Raw(string.Format("<text><a class=\"\"  href=\"javascript:showPopUpEmail('" + item.codigo_sugerencia + "','" + item.administrador_sugerencia + "','" + item.correo_electronico + "','" + item.descripcion_local + "');\"><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></a><img height='20' width='20' src=\"/Content/Images/alert.png\" alt=\"Prioridad Alta\"/></text>", Url.Content("~/Content/Images/mail.png")));
 
                                                         }
                                                         else
                                                         {
-                                                            return Html.Raw(string.Format("<text><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></text>", Url.Content("~/Content/Images/mail.png")));
+                                                            return Html.Raw(string.Format("<text><a class=\"\"  href=\"javascript:showPopUpEmail('" + item.codigo_sugerencia + "','" + item.administrador_sugerencia + "','" + item.correo_electronico + "','" + item.descripcion_local + "');\"><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></a></text>", Url.Content("~/Content/Images/mail.png")));
                                                         }
                                                     }, style: "col-md-1", canSort: true),
                                                     grid.Column("Ver detalle", format: (item) =>
                                                                 {
-                                                                    return Html.Raw(string.Format("<text><a data-modal=\"\" class=\"\"  href=\"/Sugerencia/DetalleSugerencia\"><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></a></text>", Url.Content("~/Content/Images/lupa.png")));
+                                                                    return Html.Raw(string.Format("<text><a class=\"\"  href=\"javascript:showPopUp('" + item.codigo_sugerencia + "','" + item.fecha_sugerencia + "','" + item.descripcion_sugerencia + "');\"><img height='25' width='25' src=\"{0}\" alt=\"Image\"/></a></text>", Url.Content("~/Content/Images/lupa.png")));
                                                                 }, style: "col-md-1", canSort: true))
                                                     )
 
@@ -193,7 +193,15 @@
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
-    <div class="modal-dialog" style="width:450px">
+    <div class="modal-dialog" style="width:700px">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<div id='myModal2' class='modal fade in'>
+    <div class="modal-dialog" style="width:700px">
         <div class="modal-content">
             <div id='myModalContent'></div>
         </div>
@@ -232,7 +240,37 @@
             });
         }
 
-        
+            function showPopUp(codigo,fecha,detalle) {
+               
+                $('#myModalContent').load('/Sugerencia/DetalleSugerencia', function () {
+                    $('#myModal').modal({
+                        keyboard: false,
+                        backdrop: 'static'
+                    }, 'show');
+                    $('#codigoSugerencia').val(codigo + " - " + fecha);
+                    $('#detalleSugerenciaPop').val(detalle);
+                    bindForm(this);
+                   
+                });
+
+            }
+
+            function showPopUpEmail(codigo, NombreResponsable, CorreoElectronico, nombreLocal) {
+
+                $('#myModalContent').load('/Sugerencia/DetalleCorreo', function () {
+                    $('#myModal').modal({
+                        keyboard: false,
+                        backdrop: 'static'
+                    }, 'show');
+                    $('#codigoSugerencia').val(codigo);
+                    $('#correoElectronico').val(CorreoElectronico);
+                    $('#nombreResponsable').val(NombreResponsable);
+                    $('#nombreLocal').val(nombreLocal);
+                    bindForm(this);
+
+                });
+
+            }
 
         </script>
         <script type="text/javascript">
