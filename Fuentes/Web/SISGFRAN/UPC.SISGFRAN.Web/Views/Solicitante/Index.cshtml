@@ -55,7 +55,7 @@
                     <table>
                         <tr>
                             <td>
-                                @Html.ValidationMessage("validacion", new { @class = "text-danger" })
+                                @Html.ValidationMessage("validacion", new { @class = "text-danger", id = "msgVal" })
                         </td>
                     </tr>
                 </table>
@@ -321,6 +321,8 @@
 
         function Buscar()
         {
+            $('span[id="msgVal"]').remove();
+
             var desc = $('#txtDesc').val();
             var estadoId = $('select[name=cboEstado]').val();
             $("#btnEvaluar").prop("disabled", true);
