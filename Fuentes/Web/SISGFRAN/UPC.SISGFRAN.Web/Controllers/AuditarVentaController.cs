@@ -36,14 +36,53 @@ namespace UPC.SISGFRAN.Web.Controllers
             return Json(distritos, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult AuditarVenta(String cboFranquicia, String dtpAño)
+        #region "Metodos"
+
+        protected override void Dispose(bool disposing)
         {
-            return View("~/views/AuditarVenta/Index.cshtml");
+            base.Dispose(disposing);
         }
 
-        public ActionResult Cancelar()
+        public JsonResult ListaPeriodo()
         {
-            return View("~/views/AuditarVenta/Index.cshtml");
+            List<ParametroEL> result = new List<ParametroEL>();
+            string sAnioInicio = "2013";
+            int iAnioInicio = Convert.ToInt32(sAnioInicio);
+            DateTime startDate = new DateTime(iAnioInicio, 1, 1);
+            DateTime endDate = new DateTime();
+            endDate = DateTime.Now;
+            DateTime temp = startDate;
+            endDate = new DateTime(endDate.Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month));
+            string strPeriodo = string.Empty;
+            while (temp <= endDate)
+            {
+                strPeriodo = (string.Format("{0}", temp.Year));
+                temp = temp.AddYears(1);
+                ParametroEL oParam = new ParametroEL() { Nombre = strPeriodo };
+                result.Add(oParam);
+            }
+
+            return Json(result.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Auditar(string franquicia, string local, string periodo)
+        {
+            try
+            {
+                AuditarVentaEL reporte = new AuditarVentaEL();
+
+                //TODO:: Aqui toda la logica del NEG.
+
+
+
+                return Json(reporte, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
     }
 }

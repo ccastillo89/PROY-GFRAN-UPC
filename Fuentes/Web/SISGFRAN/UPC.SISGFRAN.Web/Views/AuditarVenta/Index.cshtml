@@ -1,157 +1,318 @@
-﻿@model UPC.SISGFRAN.Web.Helper.SugerenciaHelper
-
-@{
-    ViewBag.Title = "Auditar Venta";
+﻿@{
+    ViewBag.Title = "Auditar Ventas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Paneles -->
-@using (Html.BeginForm("AuditarVenta", "AuditarVenta"))
-{
-    <div class="container2">
-        <div class="margenPanelRigth">
-            <fieldset>
-                <legend><center>Auditar Ventas</center></legend>
-                <div class="form-group row OcultarDiv">
-                    <input type="hidden" value="" id="hddCodSugerencia" name="hddCodSugerencia">
-                </div>
-                <table>
-                    <tr>
-                        <td>
-                            @Html.ValidationMessage("validacion", new { @class = "text-danger" })
-                        </td>
-                    </tr>
-                </table>
-                <div class="panel panel-primary">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div id="datosConsulta">
-                                    <br><br>
-                                    <table>
-                                        <tr style="height: 50px;">
-                                            <td style="width:15%"></td>
-                                            <td style="width:15%"><label>Nombre de Franquicia: </label></td>
-                                            <td style="width:15%">
-                                                <div class="col-md-4 width-dash-sh">
-                                                    <div class="col-md-8">
-                                                        <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:280px"></select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td style="width:15%"></td>
-                                            <td style="width:15%">
-                                                <span class="input-group-btn" style="padding-left:5px;">
-                                                    <center><button id="btnAuditar" class="btn btn-success" type="submit">Auditar</button></center>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <br><br>
-                                    <table>
-                                        <tr style="height: 50px;">
-                                            <td style="width:15%"></td>
-                                            <td style="width:15%"><label>Año: </label></td>
-                                            <td style="width:15%">                                                
-                                                <div class='col-sm-3'>
-                                                    <div class="form-group">
-                                                        <div class='input-group date' id='datetimepicker1'>
-                                                            <input type='text' class="form-control" id="dtpAño" name="dtpAño" style="width:250px" value="@Html.DisplayTextFor(model => model.fecha_inicio)" onkeypress="return false;" />
-                                                            <span class="input-group-addon">
-                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div></td>
-                                            <td style="width:15%"></td>
-                                            <td style="width:15%">
-                                                <span class="input-group-btn" style="padding-left:5px;">
-                                                    <center><button id="btnCancelar" class="btn btn-success" type="submit">Cancelar</button></center>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <br><br>
-                                </div>
+@{
+    var message = TempData["msg"] ?? string.Empty;
+}
+
+
+<div class="container2">
+    <div class="row col-lg-12">
+        <h3 class="page-header">Auditar Ventas</h3>
+    </div>
+    <div class="row col-lg-12">
+        <div class="row">
+            <table>
+                <tr style="height: 60px;">
+                    <td style="width:5%"></td>
+                    <td style="width:15%"><label>Nombre de Franquicia: </label></td>
+                    <td style="width:15%">
+                        <div class="col-md-4 width-dash-sh">
+                            <div class="col-md-8">
+                                <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:280px"></select>
                             </div>
+                        </div>
+                    </td>
+                    <td style="width:5%"><label>Año: </label></td>
+                    <td style="width:15%">
+                        <div class="col-md-4 width-dash-sh">
+                            <select class="form-control selectpicker" name="cboPeriodo" id="cboPeriodo" style="width:155px"></select>
+                        </div>
+                    </td>
+                    <td style="width:15%">
+                        <span class="input-group-btn">
+                            <a class="btn btn-primary" href='#' onclick="Auditar();" id='btnAuditar' title='Auditar'>
+                                <span class='glyphicon glyphicon-task'>
+                                    Auditar
+                                </span>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="divReporte" class="panel panel-primary ocultardiv">
+            <div class="panel-heading">
+                <i class="fa fa fa-area-chart fa-fw"></i> Reporte
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div id="line-chart" class="col-lg-8"></div>
+                        <div class="col-lg-4">
+
+                            DATA
+
                         </div>
                     </div>
                 </div>
-                <br />
-            </fieldset>
+            </div>
         </div>
     </div>
-
-}
+</div>
 
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <section class="scripts">
 
     <script type="text/javascript">
 
-    $(function () {
-        var bindDatePicker = function () {
-            $(".date").datetimepicker({
-                format: 'YYYY',
-                icons: {
-                    time: "fa fa-clock-o",
-                    date: "fa fa-calendar",
-                    up: "fa fa-arrow-up",
-                    down: "fa fa-arrow-down"
-                }
-            }).find('input:first').on("blur", function () {
-                var date = parseDate($(this).val());
+        $(function () {
+            var bindDatePicker = function () {
+                $(".date").datetimepicker({
+                    format: 'YYYY',
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    }
+                }).find('input:first').on("blur", function () {
+                    var date = parseDate($(this).val());
 
-                if (!isValidDate(date)) {
-                    date = moment().format('');
+                    if (!isValidDate(date)) {
+                        date = moment().format('');
+                    }
+
+                    $(this).val(date);
+                });
+            }
+
+            var isValidDate = function (value, format) {
+                format = format || false;
+                if (format) {
+                    value = parseDate(value);
                 }
 
-                $(this).val(date);
+                var timestamp = Date.parse(value);
+
+                return isNaN(timestamp) == false;
+            }
+
+            var parseDate = function (value) {
+                var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+                if (m)
+                    value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+                return value;
+            }
+
+            bindDatePicker();
+        });
+
+        $(document).ready(function () {
+            CargarFranquicia();
+            CargarPeriodo();
+        });
+
+        function CargarFranquicia() {
+            $.get('@Url.Action("ListaFranquicias", "AuditarVenta")')
+            .done(function (data) {
+                $('#cboFranquicia').empty();
+                $('#cboFranquicia').append('<option value="0">--SELECCIONAR--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Id);
+                    $option.html(row.Nombre);
+                    $('#cboFranquicia').append($option);
+                })
+            })
+            .fail(function (jqXHR, textStatus, error) {
+                console.log("Post error: " + error);
             });
         }
 
-        var isValidDate = function (value, format) {
-            format = format || false;
-            if (format) {
-                value = parseDate(value);
+        function CargarPeriodo() {
+            $.get('@Url.Action("ListaPeriodo", "AuditarVenta")')
+            .done(function (data) {
+                $('#cboPeriodo').empty();
+                $('#cboPeriodo').append('<option value="-1">--SELECCIONE--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Nombre);
+                    $option.html(row.Nombre);
+                    $('#cboPeriodo').append($option);
+                })
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
+        }
+
+        function Auditar() {
+            var franquiciaId = $('select[name=cboFranquicia]').val();
+            //var localId = $('select[name=cboLocal]').val();
+            var periodo = $('select[name=cboPeriodo]').val();
+            var localId = 0;
+
+            if (franquiciaId == -1) {
+                bootbox.alert({
+                    message: "Seleccione franquicia",
+                    size: 'small'
+                });
+                return false;
             }
 
-            var timestamp = Date.parse(value);
+            //if (localId == -1) {
+            //    bootbox.alert({
+            //        message: "Seleccione local",
+            //        size: 'small'
+            //    });
+            //    return false;
+            //}
 
-            return isNaN(timestamp) == false;
+            if (periodo == -1) {
+                bootbox.alert({
+                    message: "Seleccione periodo",
+                    size: 'small'
+                });
+                return false;
+            }
+
+            $.ajax({
+                url: "/AuditarVenta/Auditar",
+                type: "GET",
+                data: { franquicia: franquiciaId, local: localId, periodo: periodo},
+                dataType: "html",
+                traditional: true,
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.status == undefined) {
+                        var rep = jQuery.parseJSON(data);
+                        //LoadGraficoLine(rep);
+                        LoadGraficoLine();
+                        $("#divReporte").removeClass("ocultardiv");
+                    } else {
+                        if (data.status == false) {
+                            bootbox.alert({
+                                message: data.message,
+                                size: 'small'
+                            });
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    bootbox.alert('error', textStatus, 'Error');
+                }
+            });
+
+
         }
 
-        var parseDate = function (value) {
-            var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-            if (m)
-                value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-
-            return value;
+        function LoadGraficoLine()
+        {
+            FusionCharts.ready(function () {
+                var revenueChart = new FusionCharts({
+                    type: 'column2d',
+                    renderAt: 'line-chart',
+                    width: '550',
+                    height: '350',
+                    dataFormat: 'json',
+                    dataSource: {
+                        "chart": {
+                            "caption": "Monthly revenue for last year",
+                            "subCaption": "Harry's SuperMart",
+                            "xAxisName": "Month",
+                            "yAxisName": "Revenues (In USD)",
+                            "numberPrefix": "$",
+                            "paletteColors": "#0075c2",
+                            "bgColor": "#ffffff",
+                            "borderAlpha": "20",
+                            "canvasBorderAlpha": "0",
+                            "usePlotGradientColor": "0",
+                            "plotBorderAlpha": "10",
+                            "placevaluesInside": "1",
+                            "rotatevalues": "1",
+                            "valueFontColor": "#ffffff",
+                            "showXAxisLine": "1",
+                            "xAxisLineColor": "#999999",
+                            "divlineColor": "#999999",
+                            "divLineIsDashed": "1",
+                            "showAlternateHGridColor": "0",
+                            "subcaptionFontBold": "0",
+                            "subcaptionFontSize": "14"
+                        },
+                        "data": [
+                            {
+                                "label": "Jan",
+                                "value": "420000"
+                            },
+                            {
+                                "label": "Feb",
+                                "value": "810000"
+                            },
+                            {
+                                "label": "Mar",
+                                "value": "720000"
+                            },
+                            {
+                                "label": "Apr",
+                                "value": "550000"
+                            },
+                            {
+                                "label": "May",
+                                "value": "910000"
+                            },
+                            {
+                                "label": "Jun",
+                                "value": "510000"
+                            },
+                            {
+                                "label": "Jul",
+                                "value": "680000"
+                            },
+                            {
+                                "label": "Aug",
+                                "value": "620000"
+                            },
+                            {
+                                "label": "Sep",
+                                "value": "610000"
+                            },
+                            {
+                                "label": "Oct",
+                                "value": "490000"
+                            },
+                            {
+                                "label": "Nov",
+                                "value": "900000"
+                            },
+                            {
+                                "label": "Dec",
+                                "value": "730000"
+                            }
+                        ],
+                        "trendlines": [
+                            {
+                                "line": [
+                                    {
+                                        "startvalue": "700000",
+                                        "color": "#1aaf5d",
+                                        "valueOnRight": "1",
+                                        "displayvalue": "Monthly Target"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }).render();
+            });
         }
-
-        bindDatePicker();
-    });
-
-    $(document).ready(function () {
-        CargarFranquicia();
-    });
-
-    function CargarFranquicia() {
-        $.get('@Url.Action("ListaFranquicias", "AuditarVenta")')
-        .done(function (data) {
-            $('#cboFranquicia').empty();
-            $('#cboFranquicia').append('<option value="0">--SELECCIONAR--</option>');
-            $.each(data, function (i, row) {
-                var $option = $('<option>');
-                $option.val(row.Id);
-                $option.html(row.Nombre);
-                $('#cboFranquicia').append($option);
-            })
-        })
-        .fail(function (jqXHR, textStatus, error) {
-            console.log("Post error: " + error);
-        });
-    }
 
     </script>
 
+    </section>
 }

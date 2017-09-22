@@ -13,6 +13,8 @@ namespace UPC.SISGFRAN.Web
                         "~/Scripts/bootbox.js",
                         "~/Scripts/raphael.js",
                         "~/Scripts/morris.js",
+                        "~/Scripts/fusioncharts.js",
+                        "~/Scripts/fusioncharts.charts.js",
                         "~/Scripts/dateformat.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
