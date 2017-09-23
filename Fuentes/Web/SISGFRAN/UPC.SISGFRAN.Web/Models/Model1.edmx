@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PARDOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PARDOSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aplicacion">
           <Key>
             <PropertyRef Name="Id" />
@@ -369,10 +369,10 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="fechaIngreso" Type="datetime" Nullable="false" />
           <Property Name="prioridad" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="comentario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="comentario" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="localId" Type="int" Nullable="false" />
           <Property Name="empleadoId" Type="int" Nullable="false" />
           <Property Name="evaluacionProcDetalleId" Type="int" />
@@ -382,6 +382,18 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
           <Property Name="auditoriaUM" Type="int" />
           <Property Name="auditoriaFC" Type="datetime" Nullable="false" />
           <Property Name="auditoriaFM" Type="datetime" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PARDOSDB.GFR.tb_sugerencia_parametro' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="tb_sugerencia_parametro">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="nivel_prioridad" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nivel_prioridad" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_empleado">
           <Key>
@@ -659,6 +671,13 @@ advertencia 6002: La tabla o vista 'PARDOSDB.dbo.OpcionPerfil' no tiene definida
 [OpcionPerfil].[AuditoriaFM] AS [AuditoriaFM]
 FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="tb_sugerencia_parametro" EntityType="Self.tb_sugerencia_parametro" store:Type="Tables" store:Schema="GFR">
+            <DefiningQuery>SELECT 
+[tb_sugerencia_parametro].[id] AS [id], 
+[tb_sugerencia_parametro].[descripcion] AS [descripcion], 
+[tb_sugerencia_parametro].[nivel_prioridad] AS [nivel_prioridad]
+FROM [GFR].[tb_sugerencia_parametro] AS [tb_sugerencia_parametro]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Entrevista_Solicitud" Association="Self.FK_Entrevista_Solicitud">
             <End Role="Solicitud" EntitySet="Solicitud" />
             <End Role="Entrevista" EntitySet="Entrevista" />
@@ -736,8 +755,7 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PARDOSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1118,10 +1136,10 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="prioridad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="comentario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comentario" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="localId" Type="Int32" Nullable="false" />
           <Property Name="empleadoId" Type="Int32" Nullable="false" />
           <Property Name="evaluacionProcDetalleId" Type="Int32" />
@@ -1496,7 +1514,18 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
             <End Role="tb_empleado" EntitySet="tb_empleado" />
             <End Role="tb_sugerencia" EntitySet="tb_sugerencia" />
           </AssociationSet>
+          <EntitySet Name="tb_sugerencia_parametro" EntityType="PARDOSDBModel.tb_sugerencia_parametro" />
         </EntityContainer>
+        <EntityType Name="tb_sugerencia_parametro">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="nivel_prioridad" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nivel_prioridad" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1908,6 +1937,15 @@ FROM [dbo].[OpcionPerfil] AS [OpcionPerfil]</DefiningQuery>
                 <ScalarProperty Name="AuditoriaUM" ColumnName="AuditoriaUM" />
                 <ScalarProperty Name="AuditoriaFC" ColumnName="AuditoriaFC" />
                 <ScalarProperty Name="AuditoriaFM" ColumnName="AuditoriaFM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_sugerencia_parametro">
+            <EntityTypeMapping TypeName="PARDOSDBModel.tb_sugerencia_parametro">
+              <MappingFragment StoreEntitySet="tb_sugerencia_parametro">
+                <ScalarProperty Name="nivel_prioridad" ColumnName="nivel_prioridad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

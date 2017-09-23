@@ -16,12 +16,20 @@
         <div class="row">
             <table>
                 <tr style="height: 60px;">
-                    <td style="width:5%"></td>
+                    <td style="width:1%"></td>
                     <td style="width:15%"><label>Nombre de Franquicia: </label></td>
                     <td style="width:15%">
                         <div class="col-md-4 width-dash-sh">
                             <div class="col-md-8">
                                 <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:280px"></select>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:5%"><label>Local: </label></td>
+                    <td style="width:15%">
+                        <div class="col-md-4 width-dash-sh">
+                            <div class="col-md-8">
+                                <select class="form-control selectpicker" name="cboLocal" id="cboLocal" style="width:200px"></select>
                             </div>
                         </div>
                     </td>
@@ -50,11 +58,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-11">
-                        <div id="line-chart" class="col-lg-8"></div>
-                        <div class="col-lg-4">
-
-                            DATA
-
+                        <div id="line-chart" class="col-lg-9"></div>
+                        <div class="col-lg-3">
+                            QWERTY
                         </div>
                     </div>
                 </div>
@@ -115,13 +121,14 @@
         $(document).ready(function () {
             CargarFranquicia();
             CargarPeriodo();
+            $('#cboLocal').append('<option value="0">--SELECCIONE--</option>');    
         });
 
         function CargarFranquicia() {
             $.get('@Url.Action("ListaFranquicias", "AuditarVenta")')
             .done(function (data) {
                 $('#cboFranquicia').empty();
-                $('#cboFranquicia').append('<option value="0">--SELECCIONAR--</option>');
+                $('#cboFranquicia').append('<option value="0">--SELECCIONE--</option>');
                 $.each(data, function (i, row) {
                     var $option = $('<option>');
                     $option.val(row.Id);
@@ -134,11 +141,17 @@
             });
         }
 
+        $('#cboFranquicia').on('change', function (e) {
+            var optionSelected = $("option:selected", this);
+            var franquiciaId = this.value;
+            CargaLocal(franquiciaId);
+        });
+
         function CargarPeriodo() {
             $.get('@Url.Action("ListaPeriodo", "AuditarVenta")')
             .done(function (data) {
                 $('#cboPeriodo').empty();
-                $('#cboPeriodo').append('<option value="-1">--SELECCIONE--</option>');
+                $('#cboPeriodo').append('<option value="0">--SELECCIONE--</option>');
                 $.each(data, function (i, row) {
                     var $option = $('<option>');
                     $option.val(row.Nombre);
@@ -153,11 +166,10 @@
 
         function Auditar() {
             var franquiciaId = $('select[name=cboFranquicia]').val();
-            //var localId = $('select[name=cboLocal]').val();
+            var localId = $('select[name=cboLocal]').val();
             var periodo = $('select[name=cboPeriodo]').val();
-            var localId = 0;
 
-            if (franquiciaId == -1) {
+            if (franquiciaId == 0) {
                 bootbox.alert({
                     message: "Seleccione franquicia",
                     size: 'small'
@@ -165,17 +177,17 @@
                 return false;
             }
 
-            //if (localId == -1) {
-            //    bootbox.alert({
-            //        message: "Seleccione local",
-            //        size: 'small'
-            //    });
-            //    return false;
-            //}
-
-            if (periodo == -1) {
+            if (localId == 0) {
                 bootbox.alert({
-                    message: "Seleccione periodo",
+                    message: "Seleccione local",
+                    size: 'small'
+                });
+                return false;
+            }
+
+            if (periodo == 0) {
+                bootbox.alert({
+                    message: "Seleccione año",
                     size: 'small'
                 });
                 return false;
@@ -208,8 +220,24 @@
                     bootbox.alert('error', textStatus, 'Error');
                 }
             });
+        }
 
 
+        function CargaLocal(franquicia) {
+            $.get('@Url.Action("ListaLocalesXFranquicia", "AuditarVenta")', { franquicia: franquicia })
+            .done(function (data) {
+                $('#cboLocal').empty();
+                $('#cboLocal').append('<option value="0">--SELECCIONE--</option>');
+                $.each(data, function (i, row) {
+                    var $option = $('<option>');
+                    $option.val(row.Id);
+                    $option.html(row.Nombre);
+                    $('#cboLocal').append($option);
+                });
+            })
+            .fail(function (data) {
+                console.log('error');
+            });
         }
 
         function LoadGraficoLine()
@@ -218,16 +246,16 @@
                 var revenueChart = new FusionCharts({
                     type: 'column2d',
                     renderAt: 'line-chart',
-                    width: '550',
-                    height: '350',
+                    width: '650',
+                    height: '450',
                     dataFormat: 'json',
                     dataSource: {
                         "chart": {
-                            "caption": "Monthly revenue for last year",
-                            "subCaption": "Harry's SuperMart",
-                            "xAxisName": "Month",
-                            "yAxisName": "Revenues (In USD)",
-                            "numberPrefix": "$",
+                            "caption": "Proyección de ventas",
+                            "subCaption": "Franquicia - Local",
+                            "xAxisName": "Meses",
+                            "yAxisName": "Montos (En Soles)",
+                            "numberPrefix": "S/.",
                             "paletteColors": "#0075c2",
                             "bgColor": "#ffffff",
                             "borderAlpha": "20",
@@ -247,7 +275,7 @@
                         },
                         "data": [
                             {
-                                "label": "Jan",
+                                "label": "Ene",
                                 "value": "420000"
                             },
                             {
@@ -259,7 +287,7 @@
                                 "value": "720000"
                             },
                             {
-                                "label": "Apr",
+                                "label": "Abr",
                                 "value": "550000"
                             },
                             {
@@ -275,7 +303,7 @@
                                 "value": "680000"
                             },
                             {
-                                "label": "Aug",
+                                "label": "Ago",
                                 "value": "620000"
                             },
                             {
@@ -291,7 +319,7 @@
                                 "value": "900000"
                             },
                             {
-                                "label": "Dec",
+                                "label": "Dic",
                                 "value": "730000"
                             }
                         ],
@@ -302,7 +330,7 @@
                                         "startvalue": "700000",
                                         "color": "#1aaf5d",
                                         "valueOnRight": "1",
-                                        "displayvalue": "Monthly Target"
+                                        "displayvalue": "Quota objetivo"
                                     }
                                 ]
                             }

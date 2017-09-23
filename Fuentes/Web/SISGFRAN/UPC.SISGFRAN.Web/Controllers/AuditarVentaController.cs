@@ -83,6 +83,26 @@ namespace UPC.SISGFRAN.Web.Controllers
             }
         }
 
+        public JsonResult ListaLocalesXFranquicia(String franquicia)
+        {
+            int franquiciaId = Int32.Parse(franquicia);
+
+            if (franquiciaId == -1)
+            {
+                var locales = (db.tb_local.OrderBy(a => a.nombre)
+                             .Select(c => new { Id = c.id, Nombre = c.nombre, idFranquicia = c.franquiciaId })).ToList();
+
+                return Json(locales, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var locales = (db.tb_local.OrderBy(a => a.nombre)
+                                 .Select(c => new { Id = c.id, Nombre = c.nombre, idFranquicia = c.franquiciaId })).Where(x => x.idFranquicia == franquiciaId).ToList();
+
+                return Json(locales, JsonRequestBehavior.AllowGet);
+
+            }
+        }
         #endregion
     }
 }

@@ -48,5 +48,6 @@ namespace UPC.SISGFRAN.Web.Models
         public DbSet<tb_sugerencia> tb_sugerencia { get; set; }
         public DbSet<tb_empleado> tb_empleado { get; set; }
         public DbSet<OpcionPerfil> OpcionPerfil { get; set; }
+        public DbSet<tb_sugerencia_parametro> tb_sugerencia_parametro { get; set; }
     }
 }
