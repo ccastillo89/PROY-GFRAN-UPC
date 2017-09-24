@@ -19,21 +19,12 @@ namespace UPC.SISGFRAN.Web.Controllers
 {
     public class AuditarVentaController : PdfViewController
     {
-        SugerenciaBL sugerenciaBL = new SugerenciaBL();
 
         private PARDOSDBEntities db = new PARDOSDBEntities();
 
         public ActionResult Index()
         {
-            return View("~/views/AuditarVenta/Index.cshtml");
-        }
-
-        public JsonResult ListaFranquicias()
-        {
-            var distritos = (db.tb_franquicia.OrderBy(a => a.Nombre)
-                             .Select(c => new { Id = c.Id, Nombre = c.Nombre })).ToList();
-
-            return Json(distritos, JsonRequestBehavior.AllowGet);
+            return View();
         }
 
         #region "Metodos"
@@ -46,13 +37,13 @@ namespace UPC.SISGFRAN.Web.Controllers
         public JsonResult ListaPeriodo()
         {
             List<ParametroEL> result = new List<ParametroEL>();
-            string sAnioInicio = "2013";
+            string sAnioInicio = DateTime.Now.Year.ToString();
             int iAnioInicio = Convert.ToInt32(sAnioInicio);
             DateTime startDate = new DateTime(iAnioInicio, 1, 1);
             DateTime endDate = new DateTime();
             endDate = DateTime.Now;
             DateTime temp = startDate;
-            endDate = new DateTime(endDate.Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month));
+            endDate = new DateTime(endDate.AddYears(1).Year, endDate.Month, DateTime.DaysInMonth(endDate.Year, endDate.Month));
             string strPeriodo = string.Empty;
             while (temp <= endDate)
             {
@@ -69,11 +60,8 @@ namespace UPC.SISGFRAN.Web.Controllers
         {
             try
             {
-                AuditarVentaEL reporte = new AuditarVentaEL();
-
+                AuditarVentaEL reporte = DataPrueba();
                 //TODO:: Aqui toda la logica del NEG.
-
-
 
                 return Json(reporte, JsonRequestBehavior.AllowGet);
             }
@@ -103,6 +91,53 @@ namespace UPC.SISGFRAN.Web.Controllers
 
             }
         }
+
+        public JsonResult ListaFranquicias()
+        {
+            var distritos = (db.tb_franquicia.OrderBy(a => a.Nombre)
+                             .Select(c => new { Id = c.Id, Nombre = c.Nombre })).ToList();
+
+            return Json(distritos, JsonRequestBehavior.AllowGet);
+        }
+
+        private AuditarVentaEL DataPrueba() { 
+            AuditarVentaEL data = new AuditarVentaEL();
+            List<Grafico> lista = new List<Grafico>();
+
+            Grafico g1 = new Grafico(){ label= "Ene" , value ="100"};
+            lista.Add(g1);
+            Grafico g2 = new Grafico() { label = "Feb", value = "200" };
+            lista.Add(g2);
+            Grafico g3 = new Grafico() { label = "Mar", value = "300" };
+            lista.Add(g3);
+            Grafico g4 = new Grafico() { label = "Abr", value = "400" };
+            lista.Add(g4);
+            Grafico g5 = new Grafico() { label = "May", value = "500" };
+            lista.Add(g5);
+            Grafico g6 = new Grafico() { label = "Jun", value = "600" };
+            lista.Add(g6);
+            Grafico g7 = new Grafico() { label = "Jul", value = "700" };
+            lista.Add(g7);
+            Grafico g8 = new Grafico() { label = "Ago", value = "800" };
+            lista.Add(g8);
+            Grafico g9 = new Grafico() { label = "Sep", value = "900" };
+            lista.Add(g9);
+            Grafico g10 = new Grafico() { label = "Oct", value = "1000" };
+            lista.Add(g10);
+            Grafico g11 = new Grafico() { label = "Nov", value = "1100" };
+            lista.Add(g11);
+            Grafico g12 = new Grafico() { label = "Dic", value = "1200" };
+            lista.Add(g12);
+
+            data.Pronostico = "15000";
+            data.Quota = "500";
+            data.Mensaje = "ALCANZO LA QUOTA OBJETIVO";
+            data.Mad = "150";
+            data.ListaGrafico = lista;
+
+            return data;
+        }
+
         #endregion
     }
 }

@@ -310,6 +310,8 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\fusioncharts.charts.js" />
+    <Content Include="Scripts\fusioncharts.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
@@ -366,6 +368,8 @@
     <Content Include="Views\Procedimiento\_Reclamo.cshtml" />
     <Content Include="Views\Procedimiento\_Sugerencia.cshtml" />
     <Content Include="Views\AuditarVenta\Index.cshtml" />
+    <Content Include="Views\Sugerencia\_Correo.cshtml" />
+    <Content Include="Views\Sugerencia\_DetalleSugerencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UPC.SISGFRAN.BL\UPC.SISGFRAN.BL.csproj">

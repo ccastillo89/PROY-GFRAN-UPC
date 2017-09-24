@@ -18,10 +18,10 @@
                 <tr style="height: 60px;">
                     <td style="width:1%"></td>
                     <td style="width:15%"><label>Nombre de Franquicia: </label></td>
-                    <td style="width:15%">
+                    <td style="width:10%">
                         <div class="col-md-4 width-dash-sh">
                             <div class="col-md-8">
-                                <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:280px"></select>
+                                <select class="form-control selectpicker" name="cboFranquicia" id="cboFranquicia" style="width:180px"></select>
                             </div>
                         </div>
                     </td>
@@ -57,10 +57,44 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-11">
-                        <div id="line-chart" class="col-lg-9"></div>
-                        <div class="col-lg-3">
-                            QWERTY
+                    <div class="col-lg-12">
+                        <div id="line-chart" class="col-lg-8"></div>
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bell fa-fw"></i> Resultados
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item">
+                                            <i class="fa fa-money fa-fw"></i> <b>Pronostico de Ingresos:</b>
+                                            <span class="pull-right text-muted small">
+                                                <label id="lblPronostico"></label>
+                                            </span>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <i class="fa fa-quora fa-fw"></i><b>Quota de Ingresos:</b>
+                                            <span class="pull-right text-muted small">
+                                                <label id="lblQuota"></label>
+                                            </span>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <i class="fa fa-desktop fa-fw"></i>
+                                            <span class="pull-right text-muted small">
+                                                <label id="lblMensaje"></label>
+                                            </span>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <i class="fa fa-tasks fa-fw"></i><b> MAD (Margen de desviación):</b>
+                                            <span class="pull-right text-muted small">
+                                                <label id="lblMad"></label>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,8 +238,13 @@
                 success: function (data) {
                     if (data.status == undefined) {
                         var rep = jQuery.parseJSON(data);
-                        //LoadGraficoLine(rep);
-                        LoadGraficoLine();
+                        $("#lblPronostico").text(rep.Pronostico);
+                        $("#lblQuota").text(rep.Quota);
+                        $("#lblMensaje").text(rep.Mensaje);
+                        $("#lblMad").text(rep.Mad);
+                        var local = $("#cboFranquicia option:selected").text() + " - " + $("#cboLocal option:selected").text();
+                        var periodo = $("#cboPeriodo option:selected").text();
+                        LoadGraficoLine(rep.ListaGrafico, rep.Quota, local, periodo);
                         $("#divReporte").removeClass("ocultardiv");
                     } else {
                         if (data.status == false) {
@@ -240,7 +279,7 @@
             });
         }
 
-        function LoadGraficoLine()
+        function LoadGraficoLine(data, quota, local, periodo)
         {
             FusionCharts.ready(function () {
                 var revenueChart = new FusionCharts({
@@ -251,8 +290,8 @@
                     dataFormat: 'json',
                     dataSource: {
                         "chart": {
-                            "caption": "Proyección de ventas",
-                            "subCaption": "Franquicia - Local",
+                            "caption": "Proyección de ventas anuales (" + periodo + ")",
+                            "subCaption": local,
                             "xAxisName": "Meses",
                             "yAxisName": "Montos (En Soles)",
                             "numberPrefix": "S/.",
@@ -273,61 +312,12 @@
                             "subcaptionFontBold": "0",
                             "subcaptionFontSize": "14"
                         },
-                        "data": [
-                            {
-                                "label": "Ene",
-                                "value": "420000"
-                            },
-                            {
-                                "label": "Feb",
-                                "value": "810000"
-                            },
-                            {
-                                "label": "Mar",
-                                "value": "720000"
-                            },
-                            {
-                                "label": "Abr",
-                                "value": "550000"
-                            },
-                            {
-                                "label": "May",
-                                "value": "910000"
-                            },
-                            {
-                                "label": "Jun",
-                                "value": "510000"
-                            },
-                            {
-                                "label": "Jul",
-                                "value": "680000"
-                            },
-                            {
-                                "label": "Ago",
-                                "value": "620000"
-                            },
-                            {
-                                "label": "Sep",
-                                "value": "610000"
-                            },
-                            {
-                                "label": "Oct",
-                                "value": "490000"
-                            },
-                            {
-                                "label": "Nov",
-                                "value": "900000"
-                            },
-                            {
-                                "label": "Dic",
-                                "value": "730000"
-                            }
-                        ],
+                        "data": data,
                         "trendlines": [
                             {
                                 "line": [
                                     {
-                                        "startvalue": "700000",
+                                        "startvalue": quota,
                                         "color": "#1aaf5d",
                                         "valueOnRight": "1",
                                         "displayvalue": "Quota objetivo"

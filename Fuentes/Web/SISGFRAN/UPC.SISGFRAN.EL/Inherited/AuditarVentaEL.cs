@@ -12,5 +12,19 @@ namespace UPC.SISGFRAN.EL.Inherited
         public int Id { get; set; }
         public string Periodo { get; set; }
         public decimal Monto { get; set; }
+
+        public string Pronostico { get; set; }
+        public string Quota { get; set; }
+        public string Mensaje { get; set; }
+        public string Mad { get; set; }
+
+        public List<Grafico> ListaGrafico { get; set; }
     }
+
+    public class Grafico
+    {
+        public string label { get; set; }
+        public string value { get; set; }
+    }
+
 }
