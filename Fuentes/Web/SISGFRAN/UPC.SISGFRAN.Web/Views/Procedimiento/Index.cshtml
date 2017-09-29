@@ -44,7 +44,7 @@
                         </span>
                     </a>
                 </span>
-                @if (usuario.Perfil.Id == 1) 
+                @if (usuario.Perfil.Id == 1 || usuario.Perfil.Id == 4) 
                 {
                     <span class="input-group-btn" style="padding-left:5px;">
                         <a data-modal="" class="btn btn-primary spaceBoton" href='/Procedimiento/Evaluar' id='btnProcedimiento' title='Evaluar Procedimiento'>
@@ -79,7 +79,7 @@
 
 <!-- modal placeholder-->
 <div id='myModal' class='modal fade in'>
-    <div class="modal-dialog" style="width:450px">
+    <div class="modal-dialog" style="width:500px">
         <div class="modal-content">
             <div id='myModalContent'></div>
         </div>

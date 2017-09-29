@@ -55,7 +55,7 @@
     <div class="col-md-10">
         <label class="control-label col-md-2">Comentarios: </label>
         <div class="col-md-10">
-            @if (usuario.Perfil.Id == 1)
+            @if (usuario.Perfil.Id == 1 || usuario.Perfil.Id == 4)
             {
                 @Html.TextAreaFor(m => m.EvaluacionPro.Comentario, new { @class = "form-control", @rows = 4 , @cols = 10})
             }
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    @if (usuario.Perfil.Id == 1)
+    @if (usuario.Perfil.Id == 1 || usuario.Perfil.Id == 4)
     {
         <div class="col-md-1 margenBoton">
             <span class="input-group-btn">
@@ -125,7 +125,7 @@
             <div class="form-group row col-md-3">
                 
                 <input type="hidden" value="0" id="hddNotifico" name="hddNotifico">
-                @if (usuario.Perfil.Id == 1)
+                @if (usuario.Perfil.Id == 1 || usuario.Perfil.Id == 4)
                 {
                     <span class="input-group-btn" style="padding-left:5px;">
                         <a class="btn btn-primary" href='#' onclick="Enviar();" id='btnEnviar' title='Enviar notificación'>
@@ -178,6 +178,11 @@
             $(document).ready(function () {
             
             });
+
+            $('#EvaluacionPro_Comentario').keypress(function(){
+                if (this.value.length >= 400) 
+                    return false;        
+            })
 
             function Grabar() {
                 var comentario = $("#EvaluacionPro_Comentario").val();

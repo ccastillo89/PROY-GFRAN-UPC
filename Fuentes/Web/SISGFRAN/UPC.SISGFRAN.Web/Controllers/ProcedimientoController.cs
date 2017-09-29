@@ -64,7 +64,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 int.TryParse(estado, NumberStyles.Integer, NumberFormatInfo.CurrentInfo, out estadoId);
 
                 int usuarioId = 0;
-                if (SesionUsuario.Usuario.Perfil.Id == 1)
+                if (SesionUsuario.Usuario.Perfil.Id == 1 || SesionUsuario.Usuario.Perfil.Id == 4)
                 {
                     usuarioId = -1;
                 }
@@ -409,13 +409,13 @@ namespace UPC.SISGFRAN.Web.Controllers
             LocalBL oLocal = new LocalBL();
             int usuarioId = 0;
 
-            if (SesionUsuario.Usuario.Perfil.Id != 1)
+            if (SesionUsuario.Usuario.Perfil.Id == 1 || SesionUsuario.Usuario.Perfil.Id == 4)
             {
-                usuarioId = SesionUsuario.Usuario.Id;
+                usuarioId = -1;
             }
             else
 	        {
-                usuarioId = -1;
+                usuarioId = SesionUsuario.Usuario.Id;
 	        }
 
             FranquiciaEL oFranquicia = new FranquiciaEL()
