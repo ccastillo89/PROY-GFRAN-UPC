@@ -18,6 +18,7 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string Quota { get; set; }
         public string Mensaje { get; set; }
         public string Mad { get; set; }
+        public string MediaMensual { get; set; }
 
         public List<Grafico> ListaGrafico { get; set; }
     }

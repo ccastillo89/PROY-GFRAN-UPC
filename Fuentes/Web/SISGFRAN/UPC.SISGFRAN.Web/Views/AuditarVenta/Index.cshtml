@@ -68,13 +68,13 @@
                                 <div class="panel-body">
                                     <div class="list-group">
                                         <a href="#" class="list-group-item">
-                                            <i class="fa fa-money fa-fw"></i> <b>Pronostico de Ingresos:</b>
+                                            <i class="fa fa-money fa-fw"></i> <b>Pronostico Anual:</b>
                                             <span class="pull-right text-muted small">
                                                 <label id="lblPronostico"></label>
                                             </span>
                                         </a>
                                         <a href="#" class="list-group-item">
-                                            <i class="fa fa-quora fa-fw"></i><b>Quota de Ingresos:</b>
+                                            <i class="fa fa-quora fa-fw"></i><b>Quota Anual:</b>
                                             <span class="pull-right text-muted small">
                                                 <label id="lblQuota"></label>
                                             </span>
@@ -82,13 +82,13 @@
                                         <a href="#" class="list-group-item">
                                             <i class="fa fa-desktop fa-fw"></i>
                                             <span class="pull-right text-muted small">
-                                                <label id="lblMensaje"></label>
+                                                <label id="lblMensaje" class="alert-info"></label>
                                             </span>
                                         </a>
                                         <a href="#" class="list-group-item">
-                                            <i class="fa fa-tasks fa-fw"></i><b> MAD (Margen de desviación):</b>
-                                            <span class="pull-right text-muted small">
-                                                <label id="lblMad"></label>
+                                            <i class="fa fa-tasks fa-fw"></i><b> Margen de error:</b>
+                                            <span class="pull-right text-muted small ">
+                                                <label id="lblMad" class="alert-warning"></label>
                                             </span>
                                         </a>
                                     </div>
@@ -238,13 +238,16 @@
                 success: function (data) {
                     if (data.status == undefined) {
                         var rep = jQuery.parseJSON(data);
-                        $("#lblPronostico").text(rep.Pronostico);
-                        $("#lblQuota").text(rep.Quota);
+                        num = num = parseFloat(rep.Pronostico).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+                        $("#lblPronostico").text("S/." + num);
+                        num = num = parseFloat(rep.Quota).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+                        $("#lblQuota").text("S/." + num);
                         $("#lblMensaje").text(rep.Mensaje);
-                        $("#lblMad").text(rep.Mad);
+                        num = num = parseFloat(rep.Mad).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+                        $("#lblMad").text("S/." + num);
                         var local = $("#cboFranquicia option:selected").text() + " - " + $("#cboLocal option:selected").text();
                         var periodo = $("#cboPeriodo option:selected").text();
-                        LoadGraficoLine(rep.ListaGrafico, rep.Quota, local, periodo);
+                        LoadGraficoLine(rep.ListaGrafico, rep.MediaMensual, local, periodo);
                         $("#divReporte").removeClass("ocultardiv");
                     } else {
                         if (data.status == false) {
@@ -320,7 +323,7 @@
                                         "startvalue": quota,
                                         "color": "#1aaf5d",
                                         "valueOnRight": "1",
-                                        "displayvalue": "Quota objetivo"
+                                        "displayvalue": "Media mensual"
                                     }
                                 ]
                             }

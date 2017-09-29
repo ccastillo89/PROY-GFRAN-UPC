@@ -110,17 +110,34 @@ namespace UPC.SISGFRAN.Web.Controllers
             var valorObjetivo = db.tb_franquicia.Where(x => x.Id ==idlocal).FirstOrDefault().QuotaObjetivo;
 
             List<float> pronosticomensual = new List<float>();
+            List<string> colorbarra = new List<string>();
             float MAD = 0;
             float errAcumulado = 0;
             float pronosticoanual = 0;
             float promediomensualPronosticado = 0;
+            float prono =0;
+            int j = 0;
 
             for (int i = 0; i < lstventashistorico.Count(); i=i+3)
             {
                 
                 float dosanioatras = (lstventashistorico[i].Monto + lstventashistorico[i+1].Monto)/2;
                 float unanioatras = (lstventashistorico[i + 1].Monto + lstventashistorico[i + 2].Monto)/2;
-                float prono = (dosanioatras + unanioatras) / 2;
+                //si hay un valor de venta ya declarado, debe ser considerado como pronostico
+                
+                    if (j < lstventas.Count)
+                    {
+                        prono = lstventas[j].Monto;
+                        colorbarra.Add("#305dea");
+                        j++;
+                    }
+                
+                else{
+                    prono = (dosanioatras + unanioatras) / 2;
+                    colorbarra.Add("#abebc6");
+                    j++;
+                }
+                
                 float errPrdos = Math.Abs(lstventashistorico[i + 1].Monto - dosanioatras);
                 float errPruno = Math.Abs(lstventashistorico[i + 2].Monto - unanioatras);
                 pronosticomensual.Add(prono);
@@ -133,34 +150,38 @@ namespace UPC.SISGFRAN.Web.Controllers
             AuditarVentaEL data = new AuditarVentaEL();
             List<Grafico> lista = new List<Grafico>();
 
-            Grafico g1 = new Grafico(){ label= "Ene" , value = pronosticomensual[0].ToString() };
+            Grafico g1 = new Grafico() { label = "Ene", value = pronosticomensual[0].ToString(), color = colorbarra[0] };
             lista.Add(g1);
-            Grafico g2 = new Grafico() { label = "Feb", value = pronosticomensual[1].ToString() };
+            Grafico g2 = new Grafico() { label = "Feb", value = pronosticomensual[1].ToString(), color = colorbarra[1] };
             lista.Add(g2);
-            Grafico g3 = new Grafico() { label = "Mar", value = pronosticomensual[2].ToString() };
+            Grafico g3 = new Grafico() { label = "Mar", value = pronosticomensual[2].ToString(), color = colorbarra[2] };
             lista.Add(g3);
-            Grafico g4 = new Grafico() { label = "Abr", value = pronosticomensual[3].ToString() };
+            Grafico g4 = new Grafico() { label = "Abr", value = pronosticomensual[3].ToString(), color = colorbarra[3] };
             lista.Add(g4);
-            Grafico g5 = new Grafico() { label = "May", value = pronosticomensual[4].ToString() };
+            Grafico g5 = new Grafico() { label = "May", value = pronosticomensual[4].ToString(), color = colorbarra[4] };
             lista.Add(g5);
-            Grafico g6 = new Grafico() { label = "Jun", value = pronosticomensual[5].ToString() };
+            Grafico g6 = new Grafico() { label = "Jun", value = pronosticomensual[5].ToString(), color = colorbarra[5] };
             lista.Add(g6);
-            Grafico g7 = new Grafico() { label = "Jul", value = pronosticomensual[6].ToString() };
+            Grafico g7 = new Grafico() { label = "Jul", value = pronosticomensual[6].ToString(), color = colorbarra[6] };
             lista.Add(g7);
-            Grafico g8 = new Grafico() { label = "Ago", value = pronosticomensual[7].ToString() };
+            Grafico g8 = new Grafico() { label = "Ago", value = pronosticomensual[7].ToString(), color = colorbarra[7] };
             lista.Add(g8);
-            Grafico g9 = new Grafico() { label = "Sep", value = pronosticomensual[8].ToString() };
+            Grafico g9 = new Grafico() { label = "Sep", value = pronosticomensual[8].ToString(), color = colorbarra[8] };
             lista.Add(g9);
-            Grafico g10 = new Grafico() { label = "Oct", value = pronosticomensual[9].ToString() };
+            Grafico g10 = new Grafico() { label = "Oct", value = pronosticomensual[9].ToString(), color = colorbarra[9] };
             lista.Add(g10);
-            Grafico g11 = new Grafico() { label = "Nov", value = pronosticomensual[10].ToString() };
+            Grafico g11 = new Grafico() { label = "Nov", value = pronosticomensual[10].ToString(), color = colorbarra[10] };
             lista.Add(g11);
-            Grafico g12 = new Grafico() { label = "Dic", value = pronosticomensual[11].ToString() }; //color ="#e44a00",
+            Grafico g12 = new Grafico() { label = "Dic", value = pronosticomensual[11].ToString(), color = colorbarra[11] };
             lista.Add(g12);
 
             data.Pronostico = pronosticoanual.ToString();
             data.Quota = valorObjetivo.ToString();
-            data.Mensaje = "ALCANZO LA QUOTA OBJETIVO";
+            data.MediaMensual = promediomensualPronosticado.ToString();
+            if (pronosticoanual < (float)valorObjetivo)
+            { data.Mensaje = "NO LOGRARÁ EL OBJETIVO"; }
+            else { data.Mensaje = "LOGRARÁ OBJETIVO"; }
+                
             data.Mad = MAD.ToString();
             data.ListaGrafico = lista;
 
