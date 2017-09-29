@@ -59,7 +59,7 @@
     <Compile Include="Repositorios\SolicitudDA.cs" />
     <Compile Include="Repositorios\SugerenciaDA.cs" />
     <Compile Include="Repositorios\UsuarioDA.cs" />
-    <Compile Include="Repositorios\Venta1DA.cs" />
+    <Compile Include="Repositorios\VentaDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAAB\DAAB.csproj">
