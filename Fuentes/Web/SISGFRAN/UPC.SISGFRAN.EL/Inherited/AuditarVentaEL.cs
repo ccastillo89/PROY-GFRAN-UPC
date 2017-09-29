@@ -13,6 +13,7 @@ namespace UPC.SISGFRAN.EL.Inherited
         public string Periodo { get; set; }
         public decimal Monto { get; set; }
 
+
         public string Pronostico { get; set; }
         public string Quota { get; set; }
         public string Mensaje { get; set; }
@@ -25,6 +26,7 @@ namespace UPC.SISGFRAN.EL.Inherited
     {
         public string label { get; set; }
         public string value { get; set; }
+        public string color { get; set; }
     }
 
 }

@@ -22,6 +22,7 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         private PARDOSDBEntities db = new PARDOSDBEntities();
 
+
         public ActionResult Index()
         {
             return View();
@@ -60,9 +61,8 @@ namespace UPC.SISGFRAN.Web.Controllers
         {
             try
             {
-                AuditarVentaEL reporte = DataPrueba();
-                //TODO:: Aqui toda la logica del NEG.
-
+                AuditarVentaEL reporte = EjecutarPronostico(Convert.ToInt32(franquicia), Convert.ToInt32(local), Convert.ToInt32(periodo));
+                
                 return Json(reporte, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -100,39 +100,68 @@ namespace UPC.SISGFRAN.Web.Controllers
             return Json(distritos, JsonRequestBehavior.AllowGet);
         }
 
-        private AuditarVentaEL DataPrueba() { 
+
+        private AuditarVentaEL EjecutarPronostico(int idfranquicia, int idlocal, int idperiodo)
+        {
+
+            var lstventas = new VentaBL().GetVentasxLocal(idlocal, idperiodo);
+            var lstventashistorico = new VentaBL().GetVentasHistorico(idlocal, idperiodo); ;
+
+            var valorObjetivo = db.tb_franquicia.Where(x => x.Id ==idlocal).FirstOrDefault().QuotaObjetivo;
+
+            List<float> pronosticomensual = new List<float>();
+            float MAD = 0;
+            float errAcumulado = 0;
+            float pronosticoanual = 0;
+            float promediomensualPronosticado = 0;
+
+            for (int i = 0; i < lstventashistorico.Count(); i=i+3)
+            {
+                
+                float dosanioatras = (lstventashistorico[i].Monto + lstventashistorico[i+1].Monto)/2;
+                float unanioatras = (lstventashistorico[i + 1].Monto + lstventashistorico[i + 2].Monto)/2;
+                float prono = (dosanioatras + unanioatras) / 2;
+                float errPrdos = Math.Abs(lstventashistorico[i + 1].Monto - dosanioatras);
+                float errPruno = Math.Abs(lstventashistorico[i + 2].Monto - unanioatras);
+                pronosticomensual.Add(prono);
+                pronosticoanual = pronosticoanual + prono;
+                errAcumulado = errAcumulado + errPrdos + errPruno;
+            }
+            MAD = errAcumulado / 24;
+            promediomensualPronosticado = pronosticoanual / 12;
+
             AuditarVentaEL data = new AuditarVentaEL();
             List<Grafico> lista = new List<Grafico>();
 
-            Grafico g1 = new Grafico(){ label= "Ene" , value ="100"};
+            Grafico g1 = new Grafico(){ label= "Ene" , value = pronosticomensual[0].ToString() };
             lista.Add(g1);
-            Grafico g2 = new Grafico() { label = "Feb", value = "200" };
+            Grafico g2 = new Grafico() { label = "Feb", value = pronosticomensual[1].ToString() };
             lista.Add(g2);
-            Grafico g3 = new Grafico() { label = "Mar", value = "300" };
+            Grafico g3 = new Grafico() { label = "Mar", value = pronosticomensual[2].ToString() };
             lista.Add(g3);
-            Grafico g4 = new Grafico() { label = "Abr", value = "400" };
+            Grafico g4 = new Grafico() { label = "Abr", value = pronosticomensual[3].ToString() };
             lista.Add(g4);
-            Grafico g5 = new Grafico() { label = "May", value = "500" };
+            Grafico g5 = new Grafico() { label = "May", value = pronosticomensual[4].ToString() };
             lista.Add(g5);
-            Grafico g6 = new Grafico() { label = "Jun", value = "600" };
+            Grafico g6 = new Grafico() { label = "Jun", value = pronosticomensual[5].ToString() };
             lista.Add(g6);
-            Grafico g7 = new Grafico() { label = "Jul", value = "700" };
+            Grafico g7 = new Grafico() { label = "Jul", value = pronosticomensual[6].ToString() };
             lista.Add(g7);
-            Grafico g8 = new Grafico() { label = "Ago", value = "800" };
+            Grafico g8 = new Grafico() { label = "Ago", value = pronosticomensual[7].ToString() };
             lista.Add(g8);
-            Grafico g9 = new Grafico() { label = "Sep", value = "900" };
+            Grafico g9 = new Grafico() { label = "Sep", value = pronosticomensual[8].ToString() };
             lista.Add(g9);
-            Grafico g10 = new Grafico() { label = "Oct", value = "1000" };
+            Grafico g10 = new Grafico() { label = "Oct", value = pronosticomensual[9].ToString() };
             lista.Add(g10);
-            Grafico g11 = new Grafico() { label = "Nov", value = "1100" };
+            Grafico g11 = new Grafico() { label = "Nov", value = pronosticomensual[10].ToString() };
             lista.Add(g11);
-            Grafico g12 = new Grafico() { label = "Dic", value = "1200" };
+            Grafico g12 = new Grafico() { label = "Dic", value = pronosticomensual[11].ToString() }; //color ="#e44a00",
             lista.Add(g12);
 
-            data.Pronostico = "15000";
-            data.Quota = "500";
+            data.Pronostico = pronosticoanual.ToString();
+            data.Quota = valorObjetivo.ToString();
             data.Mensaje = "ALCANZO LA QUOTA OBJETIVO";
-            data.Mad = "150";
+            data.Mad = MAD.ToString();
             data.ListaGrafico = lista;
 
             return data;
