@@ -53,6 +53,7 @@
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Inherited\AplicacionEL.cs" />
     <Compile Include="Inherited\AuditarVentaEL.cs" />
+    <Compile Include="Inherited\VentaEL.cs" />
     <Compile Include="Inherited\DeudaDetalleEL.cs" />
     <Compile Include="Inherited\DeudorEL.cs" />
     <Compile Include="Inherited\DistritoEL.cs" />

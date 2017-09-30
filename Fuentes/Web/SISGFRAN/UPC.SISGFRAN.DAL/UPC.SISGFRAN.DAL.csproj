@@ -46,6 +46,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repositorios\VentaDA.cs" />
     <Compile Include="Repositorios\EvaluacionProcedimientoDA.cs" />
     <Compile Include="Repositorios\EvaluacionProcedimientoDetDA.cs" />
     <Compile Include="Repositorios\LocalDA.cs" />

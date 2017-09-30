@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorios\VentaBL.cs" />
     <Compile Include="Repositorios\DeudorBL.cs" />
     <Compile Include="Repositorios\EvaluacionProcedimientoBL.cs" />
     <Compile Include="Repositorios\EvaluacionProcedimientoDetBL.cs" />
