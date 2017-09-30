@@ -107,7 +107,7 @@ namespace UPC.SISGFRAN.Web.Controllers
             var lstventas = new VentaBL().GetVentasxLocal(idlocal, idperiodo);
             var lstventashistorico = new VentaBL().GetVentasHistorico(idlocal, idperiodo); ;
 
-            var valorObjetivo = db.tb_franquicia.Where(x => x.Id ==idlocal).FirstOrDefault().QuotaObjetivo;
+            var valorObjetivo = db.tb_franquicia.Where(x => x.Id == idfranquicia).FirstOrDefault().QuotaObjetivo;
 
             List<float> pronosticomensual = new List<float>();
             List<string> colorbarra = new List<string>();
