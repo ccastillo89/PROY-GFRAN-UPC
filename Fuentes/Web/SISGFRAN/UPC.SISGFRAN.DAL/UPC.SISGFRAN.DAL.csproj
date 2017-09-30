@@ -46,7 +46,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Repositorios\VentaDA.cs" />
     <Compile Include="Repositorios\EvaluacionProcedimientoDA.cs" />
     <Compile Include="Repositorios\EvaluacionProcedimientoDetDA.cs" />
     <Compile Include="Repositorios\LocalDA.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Repositorios\SolicitudDA.cs" />
     <Compile Include="Repositorios\SugerenciaDA.cs" />
     <Compile Include="Repositorios\UsuarioDA.cs" />
+    <Compile Include="Repositorios\VentaDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAAB\DAAB.csproj">

@@ -53,7 +53,6 @@
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Inherited\AplicacionEL.cs" />
     <Compile Include="Inherited\AuditarVentaEL.cs" />
-    <Compile Include="Inherited\VentaEL.cs" />
     <Compile Include="Inherited\DeudaDetalleEL.cs" />
     <Compile Include="Inherited\DeudorEL.cs" />
     <Compile Include="Inherited\DistritoEL.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Inherited\SolicitudEL.cs" />
     <Compile Include="Inherited\SugerenciaEL.cs" />
     <Compile Include="Inherited\UsuarioEL.cs" />
+    <Compile Include="Inherited\VentaEL.cs" />
     <Compile Include="NonInherited\ArchivoFtpEN.cs" />
     <Compile Include="NonInherited\ListaPaginada.cs" />
     <Compile Include="NonInherited\ParametroEL.cs" />
