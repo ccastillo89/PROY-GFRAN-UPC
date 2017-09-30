@@ -129,7 +129,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                     if (j < lstventas.Count)
                     {
                         prono = lstventas[j].Monto;
-                        colorbarra.Add("#305dea");
+                        colorbarra.Add("#305dea"); //cOLOR
                         j++;
                     }
                 
