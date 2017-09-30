@@ -11,6 +11,7 @@ namespace UPC.SISGFRAN.EL.Inherited
     {
         public int Id { get; set; }
         public string Periodo { get; set; }
+
         public decimal Monto { get; set; }
 
 

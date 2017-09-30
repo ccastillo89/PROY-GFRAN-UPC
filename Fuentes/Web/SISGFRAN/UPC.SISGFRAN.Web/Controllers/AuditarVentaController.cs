@@ -110,6 +110,7 @@ namespace UPC.SISGFRAN.Web.Controllers
             var valorObjetivo = db.tb_franquicia.Where(x => x.Id == idfranquicia).FirstOrDefault().QuotaObjetivo;
 
             List<float> pronosticomensual = new List<float>();
+
             List<string> colorbarra = new List<string>();
             float MAD = 0;
             float errAcumulado = 0;
