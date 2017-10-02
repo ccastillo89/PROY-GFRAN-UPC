@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
@@ -198,7 +198,7 @@ namespace UPC.SISGFRAN.Web.Controllers
 
         public DetalleEvaluacionsugerencia evaluarPrioridad(String descripcion, List<tb_sugerencia_parametro> sugerencia_parametros, DetalleEvaluacionsugerencia detalleSugerencia, EvaluacionSugerenciaHelper evaluacion)
         {
-          
+            
             foreach (tb_sugerencia_parametro solicitudd in sugerencia_parametros)
             {
                 int VAR = 0;
@@ -207,9 +207,9 @@ namespace UPC.SISGFRAN.Web.Controllers
                 if (VAR != -1)
                 {
                     if (solicitudd.nivel_prioridad.Equals("ALTA"))
-                    {
-                       
-                        detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia + " "+ A + " ";
+                    {                        
+                        detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia ;                        
+                        
                         detalleSugerencia.prioridad_sugerencia = solicitudd.nivel_prioridad;
                         detalleSugerencia.prioridadSugerencia = 1;
                     }
@@ -219,6 +219,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                         detalleSugerencia.detalle_sugerencia = detalleSugerencia.detalle_sugerencia + " " + A + " "; 
                         detalleSugerencia.prioridad_sugerencia = solicitudd.nivel_prioridad; }
                 }
+                break;
             }
 
 
