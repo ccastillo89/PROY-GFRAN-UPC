@@ -1,4 +1,4 @@
-﻿@model UPC.SISGFRAN.Web.Helper.EvaluacionSugerenciaHelper
+@model UPC.SISGFRAN.Web.Helper.EvaluacionSugerenciaHelper
 
 @{
     ViewBag.Title = "Evaluar sugerencia";
@@ -16,7 +16,7 @@
 
     var grid = new WebGrid(
         source: Model.DetalleEvaluacionsugerencia,
-        rowsPerPage: 10, canPage: true, canSort: false);
+        rowsPerPage: 10, canPage: false, canSort: false);
 }
 
 
