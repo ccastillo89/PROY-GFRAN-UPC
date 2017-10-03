@@ -51,6 +51,10 @@ namespace UPC.SISGFRAN.DAL.Repositorios
                     oSugerencia.Prioridad = Funciones.CheckStr(dr["Prioridad"]);
                     oSugerencia.Descripcion = Funciones.CheckStr(dr["Descripcion"]);
                     LocalEL olocal = new LocalEL();
+                    UsuarioEL oUsuario = new UsuarioEL();
+                    olocal.Id = Funciones.CheckInt(dr["Id"]);
+                    oUsuario.Email = Funciones.CheckStr(dr["Email"]);
+                    olocal.Usuario = oUsuario;
                     olocal.Nombre = Funciones.CheckStr(dr["NombreLocal"]);
                     olocal.Responsable = Funciones.CheckStr(dr["Responsable"]);
 

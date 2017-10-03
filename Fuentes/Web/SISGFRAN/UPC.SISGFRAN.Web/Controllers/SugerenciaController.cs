@@ -81,8 +81,8 @@ namespace UPC.SISGFRAN.Web.Controllers
             else
             evaluacion.nombre_local = local.nombre;
 
-            evaluacion.fecha_inicio = thisDate1.ToString("MMMM dd, yyyy");
-            evaluacion.fecha_fin = thisDate2.ToString("MMMM dd, yyyy");
+            evaluacion.fecha_inicio = thisDate1.ToString("dd/MM/yyyy");
+            evaluacion.fecha_fin = thisDate2.ToString("dd/MM/yyyy");
             evaluacion.descripcion_evaluacion = "Se ha evaluado las solicitudes ingresadas en las fechas: " + thisDate1.ToString("MMMM dd, yyyy") + " a " + thisDate2.ToString("MMMM dd, yyyy"); 
             List<DetalleEvaluacionsugerencia> detalleEvaluacionLista = new List<DetalleEvaluacionsugerencia>();
 
@@ -109,7 +109,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 /**/
                 detalleSugerencia.codigo_sugerencia = Convert.ToString(sugerencia.Id);
                 detalleSugerencia.administrador_sugerencia = sugerencia.Local.Responsable;
-                detalleSugerencia.fecha_sugerencia = Convert.ToString(sugerencia.FechaIngreso);
+                detalleSugerencia.fecha_sugerencia = sugerencia.FechaIngreso.ToString("dd/MM/yyyy");
                 detalleSugerencia.prioridad_sugerencia = sugerencia.Prioridad;
                 detalleSugerencia.enviar_sugerencia = "N";
                 detalleSugerencia = evaluarPrioridad(sugerencia.Descripcion, sugerencia_parametros, detalleSugerencia,evaluacion);
@@ -119,7 +119,7 @@ namespace UPC.SISGFRAN.Web.Controllers
                 detalleSugerencia.descripcion_sugerencia = sugerencia.Descripcion;
 
                 tb_local locals = db.tb_local.Find(sugerencia.Local.Id);
-                detalleSugerencia.correo_electronico = locals.email;
+                detalleSugerencia.correo_electronico = locals.Usuario.Email;
 
                 detalleSugerencia.descripcion_local = locals.tb_distrito.Nombre + " - " + locals.direccion;
 
@@ -328,8 +328,8 @@ namespace UPC.SISGFRAN.Web.Controllers
                 buffer.Append("<br/><br/>");
                 buffer.Append(" Saludos cordiales. <br/><br/>");
                 buffer.Append("<i> Nota: Por favor no responda este correo. <i>");
-               
-                MailHelper.SendMail(mailFrom, passwordMailEmisor, "lincolnjeampier@gmail.com", subject, string.Format(buffer.ToString(), resp), true, System.Net.Mail.MailPriority.Normal);
+
+                MailHelper.SendMail(mailFrom, passwordMailEmisor, sugerencia.tb_local.Usuario.Email, subject, string.Format(buffer.ToString(), resp), true, System.Net.Mail.MailPriority.Normal);
                 
                 return Json(new { status = true, message = "Se notificó al responsable correctamente" }, JsonRequestBehavior.AllowGet);
             }
