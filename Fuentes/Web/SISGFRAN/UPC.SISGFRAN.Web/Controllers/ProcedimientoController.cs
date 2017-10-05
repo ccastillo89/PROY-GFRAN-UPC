@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Net.Mail;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -215,7 +216,8 @@ namespace UPC.SISGFRAN.Web.Controllers
             try
             {
                 int idEval = Convert.ToInt32(id);
-                ParametroEL oEstado = new ParametroEL(){ 
+                ParametroEL oEstado = new ParametroEL()
+                {
                     Codigo = 2 //Notificado
                 };
 
@@ -244,6 +246,10 @@ namespace UPC.SISGFRAN.Web.Controllers
                 MailHelper.SendMail(mailFrom, passwordMailEmisor, correo, subject, string.Format(buffer.ToString(), resp), true, System.Net.Mail.MailPriority.Normal);
 
                 return Json(new { status = true, message = "Se notificó al responsable correctamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (SmtpException e)
+            {
+                return Json(new { status = false, message = "No se cuenta con conexión para enviar la notificación" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
